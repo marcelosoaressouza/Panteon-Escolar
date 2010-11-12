@@ -1,3 +1,5 @@
+#!/bin/sh
+
 DIR=`pwd`
 
 for FILE in `find $DIR`; do
@@ -5,6 +7,7 @@ for FILE in `find $DIR`; do
   then
     echo "Diretorio"
     chmod a+rx $FILE
+    chmod o-w $FILE
   else
     echo "Arquivo"
     chmod a+r $FILE
@@ -12,4 +15,3 @@ for FILE in `find $DIR`; do
   fi
 
 done
-
