@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlindex>
+	<group>
+		<id>main</id>
+		<title>Funcionalidades</title>
+		<keyword>main_keyword</keyword>
+		<page>
+			<id>usuario</id>
+			<title>Usuário</title>
+			<summary>Put page abstract informations here</summary>
+		</page>
+	</group>
+</xmlindex>

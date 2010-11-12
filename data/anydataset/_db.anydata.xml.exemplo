@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<anydataset>
+  <row>
+    <field name="dbname">panteonescolar_stable</field>
+    <field name="dbtype">dsn</field>
+    <field name="dbconnectionstring">mysql://panteonescolar:1842panteonescolar@localhost/panteonescolar_stable</field>
+  </row>
+</anydataset>

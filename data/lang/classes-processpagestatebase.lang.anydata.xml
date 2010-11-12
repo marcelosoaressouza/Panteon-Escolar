@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<anydataset>
+   <row>
+      <field name="LANGUAGE">en-us</field>
+      <field name="ERR_REQUIRED">{0} is required.</field>
+      <field name="ERR_INVALIDNUMBER">{0} is a invalid number.</field>
+      <field name="ERR_FOUND">The follow errors are found:</field>
+      <field name="MSG_NEW_SUCCESS">Data added sucessfully!</field>
+      <field name="MSG_EDIT_SUCCESS">Data updated sucessfully!</field>
+      <field name="MSG_DELETE_SUCCESS">Data deleted sucessfully!</field>
+      <field name="MSG_NOCHANGE">No changes were made!</field>
+      <field name="TITLE_NEW">{0} - NEW RECORD</field>
+      <field name="TITLE_EDIT">{0} - EDIT RECORD</field>
+      <field name="TITLE_DELETE">{0} - DELETE RECORD</field>
+      <field name="TITLE_VIEW">{0} - VIEW RECORD</field>
+      <field name="MSG_DONT_HAVEGRANT">You don't have grants to do this.</field>	  
+      <field name="TXT_AVAILABLE">{0} Available</field>
+      <field name="TXT_USED">{0} Selected</field>
+   </row>
+   <row>
+      <field name="LANGUAGE">pt-br</field>
+      <field name="TITLE">Selecionar linguagem de trabalho</field>
+      <field name="ERR_REQUIRED">{0} é de preenchimento obrigatório.</field>
+      <field name="ERR_INVALIDNUMBER">{0} é um número inválido</field>
+      <field name="ERR_FOUND">Os seguintes erros foram encontrados:</field>
+      <field name="MSG_NEW_SUCCESS">Registro adicionado com sucesso!</field>
+      <field name="MSG_EDIT_SUCCESS">Registro atualizado com sucesso!</field>
+      <field name="MSG_DELETE_SUCCESS">Registro apagado com sucesso!</field>
+      <field name="MSG_NOCHANGE">Nenhuma modificação foi feita</field>
+      <field name="TITLE_NEW">{0} - NOVO REGISTRO</field>
+      <field name="TITLE_EDIT">{0} - EDITAR REGISTRO</field>
+      <field name="TITLE_DELETE">{0} - APAGAR REGISTRO</field>
+      <field name="TITLE_VIEW">{0} - VER REGISTRO</field>
+      <field name="MSG_DONT_HAVEGRANT">Você não tem permissão para executar essa operação.</field>	  
+      <field name="TXT_AVAILABLE">{0} Disponíveis</field>
+      <field name="TXT_USED">{0} Utilizados</field>
+   </row>
+</anydataset>

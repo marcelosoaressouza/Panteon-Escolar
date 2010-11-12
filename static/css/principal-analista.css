@@ -1,0 +1,21 @@
+body
+{
+  background: #A42112;
+  text-align:center;
+  font-family:Helvetica !important;
+  font-size:12px;
+  
+}
+
+#Topo
+{
+  float:left;
+  text-align:left;
+  width: 980px;
+  padding-left:24px;
+  margin-left:-24px;
+  height:225px;
+  position:relative;
+  background:url(../images/Layout/BGs/topo.png) no-repeat top center;
+
+}

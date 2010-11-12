@@ -1,0 +1,118 @@
+﻿<?xml version="1.0"?>
+<anydataset>
+   <row>
+      <field name="LANGUAGE">en-us</field>
+      <field name="TITLE">Edit XML</field>
+      <field name="DESCRIPTION">Edit XML documents. The XML Documents contains all site information.</field>
+      <field name="SAVED">XML Document Saved.</field>
+      <field name="CONFIRMDELETE">Click here to confirm deletion '{0}' document</field>
+      <field name="DELETED">XML Document Deleted.</field>
+      <field name="PREVIEWMENU">Preview this page</field>
+      <field name="NEWXMLMENU">New XML</field>
+      <field name="EDITXMLMENU">Edit XML in {0}</field>
+      <field name="CREATEXMLMENU">Create XML in {0}</field>
+      <field name="XMLBOX">XML Name: </field>
+      <field name="LANGUAGEBOX">Language: </field>
+      <field name="SITEMAPINFO">====== Site MAP/Index Information ======</field>
+      <field name="INDEXBOX">Index Title: </field>
+      <field name="LISTEDBOX">Listed in group: </field>
+      <field name="INDEXSUMMARYBOX">Index summary: </field>
+      <field name="PAGEINFO">====== Page Specific Information ======</field>
+      <field name="SHOWMENUBOX">Show menu from: </field>
+      <field name="NOTLISTEDOPTION">-- Doesn't show in menu --</field>
+      <field name="XMLEDITINFO">====== XML Editing ======</field>
+      <field name="XMLCONTENTBOX">XML: </field>
+   </row>
+   <row>
+      <field name="LANGUAGE">pt-br</field>
+      <field name="TITLE">Editar XML</field>
+      <field name="DESCRIPTION">Editar documentos XML. Os documentos XML contém todas as informações do site.</field>
+      <field name="SAVED">Documento XML salvo.</field>
+      <field name="CONFIRMDELETE">Clique aqui para confirmar apagar o documento '{0}'</field>
+      <field name="DELETED">Documento XML apagado.</field>
+      <field name="PREVIEWMENU">Visualizar essa página</field>
+      <field name="NEWXMLMENU">Novo XML</field>
+      <field name="EDITXMLMENU">Editar XML em {0}</field>
+      <field name="CREATEXMLMENU">Criar XML em {0}</field>
+      <field name="XMLBOX">Nome do XML: </field>
+      <field name="LANGUAGEBOX">Linguagem: </field>
+      <field name="SITEMAPINFO">====== Informações referentes ao Mapa do Site/Índice ======</field>
+      <field name="INDEXBOX">Título do Índice: </field>
+      <field name="LISTEDBOX">Listado no grupo: </field>
+      <field name="INDEXSUMMARYBOX">Resumo: </field>
+      <field name="PAGEINFO">====== Informações específicas do documento XML ======</field>
+      <field name="SHOWMENUBOX">Listar menu de: </field>
+      <field name="NOTLISTEDOPTION">-- Não mostrar menu --</field>
+      <field name="XMLEDITINFO">====== Edição do XML ======</field>
+      <field name="XMLCONTENTBOX">XML: </field>
+   </row>
+   <row>
+      <field name="LANGUAGE">de-de</field>
+      <field name="TITLE">XML-Dokumente verwalten</field>
+      <field name="DESCRIPTION">Erstellen oder bearbeiten Sie XML-Dokumente.<br/><br/>Alle Informationen Ihrer Seite werden in XML-Dokumenten gespeichert.</field>
+      <field name="SAVED">XML-Dokument gespeichert.</field>
+      <field name="CONFIRMDELETE">'{0}' löschen</field>
+      <field name="DELETED">XML-Dokument gelöscht.</field>
+      <field name="PREVIEWMENU">Vorschau dieser Seite</field>
+      <field name="NEWXMLMENU">Neues XML-Dokument</field>
+      <field name="EDITXMLMENU">XML-Dokument in {0} bearbeiten</field>
+      <field name="CREATEXMLMENU">XML-Dokument in {0} erstellen</field>
+      <field name="XMLBOX">XML-Name: </field>
+      <field name="LANGUAGEBOX">Sprache: </field>
+      <field name="SITEMAPINFO">====== Seitenübersicht/Index-Informationen ======</field>
+      <field name="INDEXBOX">Index-Titel: </field>
+      <field name="LISTEDBOX">Eingetragen in Gruppe: </field>
+      <field name="INDEXSUMMARYBOX">Index-Zusammenfassung: </field>
+      <field name="PAGEINFO">====== Seitenspezifische Informationen ======</field>
+      <field name="SHOWMENUBOX">Link in Menü: </field>
+      <field name="NOTLISTEDOPTION">-- Link in keinem Menü zeigen --</field>
+      <field name="XMLEDITINFO">====== XML bearbeiten ======</field>
+      <field name="XMLCONTENTBOX">XML: </field>
+   </row>
+   <row>
+      <field name="LANGUAGE">fr-fr</field>
+      <field name="TITLE">Modifier XML</field>
+      <field name="DESCRIPTION">Éditer des documents XML. Les documents XML contenant toutes les informations du site.</field>
+      <field name="SAVED">XML document sauvegardé.</field>
+      <field name="CONFIRMDELETE">Cliquez ici pour confirmer la suppression '{0}' document</field>
+      <field name="DELETED">XML document supprimé.</field>
+      <field name="PREVIEWMENU">Extrait de cette page</field>
+      <field name="NEWXMLMENU">Nouveau XML</field>
+      <field name="EDITXMLMENU">Modifier XML dans {0}</field>
+      <field name="CREATEXMLMENU">Créer du XML dans {0}</field>
+      <field name="XMLBOX">Nom XML: </field>
+      <field name="LANGUAGEBOX">Langue: </field>
+      <field name="SITEMAPINFO">====== Plan du site / Information de l'indice ======</field>
+      <field name="INDEXBOX">Index des titres: </field>
+      <field name="LISTEDBOX">Énumérées dans le groupe: </field>
+      <field name="INDEXSUMMARYBOX">Indice de synthèse: </field>
+      <field name="PAGEINFO">====== Page spéciale d'information ======</field>
+      <field name="SHOWMENUBOX">Afficher le menu de: </field>
+      <field name="NOTLISTEDOPTION">-- Ne montre pas dans le menu --</field>
+      <field name="XMLEDITINFO">====== XML Edition ======</field>
+      <field name="XMLCONTENTBOX">XML: </field>
+   </row>
+   <row>
+      <field name="LANGUAGE">sv-se</field>
+      <field name="TITLE">Redigera XML</field>
+      <field name="DESCRIPTION">Redigera XML-dokument. XML-dokument innehåller all site information.</field>
+      <field name="SAVED">XML-dokument som sparats.</field>
+      <field name="CONFIRMDELETE">Klicka här för att bekräfta raderingen '{0}' handling</field>
+      <field name="DELETED">XML-dokument utgår.</field>
+      <field name="PREVIEWMENU">Förhandsgranska sidan</field>
+      <field name="NEWXMLMENU">Nya XML</field>
+      <field name="EDITXMLMENU">Redigera XML i {0}</field>
+      <field name="CREATEXMLMENU">Skapa XML i {0}</field>
+      <field name="XMLBOX">XML Namn: </field>
+      <field name="LANGUAGEBOX">Språk: </field>
+      <field name="SITEMAPINFO">====== Site MAP/Index Information ======</field>
+      <field name="INDEXBOX">Index Titel: </field>
+      <field name="LISTEDBOX">Förtecknas i grupp: </field>
+      <field name="INDEXSUMMARYBOX">Index sammandrag: </field>
+      <field name="PAGEINFO">====== Page Särskilda upplysningar ======</field>
+      <field name="SHOWMENUBOX">Visa meny: </field>
+      <field name="NOTLISTEDOPTION">-- Visar inte i menyn --</field>
+      <field name="XMLEDITINFO">====== XML redigering ======</field>
+      <field name="XMLCONTENTBOX">XML: </field>
+   </row>
+</anydataset>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<anydataset>
+   <row>
+      <field name="LANGUAGE">en-us</field>
+      <field name="ERR_REQUIRED">{0} is required.</field>
+      <field name="ERR_INVALIDNUMBER">{0} is a invalid number.</field>
+      <field name="ERR_FOUND">The follow errors are found:</field>
+      <field name="MSG_NEW_SUCCESS">Data added sucessfully!</field>
+      <field name="MSG_EDIT_SUCCESS">Data updated sucessfully!</field>
+      <field name="MSG_DELETE_SUCCESS">Data deleted sucessfully!</field>
+      <field name="MSG_NOCHANGE">No changes were made!</field>
+      <field name="TITLE_NEW">{0} - NEW RECORD</field>
+      <field name="TITLE_EDIT">{0} - EDIT RECORD</field>
+      <field name="TITLE_DELETE">{0} - DELETE RECORD</field>
+      <field name="TITLE_VIEW">{0} - VIEW RECORD</field>
+      <field name="MSG_DONT_HAVEGRANT">You don't have grants to do this.</field>	  
+      <field name="TXT_AVAILABLE">{0} Available</field>
+      <field name="TXT_USED">{0} Selected</field>
+   </row>
+   <row>
+      <field name="LANGUAGE">pt-br</field>
+      <field name="TITLE">Selecionar linguagem de trabalho</field>
+      <field name="ERR_REQUIRED">{0} é de preenchimento obrigatório.</field>
+      <field name="ERR_INVALIDNUMBER">{0} é um número inválido</field>
+      <field name="ERR_FOUND">Os seguintes erros foram encontrados:</field>
+      <field name="MSG_NEW_SUCCESS">Registro adicionado com sucesso!</field>
+      <field name="MSG_EDIT_SUCCESS">Registro atualizado com sucesso!</field>
+      <field name="MSG_DELETE_SUCCESS">Registro apagado com sucesso!</field>
+      <field name="MSG_NOCHANGE">Nenhuma modificação foi feita</field>
+      <field name="TITLE_NEW">{0} - NOVO REGISTRO</field>
+      <field name="TITLE_EDIT">{0} - EDITAR REGISTRO</field>
+      <field name="TITLE_DELETE">{0} - APAGAR REGISTRO</field>
+      <field name="TITLE_VIEW">{0} - VER REGISTRO</field>
+      <field name="MSG_DONT_HAVEGRANT">Você não tem permissão para executar essa operação.</field>	  
+      <field name="TXT_AVAILABLE">{0} Disponíveis</field>
+      <field name="TXT_USED">{0} Utilizados</field>
+   </row>
+   <row>
+      <field name="LANGUAGE">de-de</field>
+      <field name="ERR_REQUIRED">'{0}' wird benötigt.</field>
+      <field name="ERR_INVALIDNUMBER">'{0}' ist eine ungültige Zahl.</field>
+      <field name="ERR_FOUND">Die folgenden Fehler wurden gefunden:</field>
+      <field name="MSG_NEW_SUCCESS">Eintrag erfolgreich hinzugefügt!</field>
+      <field name="MSG_EDIT_SUCCESS">Eintrag erfolgreich aktualisiert!</field>
+      <field name="MSG_DELETE_SUCCESS">Eintrag erfolgreich gelöscht!</field>
+      <field name="MSG_NOCHANGE">Es wurden keine Änderungen vorgenommen!</field>
+      <field name="TITLE_NEW">Neuer Eintrag</field>
+      <field name="TITLE_EDIT">Eintrag bearbeiten</field>
+      <field name="TITLE_DELETE">Eintrag löschen</field>
+      <field name="TITLE_VIEW">Eintrag ansehen</field>
+      <field name="MSG_DONT_HAVEGRANT">Sie haben keine Berechtigung für diese Aktion.</field>	  
+      <field name="TXT_AVAILABLE">{0} Verfügbar</field>
+      <field name="TXT_USED">{0} Ausgewählt</field>
+   </row>
+   <row>
+      <field name="LANGUAGE">fr-fr</field>
+      <field name="ERR_REQUIRED">{0} est obligatoire.</field>
+      <field name="ERR_INVALIDNUMBER">{0} est un nombre valide.</field>
+      <field name="ERR_FOUND">Le suivi des erreurs sont trouvées:</field>
+      <field name="MSG_NEW_SUCCESS">Les données ajoutées avec succès!</field>
+      <field name="MSG_EDIT_SUCCESS">Données mises à jour avec succès!</field>
+      <field name="MSG_DELETE_SUCCESS">Les données supprimées avec succès!</field>
+      <field name="MSG_NOCHANGE">Aucun changement n'a été fait!</field>
+      <field name="TITLE_NEW">{0} - NOUVEAU RECORD</field>
+      <field name="TITLE_EDIT">{0} - Modifier un enregistrement</field>
+      <field name="TITLE_DELETE">{0} - Supprimer l'enregistrement</field>
+      <field name="TITLE_VIEW">{0} - VIEW RECORD</field>
+      <field name="MSG_DONT_HAVEGRANT">Vous n'avez pas de subventions pour ce faire.</field>	  
+      <field name="TXT_AVAILABLE">{0} Disponible</field>
+      <field name="TXT_USED">{0} Sélection</field>
+   </row>
+   <row>
+      <field name="LANGUAGE">sv-se</field>
+      <field name="ERR_REQUIRED">{0} krävs.</field>
+      <field name="ERR_INVALIDNUMBER">{0} är ett ogiltigt nummer.</field>
+      <field name="ERR_FOUND">De följer fel hittades:</field>
+      <field name="MSG_NEW_SUCCESS">Data har lagts till!</field>
+      <field name="MSG_EDIT_SUCCESS">Data uppdaterats!</field>
+      <field name="MSG_DELETE_SUCCESS">Data raderats!</field>
+      <field name="MSG_NOCHANGE">Inga ändringar har gjorts!</field>
+      <field name="TITLE_NEW">{0} - NYTT REKORD</field>
+      <field name="TITLE_EDIT">	{0} - Redigera RECORD</field>
+      <field name="TITLE_DELETE">{0} - Ta bort post</field>
+      <field name="TITLE_VIEW">{0} - Visa RECORD</field>
+      <field name="MSG_DONT_HAVEGRANT">Du behöver inte bidrag för att göra detta.</field>	  
+      <field name="TXT_AVAILABLE">{0} Ledig</field>
+      <field name="TXT_USED">{0} markerade</field>
+   </row>
+</anydataset>

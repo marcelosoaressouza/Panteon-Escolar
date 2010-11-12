@@ -1,0 +1,69 @@
+# git-ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+
+config.inc.php
+data/anydataset/_db.anydata.xml
+
+upload/sujeito/*.JPG
+upload/sujeito/*.jpg
+upload/sujeito/*.JPEG
+upload/sujeito/*.jpeg
+upload/sujeito/*.PNG
+upload/sujeito/*.png
+upload/sujeito/*.GIF
+upload/sujeito/*.gif
+
+upload/fotos/*.JPG
+upload/fotos/*.jpg
+upload/fotos/*.JPEG
+upload/fotos/*.jpeg
+upload/fotos/*.PNG
+upload/fotos/*.png
+upload/fotos/*.GIF
+upload/fotos/*.gif
+
+upload/metodoanalise/*.JPG
+upload/metodoanalise/*.jpg
+upload/metodoanalise/*.JPEG
+upload/metodoanalise/*.jpeg
+upload/metodoanalise/*.PNG
+upload/metodoanalise/*.png
+upload/metodoanalise/*.GIF
+upload/metodoanalise/*.gif
+
+upload/midiateca/*.JPG
+upload/midiateca/*.jpg
+upload/midiateca/*.JPEG
+upload/midiateca/*.jpeg
+upload/midiateca/*.PNG
+upload/midiateca/*.png
+upload/midiateca/*.GIF
+upload/midiateca/*.gif
+upload/midiateca/*.AVI
+upload/midiateca/*.avi
+upload/midiateca/*.MP4
+upload/midiateca/*.mp4
+upload/midiateca/*.WMV
+upload/midiateca/*.wmv
+upload/midiateca/*.WMA
+upload/midiateca/*.wma
+upload/midiateca/*.FLAC
+upload/midiateca/*.flac
+upload/midiateca/*.FLV
+upload/midiateca/*.flv
+upload/midiateca/*.DOC
+upload/midiateca/*.doc
+upload/midiateca/*.PPT
+upload/midiateca/*.ppt
+upload/midiateca/*.PDF
+upload/midiateca/*.pdf
+upload/midiateca/*.MP3
+upload/midiateca/*.mp3
+upload/midiateca/*.ODT
+upload/midiateca/*.odt
+upload/midiateca/*.ODP
+upload/midiateca/*.odp

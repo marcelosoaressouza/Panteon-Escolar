@@ -1,0 +1,524 @@
+/*
+ *
+ * CSS2 Sistema Web Educacional Panteon Escolar
+ * Autor: Marcelo Soares Souza
+ * Regras adicionais ao principal.css
+ *
+ */
+
+#caixaOpcoes {
+border:0 solid;
+float:none;
+min-width:512px;
+min-height:72px;
+margin:auto;
+padding:inherit;
+}
+
+#caixaOpcao1 {
+color:#ffa900;
+font-size:13px;
+font-weight:600;
+text-align:center;
+border:1px;
+background:#FFF;
+min-width:256px;
+max-width:256px;
+float:right;
+border-style:dashed;
+margin:auto;
+padding:10px;
+}
+
+#caixaOpcao2 {
+color:#ffa900;
+font-size:13px;
+font-weight:600;
+text-align:center;
+border:1px;
+background:#FFF;
+min-width:256px;
+max-width:256px;
+float:left;
+border-style:dashed;
+margin:auto;
+padding:10px;
+}
+
+
+#caixaOpcao3 {
+color:#000;
+font-size:13px;
+font-weight:600;
+text-align:center;
+background:#FFF;
+padding:10px;
+margin:auto;
+margin-bottom: 10px;
+border:1px;
+border-style:dashed;
+border-color:#ffa900;
+}
+
+#titulo {
+font-size:12px;
+font-weight:700;
+color:#A42112;
+text-align:center;
+}
+
+#texto {
+font-size:11px;
+font-weight:700;
+text-align:center;
+color:#000;
+}
+
+#filtro {
+color:#ffa900;
+font-size:11px;
+text-align:center;
+vertical-align:text-top;
+background:#FFF;
+float:right;
+}
+
+.CaixaAviso {
+color:#ffa900;
+font-size:18px;
+font-weight:700;
+text-align:center;
+vertical-align:text-top;
+border:1px solid;
+background:#FFF;
+margin:auto;
+padding:10px;
+}
+
+#meuPerfil {
+color:#ffa900;
+font-size:18px;
+font-weight:700;
+text-align:center;
+vertical-align:text-top;
+border:1px solid;
+background:#FFF;
+min-width:530px;
+min-height:57px;
+float:left;
+margin:auto;
+padding:10px;
+}
+
+.submit {
+float:left;
+margin-top:5px;
+margin-bottom:5px;
+min-width:100px;
+font-size:13px;
+color:#000;
+border:1px solid;
+background:#FFB627;
+text-align:center;
+border-color:#000;
+padding:5px;
+}
+
+#formGeralLabel {
+margin-right:4px;
+}
+
+#formGeral {
+margin-top:5px;
+margin-bottom:5px;
+padding-top:5px;
+padding-bottom:5px;
+}
+
+#menu_principal_aux {
+float:right;
+}
+
+#titulo_confirma {
+font-size:18px;
+font-weight:900;
+text-align:center;
+color:#FFB31C;
+}
+
+#texto_confirma {
+font-size:16px;
+font-weight:900;
+text-align:center;
+color:#000;
+}
+
+#caixa_info_perfil_foto {
+max-width:200px;
+max-height:200px;
+margin-right:10px;
+margin-top:25px;
+float:left;
+}
+
+#caixa_info_perfil_direita {
+max-width:200px;
+max-height:200px;
+float:right;
+margin:auto;
+}
+
+#caixa_info_perfil_esquerda {
+max-width:270px;
+height:100px;
+float:left;
+margin:auto;
+}
+
+#caixa_info_perfil_principal {
+max-width:800px;
+min-height:400px;
+margin-top:150px;
+}
+
+#link_ajuda {
+font-size:9px;
+color:#A42112;
+}
+
+#ajuda {
+font-size:10px;
+font-weight:700;
+color:#FFB31C;
+}
+
+#link-titulo a:link {
+font-size:14px;
+font-weight:700;
+color:#000;
+}
+
+#link_barra_direita {
+font-size:10px;
+font-weight:700;
+color:#A42112;
+text-align:right;
+}
+
+#nav_desc {
+font-size:9px;
+font-weight:700;
+color:#A42112;
+padding:2px;
+}
+
+#aviso_texto_longo {
+font-size:10px;
+font-weight:700;
+color:#A42112;
+}
+
+.el_table {
+margin-left:auto;
+margin-right:auto;
+}
+
+#subtitulos {
+font-size:16px;
+font-weight:700;
+color:#A42112;
+text-align:left;
+}
+
+#textover {
+font-size:14px;
+font-weight:700;
+text-align:left;
+color:#000;
+}
+
+.texto_alinhado {
+vertical-align:middle;
+}
+
+#meusPontosDeVistas {
+color:#ffa900;
+font-size:18px;
+font-weight:700;
+text-align:center;
+border:1px solid;
+background:#FFF;
+vertical-align:middle;
+margin:auto;
+padding:10px;
+}
+
+#informeDiscreto {
+color:#ffa900;
+font-size:13px;
+font-weight:700;
+text-align:center;
+border:1px solid;
+background:#FFF;
+vertical-align:middle;
+margin:auto;
+padding:10px;
+}
+
+#titulo_tema_panteon {
+color:#ffa900;
+font-size:24px;
+font-weight:700;
+margin-bottom:16px;
+}
+
+#boxBaixoEsquerdaContentLogin {
+float:left;
+text-align:left;
+position:fixed;
+color:#FFB31C;
+font-size:24px;
+font-weight:700;
+width:500px;
+height:300px;
+background-color:#FFF;
+margin:auto;
+}
+
+#conteudoBoxBaixoHomeLogin {
+float:left;
+position:relative;
+font-family:Helvetica;
+font-size:14px;
+width:600px;
+height:600px;
+background-color:#FFF;
+margin:auto;
+}
+
+#boxBaixoEsquerdaContentVer {
+min-width:615px;
+max-width:615px;
+min-height:440px;
+text-align:center;
+border:3px solid #FFB31C;
+border-style:dashed;
+margin:auto;
+padding:25px;
+}
+
+#conteudoBoxBaixoHomeVer {
+min-width:610px;
+max-width:610px;
+min-height:430px;
+text-align:center;
+font-size:15px;
+margin:auto;
+}
+
+#boxBaixoEsquerdaContentVideo {
+min-width: 590px;
+max-width: 590px;
+min-height:390px;
+text-align:center;
+border:3px solid #FFB31C;
+border-style:dashed;
+margin:auto;
+padding:25px;
+}
+
+#conteudoBoxBaixoHomeVideo {
+min-width:580px;
+max-width:580px;
+min-height:380px;
+text-align:center;
+font-size:15px;
+margin:auto;
+}
+
+#boxBaixoEsquerdaContentColetar {
+min-width:670px;
+max-width:670px;
+min-height:270px;
+max-height:270px;
+border:3px solid #FFB31C;
+float:left;
+text-align:left;
+border-style:dashed;
+padding:10px;
+}
+
+#conteudoBoxBaixoHomeColetar {
+min-width:610px;
+max-width:610px;
+min-height:265px;
+max-height:265px;
+font-size:16px;
+color:#A42112;
+float:left;
+text-align:left;
+}
+
+#conteudoBoxBaixoHomeColetar form {
+font-size:16px;
+color:#A42112;
+margin-left:-50px;
+}
+
+#boxBaixoEsquerdaContentApagar {
+text-align:center;
+min-width:300px;
+max-width:300px;
+min-height:105px;
+max-height:105px;
+border:3px solid #FFB31C;
+border-style:dashed;
+margin:auto;
+padding:15px;
+}
+
+#conteudoBoxBaixoHomeApagar {
+text-align:center;
+font-size:16px;
+min-width:300px;
+max-width:300px;
+min-height:85px;
+max-height:85px;
+margin:auto;
+}
+
+#th_coluna_processpagefield {
+font-size:12px;
+font-weight:700;
+text-align:center;
+}
+
+#td_coluna_processpagefield {
+font-size:11px;
+text-align:center;
+}
+
+#th_coluna_processpagefield_selecione {
+color:#FC2729;
+font-size:11px;
+text-align:center;
+width:10%;
+}
+
+#conteudoBoxBaixoHome a {
+color:#A42112;
+}
+
+input {
+background-color:#FFF;
+color:#999;
+border:1px solid #2763A5;
+font-size:11px;
+padding:3px;
+}
+
+.botaoForm01 {
+border:0;
+}
+
+.editlist {
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:11px;
+}
+
+.editlist table {
+border-collapse:collapse;
+margin:10px 15px;
+}
+
+.editlist th {
+width:750px;
+height:40px;
+max-width:750px;
+max-height:40px;
+color:#000;
+text-align:left;
+border-left:1px solid #FFF;
+border-bottom:solid 2px #FFF;
+background:#ffd2d2;
+padding:10px;
+}
+
+.editlist th.editlisttitle {
+background:#CAD7E8;
+text-align:right;
+font-size:13px;
+}
+
+.editlist tr {
+height:30px;
+}
+
+.editlist td {
+border-left:1px solid #FFF;
+border-bottom:solid 3px #fff;
+padding:10px 5px;
+}
+
+.editlist td.first,.editlist th.first {
+border-left:0;
+}
+
+.editlist tr.row-a {
+background:#dfd4d8;
+}
+
+.editlist tr.row-b {
+background:#f1e5e9;
+}
+
+.el_buttons {
+background-color:#fff;
+background-image:none;
+float:left;
+width:100%;
+height:70px;
+font-family:Helvetica;
+font-size:14px;
+font-weight:700;
+border:2px dashed;
+border-color:#CAD7E8;
+border-style:groove;
+}
+
+.el_buttons #nav_editlist {
+float:right;
+border:0 solid;
+margin:auto;
+padding:10px;
+}
+
+.el_buttons #nav_editlist select {
+border:1px solid;
+vertical-align:super;
+}
+
+form input,select,textarea {
+font-size:12px;
+color:#000;
+border:1px solid;
+background:#CAD7E8;
+text-align:left;
+border-color:#000;
+}
+
+#menu_principal,.el_buttons #nav_button {
+float:left;
+}
+
+#conteudoBoxBaixoHome label,#conteudoBoxBaixoHomeVer label {
+color:#ffa900;
+font-size:14px;
+font-weight:700;
+}
+
+#conteudoBoxBaixoHomeVer #textoPequeno,#conteudoBoxBaixoHome #textoPequeno {
+font-size:10px;
+font-weight:700;
+float:right;
+}

@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+
+  RewriteEngine on
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  RewriteRule ^(.*)$ xmlnuke.php?site=PanteonEscolar&xsl=page&xml=home&lang=pt-br&module=panteonescolar.$1 [L]
+
+</IfModule>

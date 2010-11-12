@@ -1,0 +1,53 @@
+<?php
+
+$diretorio_xmlnuke = '/home/panteonescolar/public_html/';
+$panteonescolar_db = 'panteonescolar_stable';
+
+define('XMLNUKE_PATH', $diretorio_xmlnuke);
+define('PHPXMLNUKEDIR',                     XMLNUKE_PATH.'/xmlnuke-base/xmlnuke-php5/');
+define('ROOTDIR',                           XMLNUKE_PATH.'/xmlnuke-base/xmlnuke-data');
+define('EXTERNALSITEDIR', 'PanteonEscolar='.XMLNUKE_PATH.'data');
+define('PHPLIBDIR',       'panteonescolar='.XMLNUKE_PATH.'/lib');
+
+class config 
+{
+
+  public static function getValuesConfig()
+  {
+    $values = array();
+
+    $values['xmlnuke.ROOTDIR'] = XMLNUKE_PATH.'/xmlnuke-base/xmlnuke-data/';
+    $values['xmlnuke.PHPXMLNUKEDIR'] = XMLNUKE_PATH.'/xmlnuke-base/xmlnuke-php5/';
+    $values['xmlnuke.EXTERNALSITEDIR'] = 'PanteonEscolar='.XMLNUKE_PATH.'/data/';
+    $values['xmlnuke.PHPLIBDIR'] = 'panteonescolar='.XMLNUKE_PATH.'/lib/';
+
+    $values['xmlnuke.USEABSOLUTEPATHSROOTDIR'] = true;
+    $values['xmlnuke.URLXMLNUKEENGINE'] = 'xmlnuke.php';
+    $values['xmlnuke.URLMODULE'] = 'xmlnuke.php';
+    $values['xmlnuke.URLXMLNUKEADMIN'] = 'xmlnukeadmin.php';
+    $values['xmlnuke.DEFAULTSITE'] = 'PanteonEscolar';
+    $values['xmlnuke.DEFAULTPAGE'] = 'page';
+
+    $values['xmlnuke.USERSDATABASE'] = $panteonescolar_db;
+    $values['xmlnuke.USERSCLASS']    = 'panteonescolar.logarusuario';
+    $values['xmlnuke.LOGINMODULE']   = 'login';
+
+    $values['xmlnuke.URLBASE'] = '';
+    $values['xmlnuke.ALWAYSUSECACHE'] = false;
+    $values['xmlnuke.SHOWCOMPLETEERRORMESSAGES'] = true;
+    $values['xmlnuke.LANGUAGESAVAILABLE'] = 'pt-br=Português (Brasil)';
+    $values['xmlnuke.SMTPSERVER'] = 'localhost';
+    $values['xmlnuke.DEBUG'] = true;
+    $values['xmlnuke.CAPTCHACHALLENGE'] = 'easy';
+    $values['xmlnuke.CAPTCHALETTERS'] = '5';
+    $values['xmlnuke.ENABLEPARAMPROCESSOR'] = true;
+    $values['xmlnuke.USEFULLPARAMETER'] = true;
+    $values['xmlnuke.CHECKCONTENTTYPE'] = true;
+    $values['xmlnuke.CACHESTORAGEMETHOD'] = 'PLAIN';
+    $values['xmlnuke.XMLSTORAGEMETHOD'] = 'PLAIN';
+
+    return $values;
+  }
+}
+
+?>

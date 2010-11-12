@@ -1,0 +1,9 @@
+ALTER TABLE midiateca_x_tag ADD CONSTRAINT uc_midiatecaxtag UNIQUE (id_midiateca, id_tag);
+ALTER TABLE tema_panteon_x_midiateca ADD CONSTRAINT uc_tema_panteonxmidiateca UNIQUE (id_midiateca, id_tema_panteon);
+ALTER TABLE usuario_x_turma ADD CONSTRAINT uc_usuarioxturma UNIQUE (id_usuario, id_turma);
+ALTER TABLE usuario_x_grupo ADD CONSTRAINT uc_usuarioxgrupo UNIQUE (id_usuario, id_grupo);
+ALTER TABLE usuario_x_ponto_de_vista ADD CONSTRAINT uc_usuarioxpontodevista UNIQUE (id_usuario, id_ponto_de_vista);
+ALTER TABLE usuario_x_tema_panteon ADD CONSTRAINT uc_usuarioxtemapanteon UNIQUE (id_usuario, id_tema_panteon);
+ALTER TABLE tema_panteon_x_tag ADD CONSTRAINT uc_temapanteonxtag UNIQUE (id_tema_panteon, id_tag);
+
+ALTER TABLE forum ADD CONSTRAINT uc_forum UNIQUE (id_tema_panteon);
