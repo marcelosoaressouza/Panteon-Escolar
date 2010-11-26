@@ -82,7 +82,7 @@ class CriarMuralDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Mural');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', ' Professor (a), no mural você pode escrever avisos e notícias para os seus alunos.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

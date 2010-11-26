@@ -37,7 +37,7 @@ class OQueEDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', $txt, '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }

@@ -39,7 +39,7 @@ class CriarSituacaoProblemaTemaPanteonDBXML extends XmlnukeCollection implements
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Situação Problema');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Todo Tema Panteon possui problemas específicos que precisam ser analisados para que haja uma ampla compreensão sobre o tema. Exemplo: Para compreender o Aquecimento Global precisamos estudar diversos problemas como, por exemplo, as ações humanas, as consequências, etc.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

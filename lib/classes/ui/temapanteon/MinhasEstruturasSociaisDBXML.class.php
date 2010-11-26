@@ -37,7 +37,7 @@ class MinhasEstruturasSociaisDBXML extends XmlnukeCollection implements IXmlnuke
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Estrutura Social');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Descreva a estrutura social a ser cadastrada. A estrutura social representa a organização da sociedade ou de instituições específicas da sociedade, que são formadas por grupos sociais.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

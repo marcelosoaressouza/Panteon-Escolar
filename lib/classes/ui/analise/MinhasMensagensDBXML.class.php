@@ -38,7 +38,7 @@ class MinhasMensagensDBXML extends XmlnukeCollection implements IXmlnukeDocument
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Mensagens');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'qui, você pode receber e enviar mensagens para seus colegas e professor (a).', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

@@ -77,7 +77,7 @@ class CriarGrupoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Grupo');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Cada grupo pode elaborar o “Diagnóstico de Grupo” e “Proposta de Ação do Grupo”, após análise e discussão sobre o Tema Panteon. Os grupos podem ser formados por usuários de diferentes turmas, que podem pertencer a diferentes instituições. ', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

@@ -34,7 +34,7 @@ class UsuarioXNivelAcessoDBXML extends XmlnukeCollection implements IXmlnukeDocu
 
     $field = ProcessPageFields::FactoryMinimal("valor_usuario_x_nivel_acesso", "Nivel de Acesso", 32, true, true);
     $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
-    $field->arraySelectList = array("ANALISTA" => "Analista", "EDITOR" => "Editor", "COORDENADOR" => "Coordenador","GESTOR" => "Gestor");
+    $field->arraySelectList = array("ANALISTA" => "Analista", "MEDIADOR" => "Mediador", "GESTOR" => "Gestor");
     $fieldList->addProcessPageField($field);
 
     $field = ProcessPageFields::FactoryMinimal("nome_usuario_x_nivel_acesso", "Nome", 32, false, false);

@@ -41,7 +41,7 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
 
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Biblioteca Tema Panteon");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Na Biblioteca de Temas Panteon você pode visualizar os Temas Panteon existentes. Caso queira analisar, selecione o Tema Panteon. Ele ficará registrado no item “Meus Temas”.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

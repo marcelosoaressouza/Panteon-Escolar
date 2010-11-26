@@ -66,7 +66,7 @@ class MeuMuralDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Mural");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Fique Atento! Este mural está reservado para avisos e notícias do professor.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

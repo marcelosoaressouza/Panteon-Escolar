@@ -36,7 +36,7 @@ class MeusTemasPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Meus Temas Panteon');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, ficam disponíveis todos os Temas Panteon selecionados na Biblioteca do Tema Panteon.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

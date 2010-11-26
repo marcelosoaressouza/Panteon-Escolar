@@ -38,7 +38,7 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Tema Panteon');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Professor (a), aqui você pode criar o Tema Panteon a ser estudado. Inicialmente, verifique se existe algum método de análise e estrutura social já cadastrada. Caso não possua nenhum cadastro, você precisará cadastrá-los antes de criar o Tema Panteon. A criação do Tema Panteon começa com a definição do tema, provocação, método de análise e estrutura social. Na etapa inicial você também define se o Tema Panteon  pode ser publicado, ficando disponível na Biblioteca Tema Panteon, e se ficará privado para instituição, permitindo apenas usuários da instituição analisar o Tema  Panteon. Após esta etapa você poderá cadastrar as situações-problema, os sujeitos, os pontos de vista, anexar arquivos, criar grupos e mensagens no mural. Bom Trabalho!', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 
@@ -57,7 +57,7 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       $dbxml = new TemaPanteonDBXML($this->_context, "criartemapanteon", "Criar Tema Panteon");
 
-      if(($nivel_acesso == "EDITOR") || ($nivel_acesso == "COORDENADOR") || ($nivel_acesso == "GESTOR") || ($nivel_acesso == "ADMINISTRADOR")) {
+      if(($nivel_acesso == "GESTOR") || ($nivel_acesso == "ADMINISTRADOR")) {
         // Filtro
         if(($this->_context->ContextValue("id_temas_panteon_filtro") == 2) || ($this->_context->getCookie("id_temas_panteon_filtro_Cookie") == 2)) {
 
@@ -71,7 +71,6 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
           $db = new UsuarioDB($this->_context);
           $id_instituicao = $db->obterPorId($id_usuario)->getIDInstituicao();
         }
-
 
       }
 

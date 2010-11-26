@@ -635,7 +635,7 @@ class PanteonEscolarBaseModule extends BaseModule
                   "configinstituicao" => "Configuração",
                  );
 
-    if(($nivel_acesso != "GESTOR") && ($nivel_acesso != "ADMINISTRADOR")) unset($menu["configinstituicao"]);
+    if(($nivel_acesso != "GESTOR") && ($nivel_acesso != "ADMINISTRADOR") && ($nivel_acesso != "MEDIADOR")) unset($menu["configinstituicao"]);
 
     if($menu[$ativo]) $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
 

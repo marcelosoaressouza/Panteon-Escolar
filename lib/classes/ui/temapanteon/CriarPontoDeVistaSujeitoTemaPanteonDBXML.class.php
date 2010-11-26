@@ -39,7 +39,7 @@ class CriarPontoDeVistaSujeitoTemaPanteonDBXML extends XmlnukeCollection impleme
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Ponto de Vista');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, você pode cadastrar os pontos de vista dos sujeitos sobre as situações-problemas. No cadastro você precisa definir a qual situação-problema e item de análise este ponto de vista está relacionado.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

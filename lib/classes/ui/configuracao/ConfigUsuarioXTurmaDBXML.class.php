@@ -57,7 +57,7 @@ class ConfigUsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocu
 
       $permissao = array(true, false, false, false);
 
-      if($nivel_acesso == "GESTOR") {
+      if($nivel_acesso == "GESTOR" || $nivel_acesso == "MEDIADOR") {
         $dbUsuario = new UsuarioDB($this->_context);
         $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
 
@@ -97,7 +97,7 @@ class ConfigUsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocu
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 
