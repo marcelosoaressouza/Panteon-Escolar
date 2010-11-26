@@ -390,7 +390,7 @@ class PanteonEscolarPontoDeVistaFormatter implements IEditListFormatter
         $aviso = "<div id='aviso_texto_longo'>(Leia mais...)</div>";
       }
 
-      $texto = htmlentities($texto, ENT_QUOTES, 'UTF-8');
+      //$texto = htmlentities($texto, ENT_QUOTES, 'UTF-8');
 
       $link = '/xmlnuke.php?module=panteonescolar.verpontodevista&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;pontodevista='.$value;
       $url = ''.$texto.'<b><a class="lista_direita_detalhe" href="'.$link.'">'.$aviso.'</a></b>';

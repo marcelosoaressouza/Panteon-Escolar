@@ -94,7 +94,7 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Fórum");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Neste espaço você, seus colegas e seu(a) professor(a) podem interagir e discutir sobre o Tema Panteon. ', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

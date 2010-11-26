@@ -45,7 +45,7 @@ class MinhasNotasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
       else
         $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, você pode escrever suas anotações sobre o(s) Tema(s) Panteon em análise. Suas anotações podem te ajudar a escrever os diagnósticos e a proposta de ação.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

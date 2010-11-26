@@ -64,7 +64,7 @@ class ConfigTipoMidia extends PanteonEscolarBaseModule
   }
 
   public function getRole() {
-    return array("GESTOR", "ADMINISTRADOR");
+    return array("GESTOR", "ADMINISTRADOR", "MEDIADOR");
   }
 
 }

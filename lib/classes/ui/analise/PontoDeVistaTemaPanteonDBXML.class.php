@@ -145,7 +145,7 @@ class PontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnuke
       else
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

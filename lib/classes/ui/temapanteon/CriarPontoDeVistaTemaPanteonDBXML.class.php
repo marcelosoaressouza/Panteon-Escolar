@@ -42,7 +42,7 @@ class CriarPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Sujeito');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Os sujeitos são pessoas que têm envolvimento com o tema. Portanto, emitem seu ponto de vista a respeito das situações-problema do tema. Cada sujeito faz parte de um grupo social.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

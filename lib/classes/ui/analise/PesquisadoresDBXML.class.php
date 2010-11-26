@@ -62,7 +62,7 @@ class PesquisadoresDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
 
       XmlUtil::AddAttribute($node, "link_info", '<a href="pesquisadores">Clique aqui para ver lista completa de Pesquisadores</a>');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

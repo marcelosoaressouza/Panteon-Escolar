@@ -39,7 +39,7 @@ class CriarGrupoSocialDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Grupos Sociais');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Cada sujeito tem o seu lugar na sociedade. Dessa forma, cada um faz parte de um grupo social. No cadastro do grupo social você pode definir como grupo pai, um grupo já cadastrado. A definição de um grupo pai é opcional. O que é grupo pai? O grupo pai é um grupo maior, no qual grupos menores fazem parte como, por exemplo, escola e universidade pertencem a um grupo maior, ou seja, ao grupo acadêmico. Dessa forma, neste exemplo, o grupo pai é o grupo acadêmico.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 

@@ -64,7 +64,7 @@ class MinhasPropostasDeAcaoGrupo extends PanteonEscolarBaseModule
   }
 
   public function getRole() {
-    return array("ANALISTA", "EDITOR", "COORDENADOR", "GESTOR", "ADMINISTRADOR");
+    return array("ANALISTA", "MEDIADOR", "GESTOR", "ADMINISTRADOR");
   }
 
 }

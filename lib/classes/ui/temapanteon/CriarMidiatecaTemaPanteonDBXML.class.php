@@ -37,7 +37,7 @@ class CriarMidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnu
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Midiateca');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Na midiateca você pode anexar diversos  arquivos como vídeos, sites, textos, animações, imagens e áudios que podem complementar o estudo sobre o Tema Panteon.', '');
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
 
     }
 
