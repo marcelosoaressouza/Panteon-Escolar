@@ -19,140 +19,146 @@
 
 class DiagnosticoIndividualDB extends PanteonEscolarBaseDBAccess
 {
-  protected $_nome_tabela = "diagnostico_individual";
-  protected $_nome_tabela_primaria = "item_analise";
-  protected $_nome_tabela_secundaria = "situacao_problema";
-  protected $_nome_tabela_terciaria = "usuario_x_tema_panteon ";
+    protected $_nome_tabela = "diagnostico_individual";
+    protected $_nome_tabela_primaria = "item_analise";
+    protected $_nome_tabela_secundaria = "situacao_problema";
+    protected $_nome_tabela_terciaria = "usuario_x_tema_panteon ";
 
-  /**
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosRelacionados() {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
+    /**
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosRelacionados()
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
-    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+        $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
+        return $it;
 
-  }
+    }
 
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosOsDiagnosticosIndividuaisPorIDItemAnalise($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosOsDiagnosticosIndividuaisPorIDItemAnalise($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
-
-
-
-    $it = $this->getIterator($sql);
-
-    return $it;
-
-  }
-
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosOsDiagnosticosIndividuaisPorIDSituacaoProblema($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
-    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
-
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria." = ".$id;
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
 
 
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
+        return $it;
 
-  }
+    }
 
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosOsDiagnosticosIndividuaisPorIDIUsuarioXTemaPanteon($id, $max = 5) {
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosOsDiagnosticosIndividuaisPorIDSituacaoProblema($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+        $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria." = ".$id;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
-    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
 
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_terciaria." = ".$id;
-    $sql .= " LIMIT ".$max;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
-  }
+        return $it;
 
-  /**
-   * @param int $id
-   * @access public
-   * @return Model
-  */
-  public function obterPorId($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+    }
 
-    $param = array("id" => $id);
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosOsDiagnosticosIndividuaisPorIDIUsuarioXTemaPanteon($id, $max = 5)
+    {
 
-    $it = $this->getIterator($sql, $param);
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $model = new DiagnosticoIndividualModel();
-    $model->bindIterator($it);
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    return $model;
-  }
+        $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+        $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
 
-  /**
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodos() {
-    $sql = "SELECT * FROM ".$this->_nome_tabela;
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_terciaria." = ".$id;
+        $sql .= " LIMIT ".$max;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
-  }
+        return $it;
+    }
+
+    /**
+     * @param int $id
+     * @access public
+     * @return Model
+    */
+    public function obterPorId($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+
+        $param = array("id" => $id);
+
+        $it = $this->getIterator($sql, $param);
+
+        $model = new DiagnosticoIndividualModel();
+        $model->bindIterator($it);
+
+        return $model;
+    }
+
+    /**
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodos()
+    {
+        $sql = "SELECT * FROM ".$this->_nome_tabela;
+
+        $it = $this->getIterator($sql);
+
+        return $it;
+    }
 
 }
 

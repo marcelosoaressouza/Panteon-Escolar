@@ -19,52 +19,62 @@
 
 class MuralModel extends PanteonEscolarBaseModel
 {
-  private $_nome_mural;
-  private $_texto_mural;
-  private $_data_hora_cadastro_mural;
+    private $_nome_mural;
+    private $_texto_mural;
+    private $_data_hora_cadastro_mural;
 
-  private $_id_usuario;
-  private $_id_tema_panteon;
+    private $_id_usuario;
+    private $_id_tema_panteon;
 
-  public function getNomeMural() {
-    return $this->_nome_mural;
-  }
+    public function getNomeMural()
+    {
+        return $this->_nome_mural;
+    }
 
-  public function setNomeMural($nome_mural) {
-    $this->_nome_mural = $nome_mural;
-  }
+    public function setNomeMural($nome_mural)
+    {
+        $this->_nome_mural = $nome_mural;
+    }
 
-  public function getTextoMural() {
-    return $this->_texto_mural;
-  }
+    public function getTextoMural()
+    {
+        return $this->_texto_mural;
+    }
 
-  public function setTextoMural($texto_mural) {
-    $this->_texto_mural = $texto_mural;
-  }
+    public function setTextoMural($texto_mural)
+    {
+        $this->_texto_mural = $texto_mural;
+    }
 
-  public function getDataHoraCadastroMural() {
-    return date("Y-m-d H:i:s");
-  }
+    public function getDataHoraCadastroMural()
+    {
+        return date("Y-m-d H:i:s");
+    }
 
-  public function setDataHoraCadastroMural($data_hora_cadastro_mural) {
-    $this->_data_hora_cadastro_mural = date("Y-m-d H:i:s");
-  }
+    public function setDataHoraCadastroMural($data_hora_cadastro_mural)
+    {
+        $this->_data_hora_cadastro_mural = date("Y-m-d H:i:s");
+    }
 
-  public function setIDUsuario($id_usuario) {
-    $this->_id_usuario = $id_usuario;
-  }
+    public function setIDUsuario($id_usuario)
+    {
+        $this->_id_usuario = $id_usuario;
+    }
 
-  public function getIDUsuario() {
-    return $this->_id_usuario;
-  }
+    public function getIDUsuario()
+    {
+        return $this->_id_usuario;
+    }
 
-  public function setIDTemaPanteon($id_tema_panteon) {
-    $this->_id_tema_panteon = $id_tema_panteon;
-  }
+    public function setIDTemaPanteon($id_tema_panteon)
+    {
+        $this->_id_tema_panteon = $id_tema_panteon;
+    }
 
-  public function getIDTemaPanteon() {
-    return $this->_id_tema_panteon;
-  }
+    public function getIDTemaPanteon()
+    {
+        return $this->_id_tema_panteon;
+    }
 
 }
 

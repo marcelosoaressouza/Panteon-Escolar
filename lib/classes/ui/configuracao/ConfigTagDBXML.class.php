@@ -20,155 +20,195 @@
 class ConfigTagDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
-  protected $_num_registros_padrao = 3;
+    protected $_context;
+    protected $_opcao;
+    protected $_num_registros_padrao = 3;
 
-  public function generateObject($current) {
-    $id_usuario = $this->_context->authenticatedUserId();
-    $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
+    public function generateObject($current)
+    {
+        $id_usuario = $this->_context->authenticatedUserId();
+        $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    $titulo = "Palavras-Chaves";
-    $nome_modulo = "configtag";
+        $titulo = "Palavras-Chaves";
+        $nome_modulo = "configtag";
 
-    // Inicio - Area Principal
-    //
-    if($this->_opcao == "processPageField") {
-      $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
+        // Inicio - Area Principal
+        //
+        if($this->_opcao == "processPageField")
+        {
+            $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
 
-      $dbUsuarioXNivelAcesso = new UsuarioXNivelAcessoDB($this->_context);
-      $nivel_acesso = $dbUsuarioXNivelAcesso->obterNivelAcessoPorIDUsuario($id_usuario);
+            $dbUsuarioXNivelAcesso = new UsuarioXNivelAcessoDB($this->_context);
+            $nivel_acesso = $dbUsuarioXNivelAcesso->obterNivelAcessoPorIDUsuario($id_usuario);
 
-      if($this->_context->ContextValue("acao") == "delete") {
-        $db = new TagDB($this->_context);
-        $db->excluir($this->_context->ContextValue("id"));
-        $this->_context->addCookie("mensagem_aviso", "Tag Excluida");
-        $this->_context->redirectUrl("/configtag");
+            if($this->_context->ContextValue("acao") == "delete")
+            {
+                $db = new TagDB($this->_context);
+                $db->excluir($this->_context->ContextValue("id"));
+                $this->_context->addCookie("mensagem_aviso", "Tag Excluida");
+                $this->_context->redirectUrl("/configtag");
 
-      }
+            }
 
-      if($nivel_acesso == "GESTOR" || $nivel_acesso == "MEDIADOR") {
-        $dbUsuario = new UsuarioDB($this->_context);
-        $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
+            if($nivel_acesso == "GESTOR" || $nivel_acesso == "MEDIADOR")
+            {
+                $dbUsuario = new UsuarioDB($this->_context);
+                $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
 
-      } else if($nivel_acesso == "ADMINISTRADOR") {
-        $id = "";
-      } else {
-        $this->_context->redirectUrl("/meuperfil");
-        $id = "";
+            }
 
-      }
+            else if($nivel_acesso == "ADMINISTRADOR")
+            {
+                $id = "";
+            }
 
-      $permissao = array(false, false, true, false);
+            else
+            {
+                $this->_context->redirectUrl("/meuperfil");
+                $id = "";
 
-      $dbxml = new TagDBXML($this->_context, $nome_modulo, $titulo);
+            }
 
-      if($this->_context->ContextValue("nome_tag") != "") {
-        $db = new TagDB($this->_context);
-        if($db->verDuplicado($this->_context->ContextValue("nome_tag")) > 0) {
-          $this->_context->addCookie("mensagem_aviso", "Palavra-Chave já cadastrada.");
-          $this->_context->redirectUrl("/configtag");
-        } else {
-          $pagina = $dbxml->criarProcessPageFields($permissao);
+            $permissao = array(false, false, true, false);
+
+            $dbxml = new TagDBXML($this->_context, $nome_modulo, $titulo);
+
+            if($this->_context->ContextValue("nome_tag") != "")
+            {
+                $db = new TagDB($this->_context);
+
+                if($db->verDuplicado($this->_context->ContextValue("nome_tag")) > 0)
+                {
+                    $this->_context->addCookie("mensagem_aviso", "Palavra-Chave já cadastrada.");
+                    $this->_context->redirectUrl("/configtag");
+                }
+
+                else
+                {
+                    $pagina = $dbxml->criarProcessPageFields($permissao);
+
+                }
+
+            }
+
+            else
+            {
+                $pagina = $dbxml->criarProcessPageFields($permissao);
+            }
+
+            if($pagina->getAllRecords()->Count() > 0)
+            {
+                $span1->addXmlnukeObject($pagina);
+
+            }
+
+            else
+            {
+                $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhuma Tag cadastrada.</div>'));
+
+            }
 
         }
 
-      } else {
-        $pagina = $dbxml->criarProcessPageFields($permissao);
-      }
+        //
+        // Fim - Area Principal
 
-      if($pagina->getAllRecords()->Count() > 0) {
-        $span1->addXmlnukeObject($pagina);
+        // Inicio Lista Direita
+        //
+        if($this->_opcao == "listarDireita")
+        {
+            $node = XmlUtil::CreateChild($current, "blockmensagem", "");
+            $body = PanteonEscolarBaseModule::criarTitulo($node);
+            $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      } else {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhuma Tag cadastrada.</div>'));
+            if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+            {
+                XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+            }
 
-      }
+        }
+
+        //
+        // Fim - Lista Direita
+
+        // Inicio - menu
+        //
+        if($this->_opcao == "menu")
+        {
+            $node = XmlUtil::CreateChild($current, "blockabausuario", "");
+            $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuConfig(PanteonEscolarMenu::Tag, $nivel_acesso));
+
+        }
+
+        //
+        // Fim - menu
+
+        // Inicio - menu head
+        //
+        if($this->_opcao == "menuHead")
+        {
+            $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
+            XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
+
+            $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+            $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
+            $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'configinstituicao'));
+            XmlUtil::AddAttribute($node, "nome_usuario", $msg);
+            XmlUtil::AddAttribute($node, "logout", "true");
+
+        }
+
+        //
+        // Fim - menu head
+
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
-    //
-    // Fim - Area Principal
 
-    // Inicio Lista Direita
-    //
-    if($this->_opcao == "listarDireita") {
-      $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-      $body = PanteonEscolarBaseModule::criarTitulo($node);
-      $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+    public function filtro()
+    {
+        $span = new XmlnukeSpanCollection();
+        $formPost = "module:panteonescolar.ConfigTag";
+        $form = new XmlFormCollection($this->_context, $formPost, "Minhas Mensagens");
 
-    }
-    //
-    // Fim - Lista Direita
+        $buttons = new XmlInputButtons();
+        $buttons->addSubmit("Filtrar");
 
-    // Inicio - menu
-    //
-    if($this->_opcao == "menu") {
-      $node = XmlUtil::CreateChild($current, "blockabausuario", "");
-      $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuConfig(PanteonEscolarMenu::Tag, $nivel_acesso));
+        $form->addXmlnukeObject($this->filtroConfigTag());
+        $form->addXmlnukeObject($buttons);
+
+        $span->addXmlnukeObject($form);
+
+        return $span;
 
     }
-    //
-    // Fim - menu
 
-    // Inicio - menu head
-    //
-    if($this->_opcao == "menuHead") {
-      $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
-      XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
+    public function filtroConfigTag()
+    {
+        $listaConfigTag = array(1 => "Mensagens Enviadas por Mim", 2 => "Mensagens Recebidas");
+        $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_minhas_mensagens_filtro", "Minhas Mensagens", $listaConfigTag);
 
-      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
-      $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
-      $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'configinstituicao'));
-      XmlUtil::AddAttribute($node, "nome_usuario", $msg);
-      XmlUtil::AddAttribute($node, "logout", "true");
+        return $lista;
 
     }
-    //
-    // Fim - menu head
 
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function ConfigTagDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function filtro() {
-    $span = new XmlnukeSpanCollection();
-    $formPost = "module:panteonescolar.ConfigTag";
-    $form = new XmlFormCollection($this->_context, $formPost, "Minhas Mensagens");
-
-    $buttons = new XmlInputButtons();
-    $buttons->addSubmit("Filtrar");
-
-    $form->addXmlnukeObject($this->filtroConfigTag());
-    $form->addXmlnukeObject($buttons);
-
-    $span->addXmlnukeObject($form);
-
-    return $span;
-
-  }
-
-  public function filtroConfigTag() {
-    $listaConfigTag = array(1 => "Mensagens Enviadas por Mim", 2 => "Mensagens Recebidas");
-    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_minhas_mensagens_filtro", "Minhas Mensagens", $listaConfigTag);
-
-    return $lista;
-
-  }
-
-  public function ConfigTagDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

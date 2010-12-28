@@ -19,61 +19,73 @@
 
 class SujeitoModel extends PanteonEscolarBaseModel
 {
-  private $_nome_sujeito;
-  private $_descricao_sujeito;
-  private $_data_hora_cadastro_sujeito;
-  private $_caminho_foto_sujeito;
+    private $_nome_sujeito;
+    private $_descricao_sujeito;
+    private $_data_hora_cadastro_sujeito;
+    private $_caminho_foto_sujeito;
 
-  private $_id_tema_panteon;
-  private $_id_grupo_social;
+    private $_id_tema_panteon;
+    private $_id_grupo_social;
 
-  public function getNomeSujeito() {
-    return $this->_nome_sujeito;
-  }
+    public function getNomeSujeito()
+    {
+        return $this->_nome_sujeito;
+    }
 
-  public function setNomeSujeito($nome_sujeito) {
-    $this->_nome_sujeito = $nome_sujeito;
-  }
+    public function setNomeSujeito($nome_sujeito)
+    {
+        $this->_nome_sujeito = $nome_sujeito;
+    }
 
-  public function getDataHoraCadastroSujeito() {
-    return date("Y-m-d H:i:s");
-  }
+    public function getDataHoraCadastroSujeito()
+    {
+        return date("Y-m-d H:i:s");
+    }
 
-  public function setDataHoraCadastroSujeito($data_hora_cadastro_sujeito) {
-    $this->_data_hora_cadastro_sujeito = date("Y-m-d H:i:s");
-  }
+    public function setDataHoraCadastroSujeito($data_hora_cadastro_sujeito)
+    {
+        $this->_data_hora_cadastro_sujeito = date("Y-m-d H:i:s");
+    }
 
-  public function getDescricaoSujeito() {
-    return $this->_descricao_sujeito;
-  }
+    public function getDescricaoSujeito()
+    {
+        return $this->_descricao_sujeito;
+    }
 
-  public function setDescricaoSujeito($descricao_sujeito) {
-    $this->_descricao_sujeito = $descricao_sujeito;
-  }
+    public function setDescricaoSujeito($descricao_sujeito)
+    {
+        $this->_descricao_sujeito = $descricao_sujeito;
+    }
 
-  public function getCaminhoFotoSujeito() {
-    return $this->_caminho_foto_sujeito;
-  }
+    public function getCaminhoFotoSujeito()
+    {
+        return $this->_caminho_foto_sujeito;
+    }
 
-  public function setCaminhoFotoSujeito($caminho_foto_sujeito) {
-    $this->_caminho_foto_sujeito = $caminho_foto_sujeito;
-  }
+    public function setCaminhoFotoSujeito($caminho_foto_sujeito)
+    {
+        $this->_caminho_foto_sujeito = $caminho_foto_sujeito;
+    }
 
-  public function setIDTemaPanteon($id_tema_panteon) {
-    $this->_id_tema_panteon = $id_tema_panteon;
-  }
+    public function setIDTemaPanteon($id_tema_panteon)
+    {
+        $this->_id_tema_panteon = $id_tema_panteon;
+    }
 
-  public function getIDTemaPanteon() {
-    return $this->_id_tema_panteon;
-  }
+    public function getIDTemaPanteon()
+    {
+        return $this->_id_tema_panteon;
+    }
 
-  public function setIDGrupoSocial($id_grupo_social) {
-    $this->_id_grupo_social = $id_grupo_social;
-  }
+    public function setIDGrupoSocial($id_grupo_social)
+    {
+        $this->_id_grupo_social = $id_grupo_social;
+    }
 
-  public function getIDGrupoSocial() {
-    return $this->_id_grupo_social;
-  }
+    public function getIDGrupoSocial()
+    {
+        return $this->_id_grupo_social;
+    }
 }
 
 ?>

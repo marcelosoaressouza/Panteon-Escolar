@@ -19,43 +19,53 @@
 
 class PropostaDeAcaoModel extends PanteonEscolarBaseModel
 {
-  private $_nome_proposta_de_acao;
-  private $_texto_proposta_de_acao;
-  private $_data_cadastro_proposta_de_acao;
-  private $_id_diagnostico_individual;
-  private $_id_usuario;
+    private $_nome_proposta_de_acao;
+    private $_texto_proposta_de_acao;
+    private $_data_cadastro_proposta_de_acao;
+    private $_id_diagnostico_individual;
+    private $_id_usuario;
 
-  public function getNomePropostaDeAcao()         {
-    return $this->_nome_proposta_de_acao;
-  }
-  public function getTextoPropostaDeAcao()        {
-    return $this->_texto_proposta_de_acao;
-  }
-  public function getDataCadastroPropostaDeAcao() {
-    return date("Y-m-d");
-  }
-  public function getIDDiagnosticoIndividual()    {
-    return $this->_id_diagnostico_individual;
-  }
-  public function getIDUsuario()                  {
-    return $this->_id_usuario;
-  }
+    public function getNomePropostaDeAcao()
+    {
+        return $this->_nome_proposta_de_acao;
+    }
+    public function getTextoPropostaDeAcao()
+    {
+        return $this->_texto_proposta_de_acao;
+    }
+    public function getDataCadastroPropostaDeAcao()
+    {
+        return date("Y-m-d");
+    }
+    public function getIDDiagnosticoIndividual()
+    {
+        return $this->_id_diagnostico_individual;
+    }
+    public function getIDUsuario()
+    {
+        return $this->_id_usuario;
+    }
 
-  public function setNomePropostaDeAcao($_nome_proposta_de_acao)                  {
-    $this->_nome_proposta_de_acao = $_nome_proposta_de_acao;
-  }
-  public function setTextoPropostaDeAcao($_texto_proposta_de_acao)                {
-    $this->_texto_proposta_de_acao = $_texto_proposta_de_acao;
-  }
-  public function setDataCadastroPropostaDeAcao($_data_cadastro_proposta_de_acao) {
-    $this->_data_cadastro_proposta_de_acao = date("Y-m-d");
-  }
-  public function setIDDiagnosticoIndividual($_id_diagnostico_individual)         {
-    $this->_id_diagnostico_individual = $_id_diagnostico_individual;
-  }
-  public function setIDUsuario($_id_usuario)                                      {
-    $this->_id_usuario = $_id_usuario;
-  }
+    public function setNomePropostaDeAcao($_nome_proposta_de_acao)
+    {
+        $this->_nome_proposta_de_acao = $_nome_proposta_de_acao;
+    }
+    public function setTextoPropostaDeAcao($_texto_proposta_de_acao)
+    {
+        $this->_texto_proposta_de_acao = $_texto_proposta_de_acao;
+    }
+    public function setDataCadastroPropostaDeAcao($_data_cadastro_proposta_de_acao)
+    {
+        $this->_data_cadastro_proposta_de_acao = date("Y-m-d");
+    }
+    public function setIDDiagnosticoIndividual($_id_diagnostico_individual)
+    {
+        $this->_id_diagnostico_individual = $_id_diagnostico_individual;
+    }
+    public function setIDUsuario($_id_usuario)
+    {
+        $this->_id_usuario = $_id_usuario;
+    }
 
 }
 

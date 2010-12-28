@@ -20,62 +20,77 @@
 class ApagarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
+    protected $_context;
+    protected $_opcao;
 
-  public function generateObject($current) {
-    $id = $this->_context->ContextValue("apagar");
-    $oque = $this->_context->ContextValue("oque");
-    $retorno = $this->_context->ContextValue("returnurl");
+    public function generateObject($current)
+    {
+        $id = $this->_context->ContextValue("apagar");
+        $oque = $this->_context->ContextValue("oque");
+        $retorno = $this->_context->ContextValue("returnurl");
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "ver") {
-      if($id != "") {
+        if($this->_opcao == "ver")
+        {
+            if($id != "")
+            {
 
-        if($this->_context->ContextValue("acao") != 'delete') {
-          $url = '/apagar&amp;oque='.$oque.'&amp;returnurl='.$retorno.'&amp;apagar='.$id.'&amp;acao=delete';
-          $span1->addXmlnukeObject(new XmlNukeText('<br/><div id ="titulo_confirma">Tem Certeza que deseja Excluir?</div>'));
-          $span1->addXmlnukeObject(new XmlNukeText('<div style="color: #A92D1E; font-size: 21px; font-weight:900;"><a href="'.$url.'">(Sim)</a> ou <a href="'.$retorno.'" id="fecharfancy">(Não)</a></div>'));
-        } else {
-          $db = new GeralDB($this->_context);
-          $db->excluir($id, $oque);
+                if($this->_context->ContextValue("acao") != 'delete')
+                {
+                    $url = '/apagar&amp;oque='.$oque.'&amp;returnurl='.$retorno.'&amp;apagar='.$id.'&amp;acao=delete';
+                    $span1->addXmlnukeObject(new XmlNukeText('<br/><div id ="titulo_confirma">Tem Certeza que deseja Excluir?</div>'));
+                    $span1->addXmlnukeObject(new XmlNukeText('<div style="color: #A92D1E; font-size: 21px; font-weight:900;"><a href="./'.$url.'">(Sim)</a> ou <a href="./'.$retorno.'" id="fecharfancy">(Não)</a></div>'));
+                }
 
-          if($oque == 'usuario_x_tema_panteon') {
-            $this->_context->removeCookie("id_tema_panteon_definido");
-            $this->_context->removeCookie("nome_tema_panteon_definido");
-            $this->_context->addCookie("mensagem_aviso", "Tema Panteon excluído");
+                else
+                {
+                    $db = new GeralDB($this->_context);
+                    $db->excluir($id, $oque);
 
-          } else {
-            $this->_context->addCookie("mensagem_aviso", "Excluído");
+                    if($oque == 'usuario_x_tema_panteon')
+                    {
+                        $this->_context->removeCookie("id_tema_panteon_definido");
+                        $this->_context->removeCookie("nome_tema_panteon_definido");
+                        $this->_context->addCookie("mensagem_aviso", "Tema Panteon excluído");
 
-          }
+                    }
 
-          $this->_context->redirectUrl($retorno);
+                    else
+                    {
+                        $this->_context->addCookie("mensagem_aviso", "Excluído");
+
+                    }
+
+                    $this->_context->redirectUrl($retorno);
+
+                }
+
+
+            }
 
         }
 
+        // Gera Página XML Final
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
 
-      }
+        parent::generatePage($body);
 
     }
 
-    // Gera Página XML Final
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function ApagarDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function ApagarDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

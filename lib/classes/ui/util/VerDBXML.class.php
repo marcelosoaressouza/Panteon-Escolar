@@ -20,44 +20,51 @@
 class VerDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
+    protected $_context;
+    protected $_opcao;
 
-  public function generateObject($current) {
-    $id = $this->_context->ContextValue("ver");
-    $oque = $this->_context->ContextValue("oque");
-    $onde = $this->_context->ContextValue("onde");
+    public function generateObject($current)
+    {
+        $id = $this->_context->ContextValue("ver");
+        $oque = $this->_context->ContextValue("oque");
+        $onde = $this->_context->ContextValue("onde");
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "ver") {
-      if($id != "") {
-        $db = new GeralDB($this->_context);
-        $texto = $db->obter($oque, $onde, $id);
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Detalhe(s):</div><br/>'));
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$texto.'</div><br/>'));
+        if($this->_opcao == "ver")
+        {
+            if($id != "")
+            {
+                $db = new GeralDB($this->_context);
+                $texto = $db->obter($oque, $onde, $id);
+                $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Detalhe(s):</div><br/>'));
+                $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$texto.'</div><br/>'));
 
 
-      }
+            }
+
+        }
+
+        // Gera Página XML Final
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
 
-    // Gera Página XML Final
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function VerDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function VerDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

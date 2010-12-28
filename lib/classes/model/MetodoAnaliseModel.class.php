@@ -19,61 +19,73 @@
 
 class MetodoAnaliseModel extends PanteonEscolarBaseModel
 {
-  private $_nome_metodo_analise;
-  private $_descricao_metodo_analise;
-  private $_data_hora_cadastro_metodo_analise;
-  private $_caminho_foto_metodo_analise;
+    private $_nome_metodo_analise;
+    private $_descricao_metodo_analise;
+    private $_data_hora_cadastro_metodo_analise;
+    private $_caminho_foto_metodo_analise;
 
-  private $_id_metodo_analise;
-  private $_id_usuario;
+    private $_id_metodo_analise;
+    private $_id_usuario;
 
-  public function getIDMetodoAnalise() {
-    return $this->_id_metodo_analise;
-  }
+    public function getIDMetodoAnalise()
+    {
+        return $this->_id_metodo_analise;
+    }
 
-  public function setIDMetodoAnalise($id_metodo_analise) {
-    $this->_id_metodo_analise = $id_metodo_analise;
-  }
+    public function setIDMetodoAnalise($id_metodo_analise)
+    {
+        $this->_id_metodo_analise = $id_metodo_analise;
+    }
 
-  public function getNomeMetodoAnalise() {
-    return $this->_nome_metodo_analise;
-  }
+    public function getNomeMetodoAnalise()
+    {
+        return $this->_nome_metodo_analise;
+    }
 
-  public function setNomeMetodoAnalise($nome_metodo_analise) {
-    $this->_nome_metodo_analise = $nome_metodo_analise;
-  }
+    public function setNomeMetodoAnalise($nome_metodo_analise)
+    {
+        $this->_nome_metodo_analise = $nome_metodo_analise;
+    }
 
-  public function getDataHoraCadastroMetodoAnalise() {
-    return date("Y-m-d H:i:s");
-  }
+    public function getDataHoraCadastroMetodoAnalise()
+    {
+        return date("Y-m-d H:i:s");
+    }
 
-  public function setDataHoraCadastroMetodoAnalise($data_hora_cadastro_metodo_analise) {
-    $this->_data_hora_cadastro_metodo_analise = date("Y-m-d H:i:s");
-  }
+    public function setDataHoraCadastroMetodoAnalise($data_hora_cadastro_metodo_analise)
+    {
+        $this->_data_hora_cadastro_metodo_analise = date("Y-m-d H:i:s");
+    }
 
-  public function getDescricaoMetodoAnalise() {
-    return $this->_descricao_metodo_analise;
-  }
+    public function getDescricaoMetodoAnalise()
+    {
+        return $this->_descricao_metodo_analise;
+    }
 
-  public function setDescricaoMetodoAnalise($descricao_metodo_analise) {
-    $this->_descricao_metodo_analise = $descricao_metodo_analise;
-  }
+    public function setDescricaoMetodoAnalise($descricao_metodo_analise)
+    {
+        $this->_descricao_metodo_analise = $descricao_metodo_analise;
+    }
 
-  public function getCaminhoFotoMetodoAnalise() {
-    return $this->_caminho_foto_metodo_analise;
-  }
+    public function getCaminhoFotoMetodoAnalise()
+    {
+        return $this->_caminho_foto_metodo_analise;
+    }
 
-  public function setCaminhoFotoMetodoAnalise($caminho_foto_metodo_analise) {
-    $this->_caminho_foto_metodo_analise = $caminho_foto_metodo_analise;
-  }
+    public function setCaminhoFotoMetodoAnalise($caminho_foto_metodo_analise)
+    {
+        $this->_caminho_foto_metodo_analise = $caminho_foto_metodo_analise;
+    }
 
-  public function getIDUsuario() {
-    return $this->_id_usuario;
-  }
+    public function getIDUsuario()
+    {
+        return $this->_id_usuario;
+    }
 
-  public function setIDUsuario($id_usuario) {
-    $this->_id_usuario = $id_usuario;
-  }
+    public function setIDUsuario($id_usuario)
+    {
+        $this->_id_usuario = $id_usuario;
+    }
 }
 
 ?>

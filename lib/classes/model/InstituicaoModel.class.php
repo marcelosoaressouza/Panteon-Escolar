@@ -19,24 +19,28 @@
 
 class InstituicaoModel extends PanteonEscolarBaseModel
 {
-  private $_nome_instituicao;
-  private $_descricao_instituicao;
+    private $_nome_instituicao;
+    private $_descricao_instituicao;
 
-  public function getNomeInstituicao() {
-    return $this->_nome_instituicao;
-  }
+    public function getNomeInstituicao()
+    {
+        return $this->_nome_instituicao;
+    }
 
-  public function setNomeInstituicao($nome_instituicao) {
-    $this->_nome_instituicao = $nome_instituicao;
-  }
+    public function setNomeInstituicao($nome_instituicao)
+    {
+        $this->_nome_instituicao = $nome_instituicao;
+    }
 
-  public function getDescricaoInstituicao() {
-    return $this->_descricao_instituicao;
-  }
+    public function getDescricaoInstituicao()
+    {
+        return $this->_descricao_instituicao;
+    }
 
-  public function setDescricaoInstituicao($descricao_instituicao) {
-    $this->_descricao_instituicao = $descricao_instituicao;
-  }
+    public function setDescricaoInstituicao($descricao_instituicao)
+    {
+        $this->_descricao_instituicao = $descricao_instituicao;
+    }
 
 }
 

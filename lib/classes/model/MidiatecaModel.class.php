@@ -19,61 +19,73 @@
 
 class MidiatecaModel extends PanteonEscolarBaseModel
 {
-  private $_nome_midiateca;
-  private $_descricao_midiateca;
-  private $_data_hora_cadastro_midiateca;
-  private $_caminho_arquivo_midiateca;
-  private $_url_midiateca;
+    private $_nome_midiateca;
+    private $_descricao_midiateca;
+    private $_data_hora_cadastro_midiateca;
+    private $_caminho_arquivo_midiateca;
+    private $_url_midiateca;
 
-  private $_id_tipo_midia;
+    private $_id_tipo_midia;
 
-  public function getNomeMidiateca() {
-    return $this->_nome_midiateca;
-  }
+    public function getNomeMidiateca()
+    {
+        return $this->_nome_midiateca;
+    }
 
-  public function setNomeMidiateca($nome_midiateca) {
-    $this->_nome_midiateca = $nome_midiateca;
-  }
+    public function setNomeMidiateca($nome_midiateca)
+    {
+        $this->_nome_midiateca = $nome_midiateca;
+    }
 
-  public function getCaminhoArquivoMidiateca() {
-    return $this->_caminho_arquivo_midiateca;
-  }
+    public function getCaminhoArquivoMidiateca()
+    {
+        return $this->_caminho_arquivo_midiateca;
+    }
 
-  public function setCaminhoArquivoMidiateca($caminho_arquivo_midiateca) {
-    $this->_caminho_arquivo_midiateca = $caminho_arquivo_midiateca;
-  }
+    public function setCaminhoArquivoMidiateca($caminho_arquivo_midiateca)
+    {
+        $this->_caminho_arquivo_midiateca = $caminho_arquivo_midiateca;
+    }
 
-  public function getDataHoraCadastroMidiateca() {
-    return date("Y-m-d H:i:s");
-  }
+    public function getDataHoraCadastroMidiateca()
+    {
+        return date("Y-m-d H:i:s");
+    }
 
-  public function setDataHoraCadastroMidiateca($data_hora_cadastro_midiateca) {
-    $this->_data_hora_cadastro_midiateca = date("Y-m-d H:i:s");
-  }
+    public function setDataHoraCadastroMidiateca($data_hora_cadastro_midiateca)
+    {
+        $this->_data_hora_cadastro_midiateca = date("Y-m-d H:i:s");
+    }
 
-  public function getDescricaoMidiateca() {
-    return $this->_descricao_midiateca;
-  }
+    public function getDescricaoMidiateca()
+    {
+        return $this->_descricao_midiateca;
+    }
 
-  public function setDescricaoMidiateca($descricao_midiateca) {
-    $this->_descricao_midiateca = $descricao_midiateca;
-  }
+    public function setDescricaoMidiateca($descricao_midiateca)
+    {
+        $this->_descricao_midiateca = $descricao_midiateca;
+    }
 
-  public function getURLMidiateca() {
-    return $this->_url_midiateca;
-  }
+    public function getURLMidiateca()
+    {
+        return $this->_url_midiateca;
+    }
 
-  public function setURLMidiateca($url_midiateca) {
-    $this->_url_midiateca = $url_midiateca;
-  }
+    public function setURLMidiateca($url_midiateca)
+    {
+        $this->_url_midiateca = $url_midiateca;
+    }
 
-  public function getIDTipoMidia() {
-    return $this->_id_tipo_midia;
-  }
+    public function getIDTipoMidia()
+    {
+        return $this->_id_tipo_midia;
+    }
 
-  public function setIDTipoMidia($id_tipo_midia) {
-    $this->_id_tipo_midia = $id_tipo_midia;
-  }
+    public function setIDTipoMidia($id_tipo_midia)
+    {
+        $this->_id_tipo_midia = $id_tipo_midia;
+    }
 
 }
 

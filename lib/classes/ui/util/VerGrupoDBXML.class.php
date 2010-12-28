@@ -20,46 +20,56 @@
 class VerGrupoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
+    protected $_context;
+    protected $_opcao;
 
-  public function generateObject($current) {
-    $id_grupo_ver = $this->_context->ContextValue("vergrupo");
+    public function generateObject($current)
+    {
+        $id_grupo_ver = $this->_context->ContextValue("vergrupo");
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "ver") {
-      $db = new UsuarioXGrupoDB($this->_context);
-      $it = $db->obterTodosOsUsuariosPorIDGrupo($id_grupo_ver);
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Membros do Grupo:</div><br/>'));
+        if($this->_opcao == "ver")
+        {
+            $db = new UsuarioXGrupoDB($this->_context);
+            $it = $db->obterTodosOsUsuariosPorIDGrupo($id_grupo_ver);
+            $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Membros do Grupo:</div><br/>'));
 
-      if(!$it->hasNext()) $span1->addXmlnukeObject(new XmlNukeText("<b>Nenhum membro definido ainda.</b>"));
+            if(!$it->hasNext())
+            {
+                $span1->addXmlnukeObject(new XmlNukeText("<b>Nenhum membro definido ainda.</b>"));
+            }
 
-      while($it->hasNext()) {
-        $sr = $it->moveNext();
-        $usuario = "<b>".$sr->getField("nome_completo_usuario")."</b><br/>";
-        $span1->addXmlnukeObject(new XmlNukeText($usuario));
-      }
+            while($it->hasNext())
+            {
+                $sr = $it->moveNext();
+                $usuario = "<b>".$sr->getField("nome_completo_usuario")."</b><br/>";
+                $span1->addXmlnukeObject(new XmlNukeText($usuario));
+            }
 
+
+        }
+
+        // Gera Página XML Final
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
 
-    // Gera Página XML Final
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function VerGrupoDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function VerGrupoDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

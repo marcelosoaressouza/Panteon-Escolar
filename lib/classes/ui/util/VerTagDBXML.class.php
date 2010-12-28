@@ -20,40 +20,47 @@
 class VerTagDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
+    protected $_context;
+    protected $_opcao;
 
-  public function generateObject($current) {
-    $id_tag_ver = $this->_context->ContextValue("vertag");
+    public function generateObject($current)
+    {
+        $id_tag_ver = $this->_context->ContextValue("vertag");
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "ver") {
-      if($id_tag_ver != "") {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id ="titulo_confirma">Você tem certeza que deseja remover esta Tag?</div>'));
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="texto_confirma"><a href="/configtag&acao=delete&id='.$id_tag_ver.'">Clique aqui para confirmar</a></div>'));
+        if($this->_opcao == "ver")
+        {
+            if($id_tag_ver != "")
+            {
+                $span1->addXmlnukeObject(new XmlNukeText('<div id ="titulo_confirma">Você tem certeza que deseja remover esta Tag?</div>'));
+                $span1->addXmlnukeObject(new XmlNukeText('<div id="texto_confirma"><a href="/configtag&acao=delete&id='.$id_tag_ver.'">Clique aqui para confirmar</a></div>'));
 
 
-      }
+            }
+
+        }
+
+        // Gera Página XML Final
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
 
-    // Gera Página XML Final
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function VerTagDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function VerTagDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

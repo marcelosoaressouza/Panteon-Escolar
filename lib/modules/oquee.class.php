@@ -22,38 +22,41 @@ ModuleFactory::IncludePhp("panteonescolar", "classes/base/PanteonEscolarBaseModu
 class OQueE extends PanteonEscolarBaseModule
 {
 
-  public function CreatePage() {
-    $myWords = $this->WordCollection();
+    public function CreatePage()
+    {
+        $myWords = $this->WordCollection();
 
-    $this->defaultXmlnukeDocument = new XmlnukeDocument("O Que é o Panteon Escolar?", "O Que é o Panteon Escolar?");
+        $this->defaultXmlnukeDocument = new XmlnukeDocument("O Que é o Panteon Escolar?", "O Que é o Panteon Escolar?");
 
-    $blockHead   = new XmlBlockCollection(NULL, BlockPosition::Right);
-    $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
-    $blockInfo   = new XmlBlockCollection(NULL, BlockPosition::Left);
-    $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
+        $blockHead   = new XmlBlockCollection(NULL, BlockPosition::Right);
+        $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
+        $blockInfo   = new XmlBlockCollection(NULL, BlockPosition::Left);
+        $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
 
-    $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
-    $blockHead->addXmlnukeObject(new OQueEDBXML($this->_context, "menuHead"));
+        $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
+        $blockHead->addXmlnukeObject(new OQueEDBXML($this->_context, "menuHead"));
 
-    $this->defaultXmlnukeDocument->addXmlnukeObject($blockInfo);
-    $blockInfo->addXmlnukeObject(new OQueEDBXML($this->_context, "listarDireita"));
+        $this->defaultXmlnukeDocument->addXmlnukeObject($blockInfo);
+        $blockInfo->addXmlnukeObject(new OQueEDBXML($this->_context, "listarDireita"));
 
-    $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
-    $blockCenter->addXmlnukeObject(new OQueEDBXML($this->_context, "processPageField"));
+        $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
+        $blockCenter->addXmlnukeObject(new OQueEDBXML($this->_context, "processPageField"));
 
-    return $this->defaultXmlnukeDocument;
+        return $this->defaultXmlnukeDocument;
 
-  }
+    }
 
-  public function __constructor() {}
-  public function __destruct() { }
-  public function useCache() {
-    return false;
-  }
+    public function __constructor() {}
+    public function __destruct() { }
+    public function useCache()
+    {
+        return false;
+    }
 
-  public function requiresAuthentication() {
-    return false;
-  }
+    public function requiresAuthentication()
+    {
+        return false;
+    }
 
 }
 

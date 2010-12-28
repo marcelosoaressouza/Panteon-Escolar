@@ -19,34 +19,40 @@
 
 class SituacaoProblemaModel extends PanteonEscolarBaseModel
 {
-  private $_nome_situacao_problema;
-  private $_descricao_situacao_problema;
+    private $_nome_situacao_problema;
+    private $_descricao_situacao_problema;
 
-  private $_id_tema_panteon;
+    private $_id_tema_panteon;
 
-  public function getNomeSituacaoProblema() {
-    return $this->_nome_situacao_problema;
-  }
+    public function getNomeSituacaoProblema()
+    {
+        return $this->_nome_situacao_problema;
+    }
 
-  public function setNomeSituacaoProblema($nome_situacao_problema) {
-    $this->_nome_situacao_problema = $nome_situacao_problema;
-  }
+    public function setNomeSituacaoProblema($nome_situacao_problema)
+    {
+        $this->_nome_situacao_problema = $nome_situacao_problema;
+    }
 
-  public function getDescricaoSituacaoProblema() {
-    return $this->_descricao_situacao_problema;
-  }
+    public function getDescricaoSituacaoProblema()
+    {
+        return $this->_descricao_situacao_problema;
+    }
 
-  public function setDescricaoSituacaoProblema($descricao_situacao_problema) {
-    $this->_descricao_situacao_problema = $descricao_situacao_problema;
-  }
+    public function setDescricaoSituacaoProblema($descricao_situacao_problema)
+    {
+        $this->_descricao_situacao_problema = $descricao_situacao_problema;
+    }
 
-  public function getIDTemaPanteon() {
-    return $this->_id_tema_panteon;
-  }
+    public function getIDTemaPanteon()
+    {
+        return $this->_id_tema_panteon;
+    }
 
-  public function setIDTemaPanteon($id_tema_panteon) {
-    $this->_id_tema_panteon = $id_tema_panteon;
-  }
+    public function setIDTemaPanteon($id_tema_panteon)
+    {
+        $this->_id_tema_panteon = $id_tema_panteon;
+    }
 
 }
 

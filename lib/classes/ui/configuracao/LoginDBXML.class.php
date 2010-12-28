@@ -20,64 +20,79 @@
 class LoginDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
-  protected $_num_registros_padrao = 3;
+    protected $_context;
+    protected $_opcao;
+    protected $_num_registros_padrao = 3;
 
-  public function generateObject($current) {
+    public function generateObject($current)
+    {
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    $titulo = "Login(s)";
-    $nome_modulo = "login";
+        $titulo = "Login(s)";
+        $nome_modulo = "login";
 
-    if($this->_opcao == "listarDireita") {
-      $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-      $body = PanteonEscolarBaseModule::criarTitulo($node);
-      $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
+        if($this->_opcao == "listarDireita")
+        {
+            $node = XmlUtil::CreateChild($current, "blockmensagem", "");
+            $body = PanteonEscolarBaseModule::criarTitulo($node);
+            $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
+
+        }
+
+        // Inicio - menu
+        //
+        if($this->_opcao == "menu")
+        {
+            $node = XmlUtil::CreateChild($current, "blockabausuario", "");
+            $body = PanteonEscolarBaseModule::preencherMenuPadrao($node);
+
+        }
+
+        //
+        // Fim - menu
+
+        // Inicio - menu head
+        //
+        if($this->_opcao == "menuHead")
+        {
+            $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
+            $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial());
+
+            if($this->_context->ContextValue("action") == "action.NEWUSER")
+            {
+                $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('/xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'));
+            }
+
+            else
+            {
+                $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('xmlnuke.php?module=login&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil'));
+            }
+
+        }
+
+        //
+        // Fim - menu head
+
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
 
-    // Inicio - menu
-    //
-    if($this->_opcao == "menu") {
-      $node = XmlUtil::CreateChild($current, "blockabausuario", "");
-      $body = PanteonEscolarBaseModule::preencherMenuPadrao($node);
+    public function LoginDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
+
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
     }
-    //
-    // Fim - menu
-
-    // Inicio - menu head
-    //
-    if($this->_opcao == "menuHead") {
-      $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
-      $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial());
-
-      if($this->_context->ContextValue("action") == "action.NEWUSER")
-        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('/xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'));
-      else
-        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('xmlnuke.php?module=login&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil'));
-
-    }
-    //
-    // Fim - menu head
-
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
-
-    parent::generatePage($body);
-
-  }
-
-  public function LoginDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
 
 }
 

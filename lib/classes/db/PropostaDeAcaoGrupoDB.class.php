@@ -19,83 +19,87 @@
 
 class PropostaDeAcaoGrupoDB extends PanteonEscolarBaseDBAccess
 {
-  protected $_nome_tabela = "proposta_de_acao_grupo";
-  protected $_nome_tabela_primaria = "grupo";
+    protected $_nome_tabela = "proposta_de_acao_grupo";
+    protected $_nome_tabela_primaria = "grupo";
 
-  /**
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosRelacionados() {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
+    /**
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosRelacionados()
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
+        return $it;
 
-  }
+    }
 
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosOsDiagnosticosDeGrupoPorIDGrupo($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosOsDiagnosticosDeGrupoPorIDGrupo($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
 
 
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
+        return $it;
 
-  }
+    }
 
-  /**
-   * @param int $id
-   * @access public
-   * @return Model
-  */
-  public function obterPorId($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+    /**
+     * @param int $id
+     * @access public
+     * @return Model
+    */
+    public function obterPorId($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
 
-    $param = array("id" => $id);
+        $param = array("id" => $id);
 
-    $it = $this->getIterator($sql, $param);
+        $it = $this->getIterator($sql, $param);
 
-    $model = new PropostaDeAcaoGrupoModel();
-    $model->bindIterator($it);
+        $model = new PropostaDeAcaoGrupoModel();
+        $model->bindIterator($it);
 
-    return $model;
-  }
+        return $model;
+    }
 
-  /**
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodos() {
-    $sql = "SELECT * FROM ".$this->_nome_tabela;
+    /**
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodos()
+    {
+        $sql = "SELECT * FROM ".$this->_nome_tabela;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
-  }
+        return $it;
+    }
 
 }
 

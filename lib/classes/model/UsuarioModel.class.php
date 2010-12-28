@@ -20,70 +20,84 @@
 class UsuarioModel extends PanteonEscolarBaseModel
 {
 
-  private $_nome_completo_usuario;
-  private $_senha_usuario;
-  private $_email_usuario;
-  private $_data_cadastro_usuario;
-  private $_login_usuario;
-  private $_admin_usuario;
+    private $_nome_completo_usuario;
+    private $_senha_usuario;
+    private $_email_usuario;
+    private $_data_cadastro_usuario;
+    private $_login_usuario;
+    private $_admin_usuario;
 
-  private $_id_instituicao;
+    private $_id_instituicao;
 
-  public function setNomeCompletoUsuario($nome_completo_usuario) {
-    $this->_nome_completo_usuario = $nome_completo_usuario;
-  }
+    public function setNomeCompletoUsuario($nome_completo_usuario)
+    {
+        $this->_nome_completo_usuario = $nome_completo_usuario;
+    }
 
-  public function getNomeCompletoUsuario() {
-    return $this->_nome_completo_usuario;
-  }
+    public function getNomeCompletoUsuario()
+    {
+        return $this->_nome_completo_usuario;
+    }
 
-  public function setSenhaUsuario($senha_usuario) {
-    $this->_senha_usuario = $senha_usuario;
-  }
+    public function setSenhaUsuario($senha_usuario)
+    {
+        $this->_senha_usuario = $senha_usuario;
+    }
 
-  public function getSenhaUsuario() {
-    return $this->_senha_usuario;
-  }
+    public function getSenhaUsuario()
+    {
+        return $this->_senha_usuario;
+    }
 
-  public function setEmailUsuario($email_usuario) {
-    $this->_email_usuario = $email_usuario;
-  }
+    public function setEmailUsuario($email_usuario)
+    {
+        $this->_email_usuario = $email_usuario;
+    }
 
-  public function getEmailUsuario() {
-    return $this->_email_usuario;
-  }
+    public function getEmailUsuario()
+    {
+        return $this->_email_usuario;
+    }
 
-  public function setDataCadastroUsuario($data_cadastro_usuario) {
-    $this->_data_cadastro_usuario = date("Y-m-d");
-  }
+    public function setDataCadastroUsuario($data_cadastro_usuario)
+    {
+        $this->_data_cadastro_usuario = date("Y-m-d");
+    }
 
-  public function getDataCadastroUsuario() {
-    return date("Y-m-d");
-  }
+    public function getDataCadastroUsuario()
+    {
+        return date("Y-m-d");
+    }
 
-  public function setIDInstituicao($id_instituicao) {
-    $this->_id_instituicao = $id_instituicao;
-  }
+    public function setIDInstituicao($id_instituicao)
+    {
+        $this->_id_instituicao = $id_instituicao;
+    }
 
-  public function getIDInstituicao() {
-    return $this->_id_instituicao;
-  }
+    public function getIDInstituicao()
+    {
+        return $this->_id_instituicao;
+    }
 
-  public function setLoginUsuario($login_usuario) {
-    $this->_login_usuario = $login_usuario;
-  }
+    public function setLoginUsuario($login_usuario)
+    {
+        $this->_login_usuario = $login_usuario;
+    }
 
-  public function getLoginUsuario() {
-    return $this->_login_usuario;
-  }
+    public function getLoginUsuario()
+    {
+        return $this->_login_usuario;
+    }
 
-  public function setAdminUsuario($admin_usuario) {
-    $this->_admin_usuario = $admin_usuario;
-  }
+    public function setAdminUsuario($admin_usuario)
+    {
+        $this->_admin_usuario = $admin_usuario;
+    }
 
-  public function getAdminUsuario() {
-    return $this->_admin_usuario;
-  }
+    public function getAdminUsuario()
+    {
+        return $this->_admin_usuario;
+    }
 
 }
 

@@ -19,24 +19,28 @@
 
 class UsuarioXGrupoModel extends PanteonEscolarBaseModel
 {
-  private $_id_usuario;
-  private $_id_grupo;
+    private $_id_usuario;
+    private $_id_grupo;
 
-  public function setIDUsuario($id_usuario) {
-    $this->_id_usuario = $id_usuario;
-  }
+    public function setIDUsuario($id_usuario)
+    {
+        $this->_id_usuario = $id_usuario;
+    }
 
-  public function getIDUsuario() {
-    return $this->_id_usuario;
-  }
+    public function getIDUsuario()
+    {
+        return $this->_id_usuario;
+    }
 
-  public function setIDGrupo($id_grupo) {
-    $this->_id_grupo = $id_grupo;
-  }
+    public function setIDGrupo($id_grupo)
+    {
+        $this->_id_grupo = $id_grupo;
+    }
 
-  public function getIDGrupo() {
-    return $this->_id_grupo;
-  }
+    public function getIDGrupo()
+    {
+        return $this->_id_grupo;
+    }
 
 }
 

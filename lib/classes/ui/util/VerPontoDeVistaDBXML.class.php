@@ -20,87 +20,99 @@
 class VerPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
+    protected $_context;
+    protected $_opcao;
 
-  public function generateObject($current) {
-    $id_ponto_de_vista_ver = $this->_context->ContextValue("pontodevista");
-    $id_usuario = $this->_context->authenticatedUserId();
+    public function generateObject($current)
+    {
+        $id_ponto_de_vista_ver = $this->_context->ContextValue("pontodevista");
+        $id_usuario = $this->_context->authenticatedUserId();
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "ver") {
-      $db = new PontodeVistaDB($this->_context);
-      $dbSP = new SituacaoProblemaDB($this->_context);
-      $dbIA = new ItemAnaliseDB($this->_context);
-      $dbS = new SujeitoDB($this->_context);
+        if($this->_opcao == "ver")
+        {
+            $db = new PontodeVistaDB($this->_context);
+            $dbSP = new SituacaoProblemaDB($this->_context);
+            $dbIA = new ItemAnaliseDB($this->_context);
+            $dbS = new SujeitoDB($this->_context);
 
-      $model = new PontodeVistaModel();
-      $model = $db->obterPorId($id_ponto_de_vista_ver);
+            $model = new PontodeVistaModel();
+            $model = $db->obterPorId($id_ponto_de_vista_ver);
 
-      $id_situacao_problema = $model->getIDSituacaoProblema();
-      $id_item_analise = $model->getIDItemAnalise();
-      $id_sujeito = $model->getIDSujeito();
+            $id_situacao_problema = $model->getIDSituacaoProblema();
+            $id_item_analise = $model->getIDItemAnalise();
+            $id_sujeito = $model->getIDSujeito();
 
-      $item_analise = $dbIA->obterPorId($id_item_analise)->getNomeItemAnalise();
-      $situacao_problema = $dbSP->obterPorId($id_situacao_problema)->getNomeSituacaoProblema();
-      $sujeito = $dbS->obterPorId($id_sujeito)->getNomeSujeito();
-      $texto = $model->getTextoPontodeVista();
+            $item_analise = $dbIA->obterPorId($id_item_analise)->getNomeItemAnalise();
+            $situacao_problema = $dbSP->obterPorId($id_situacao_problema)->getNomeSituacaoProblema();
+            $sujeito = $dbS->obterPorId($id_sujeito)->getNomeSujeito();
+            $texto = $model->getTextoPontodeVista();
 
-      $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Item Análise</div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$item_analise.'</div><br/>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Item Análise</div>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$item_analise.'</div><br/>'));
 
-      $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Situação-Problema</div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$situacao_problema.'</div><br/>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Situação-Problema</div>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$situacao_problema.'</div><br/>'));
 
-      $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Sujeito</div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$sujeito.'</div><br/>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Sujeito</div>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$sujeito.'</div><br/>'));
 
-      if($id_usuario != "") {
-        $db = new UsuarioXPontoDeVistaDB($this->_context);
-        $it = $db->obterPorIDUsuarioXPontoDeVista($id_usuario, $id_ponto_de_vista_ver);
+            if($id_usuario != "")
+            {
+                $db = new UsuarioXPontoDeVistaDB($this->_context);
+                $it = $db->obterPorIDUsuarioXPontoDeVista($id_usuario, $id_ponto_de_vista_ver);
 
-        if($it->hasNext()) {
-          $sr = $it->moveNext();
-          $comentário = $sr->getField('texto_usuario_x_ponto_de_vista');
+                if($it->hasNext())
+                {
+                    $sr = $it->moveNext();
+                    $comentário = $sr->getField('texto_usuario_x_ponto_de_vista');
 
-          $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Comentário</div><br/>'));
+                    $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Comentário</div><br/>'));
 
-          if($sr->getField('texto_usuario_x_ponto_de_vista') == "") {
-            $span1->addXmlnukeObject(new XmlNukeText('Comentário em Branco.'));
+                    if($sr->getField('texto_usuario_x_ponto_de_vista') == "")
+                    {
+                        $span1->addXmlnukeObject(new XmlNukeText('Comentário em Branco.'));
 
-          } else {
-            $span1->addXmlnukeObject(new XmlNukeText($comentário));
+                    }
 
-          }
+                    else
+                    {
+                        $span1->addXmlnukeObject(new XmlNukeText($comentário));
+
+                    }
+
+
+                }
+            }
+
+            $span1->addXmlnukeObject(new XmlNukeText('<br/><br/>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Ponto de Vista</div><br/>'));
+            $span1->addXmlnukeObject(new XmlNukeText($texto));
 
 
         }
-      }
 
-      $span1->addXmlnukeObject(new XmlNukeText('<br/><br/>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">Ponto de Vista</div><br/>'));
-      $span1->addXmlnukeObject(new XmlNukeText($texto));
+        // Gera Página XML Final
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
 
+        parent::generatePage($body);
 
     }
 
-    // Gera Página XML Final
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function VerPontoDeVistaDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function VerPontoDeVistaDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

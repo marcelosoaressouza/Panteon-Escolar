@@ -20,148 +20,179 @@
 class MeusPontosDeVistasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
-  protected $_num_registros_padrao = 3;
+    protected $_context;
+    protected $_opcao;
+    protected $_num_registros_padrao = 3;
 
-  public function generateObject($current) {
-    $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
+    public function generateObject($current)
+    {
+        $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
 
-    $id_usuario = $this->_context->authenticatedUserId();
-    $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
+        $id_usuario = $this->_context->authenticatedUserId();
+        $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
 
-    if($id_tema_panteon == "") $this->_context->redirectUrl("/meustemaspanteon");
+        if($id_tema_panteon == "")
+        {
+            $this->_context->redirectUrl("/meustemaspanteon");
+        }
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "listarDireita") {
-      $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-      $body = PanteonEscolarBaseModule::criarTitulo($node);
-      $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")) XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+        if($this->_opcao == "listarDireita")
+        {
+            $node = XmlUtil::CreateChild($current, "blockmensagem", "");
+            $body = PanteonEscolarBaseModule::criarTitulo($node);
+            $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-    }
+            if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+            {
+                XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+            }
 
-    if($this->_opcao == "processPageField") {
-      $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
+        }
 
-      $dbxml = new UsuarioXPontoDeVistaDBXML($this->_context, "meuspontosdevistas", "Meus Pontos de Vistas");
-      $coletado = $this->_context->ContextValue("coletados");
+        if($this->_opcao == "processPageField")
+        {
+            $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
 
-      if($this->_context->ContextValue("acao") == "delete") {
-        $db = new UsuarioXPontoDeVistaDB($this->_context);
-        $db->excluir($this->_context->ContextValue("id"));
-        $this->_context->addCookie("mensagem_aviso", "Ponto de Vista removido");
-        $this->_context->redirectUrl("/todospontodevistatemapanteon");
+            $dbxml = new UsuarioXPontoDeVistaDBXML($this->_context, "meuspontosdevistas", "Meus Pontos de Vistas");
+            $coletado = $this->_context->ContextValue("coletados");
 
-      }
+            if($this->_context->ContextValue("acao") == "delete")
+            {
+                $db = new UsuarioXPontoDeVistaDB($this->_context);
+                $db->excluir($this->_context->ContextValue("id"));
+                $this->_context->addCookie("mensagem_aviso", "Ponto de Vista removido");
+                $this->_context->redirectUrl("/todospontodevistatemapanteon");
 
-      $permissao = array(false, false, false, false);
-      $pagina = $dbxml->criarProcessPageFields($id_usuario, $id_tema_panteon, $permissao, $coletado);
+            }
+
+            $permissao = array(false, false, false, false);
+            $pagina = $dbxml->criarProcessPageFields($id_usuario, $id_tema_panteon, $permissao, $coletado);
 
 //      Filtro a ser implementado no DBXML
 //      $span1->addXmlnukeObject($this->filtro($id_tema_panteon));
 
-      if($pagina->getAllRecords()->Count() > 0) {
-        $span1->addXmlnukeObject($pagina);
+            if($pagina->getAllRecords()->Count() > 0)
+            {
+                $span1->addXmlnukeObject($pagina);
 
-      } else {
-        if($coletado == 0)
-          $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Descartado.</div>'));
-        else
-          $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Coletado.</div>'));
-      }
+            }
+
+            else
+            {
+                if($coletado == 0)
+                {
+                    $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Descartado.</div>'));
+                }
+
+                else
+                {
+                    $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Coletado.</div>'));
+                }
+            }
+
+        }
+
+        // Inicio - menu
+        //
+        if($this->_opcao == "menu")
+        {
+            $node = XmlUtil::CreateChild($current, "blockabausuario", "");
+            $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuUsuario(PanteonEscolarMenu::PontoDeVista));
+        }
+
+        //
+        // Fim - menu
+
+        // Inicio - menu head
+        //
+        if($this->_opcao == "menuHead")
+        {
+            $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
+            XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
+
+            $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+            $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
+            $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
+            XmlUtil::AddAttribute($node, "nome_usuario", $msg);
+            XmlUtil::AddAttribute($node, "logout", "true");
+
+        }
+
+        //
+        // Fim - menu head
+
+
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
 
-    // Inicio - menu
-    //
-    if($this->_opcao == "menu") {
-      $node = XmlUtil::CreateChild($current, "blockabausuario", "");
-      $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuUsuario(PanteonEscolarMenu::PontoDeVista));
-    }
-    //
-    // Fim - menu
+    public function filtro($id_tema_panteon)
+    {
+        $span = new XmlnukeSpanCollection();
+        $formPost = "module:panteonescolar.meuspontosdevistas";
+        $form = new XmlFormCollection($this->_context, $formPost, "Ver Ponto de Vista");
 
-    // Inicio - menu head
-    //
-    if($this->_opcao == "menuHead") {
-      $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
-      XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
+        $buttons = new XmlInputButtons();
+        $buttons->addSubmit("Filtrar");
 
-      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
-      $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
-      $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
-      XmlUtil::AddAttribute($node, "nome_usuario", $msg);
-      XmlUtil::AddAttribute($node, "logout", "true");
+        $form->addXmlnukeObject($this->filtroItemAnalise($id_tema_panteon));
+        $form->addXmlnukeObject($this->filtroSituacaoProblema($id_tema_panteon));
+        $form->addXmlnukeObject($buttons);
+
+        $span->addXmlnukeObject($form);
+
+        return $span;
 
     }
-    //
-    // Fim - menu head
 
+    public function filtroItemAnalise($id_tema_panteon)
+    {
+        $temapanteon = new TemaPanteonDB($this->_context);
+        $itemanalise = new ItemAnaliseDB($this->_context);
+        $modelTemaPanteon = new TemaPanteonModel();
 
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+        $modelTemaPanteon = $temapanteon->obterPorId($id_tema_panteon);
 
-    parent::generatePage($body);
+        $it = $itemanalise->obterTodosOsItensAnalisePorIDMetodoAnalise($modelTemaPanteon->getIDMetodoAnalise());
 
-  }
+        $listaItemAnalise = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_item_analise", "nome_item_analise");
 
-  public function filtro($id_tema_panteon) {
-    $span = new XmlnukeSpanCollection();
-    $formPost = "module:panteonescolar.meuspontosdevistas";
-    $form = new XmlFormCollection($this->_context, $formPost, "Ver Ponto de Vista");
+        $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_item_analise_filtro", "Item Análise", $listaItemAnalise);
 
-    $buttons = new XmlInputButtons();
-    $buttons->addSubmit("Filtrar");
+        return $lista;
 
-    $form->addXmlnukeObject($this->filtroItemAnalise($id_tema_panteon));
-    $form->addXmlnukeObject($this->filtroSituacaoProblema($id_tema_panteon));
-    $form->addXmlnukeObject($buttons);
+    }
 
-    $span->addXmlnukeObject($form);
+    public function filtroSituacaoProblema($id_tema_panteon)
+    {
+        $situacaoproblema = new SituacaoProblemaDB($this->_context);
+        $it = $situacaoproblema->obterTodasAsSituacoesProblemasPorIDTemaPanteon($id_tema_panteon);
 
-    return $span;
+        $listaSituacaoProblem = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_situacao_problema", "nome_situacao_problema");
 
-  }
+        $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_situacao_problema_filtro", "Situação-Problema", $listaSituacaoProblem);
 
-  public function filtroItemAnalise($id_tema_panteon) {
-    $temapanteon = new TemaPanteonDB($this->_context);
-    $itemanalise = new ItemAnaliseDB($this->_context);
-    $modelTemaPanteon = new TemaPanteonModel();
+        return $lista;
 
-    $modelTemaPanteon = $temapanteon->obterPorId($id_tema_panteon);
+    }
 
-    $it = $itemanalise->obterTodosOsItensAnalisePorIDMetodoAnalise($modelTemaPanteon->getIDMetodoAnalise());
+    public function MeusPontosDeVistasDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    $listaItemAnalise = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_item_analise", "nome_item_analise");
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_item_analise_filtro", "Item Análise", $listaItemAnalise);
-
-    return $lista;
-
-  }
-
-  public function filtroSituacaoProblema($id_tema_panteon) {
-    $situacaoproblema = new SituacaoProblemaDB($this->_context);
-    $it = $situacaoproblema->obterTodasAsSituacoesProblemasPorIDTemaPanteon($id_tema_panteon);
-
-    $listaSituacaoProblem = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_situacao_problema", "nome_situacao_problema");
-
-    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_situacao_problema_filtro", "Situação-Problema", $listaSituacaoProblem);
-
-    return $lista;
-
-  }
-
-  public function MeusPontosDeVistasDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

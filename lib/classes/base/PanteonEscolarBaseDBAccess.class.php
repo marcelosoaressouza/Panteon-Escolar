@@ -19,12 +19,14 @@
 
 abstract class PanteonEscolarBaseDBAccess extends BaseDBAccess
 {
-  public function getDataBaseName() {
-    return PanteonEscolarBaseDBAccess::DATABASE();
-  }
-  public static function DATABASE() {
-    return "panteonescolar_stable";
-  }
+    public function getDataBaseName()
+    {
+        return PanteonEscolarBaseDBAccess::DATABASE();
+    }
+    public static function DATABASE()
+    {
+        return "panteonescolar_stable";
+    }
 }
 
 ?>

@@ -19,15 +19,17 @@
 
 class NivelAcessoModel extends PanteonEscolarBaseModel
 {
-  private $_nome_nivel_acesso;
+    private $_nome_nivel_acesso;
 
-  public function getNomeNivelAcesso() {
-    return $this->_nome_nivel_acesso;
-  }
+    public function getNomeNivelAcesso()
+    {
+        return $this->_nome_nivel_acesso;
+    }
 
-  public function setNomeNivelAcesso($nome_nivel_acesso) {
-    $this->_nome_nivel_acesso = $nome_nivel_acesso;
-  }
+    public function setNomeNivelAcesso($nome_nivel_acesso)
+    {
+        $this->_nome_nivel_acesso = $nome_nivel_acesso;
+    }
 
 }
 

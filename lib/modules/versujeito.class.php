@@ -22,27 +22,30 @@ ModuleFactory::IncludePhp("panteonescolar", "classes/base/PanteonEscolarBaseModu
 class VerSujeito extends PanteonEscolarBaseModule
 {
 
-  public function CreatePage() {
-    $myWords = $this->WordCollection();
+    public function CreatePage()
+    {
+        $myWords = $this->WordCollection();
 
-    $titulo = "Ver Sujeito";
-    $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTitulo($titulo, $this->_context->getCookie("nome_tema_panteon_definido"));
+        $titulo = "Ver Sujeito";
+        $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTitulo($titulo, $this->_context->getCookie("nome_tema_panteon_definido"));
 
-    $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
-    $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
-    $blockCenter->addXmlnukeObject(new VerSujeitoDBXML($this->_context, "ver"));
+        $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
+        $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
+        $blockCenter->addXmlnukeObject(new VerSujeitoDBXML($this->_context, "ver"));
 
-    return $this->defaultXmlnukeDocument;
-  }
+        return $this->defaultXmlnukeDocument;
+    }
 
-  public function __constructor() {}
-  public function __destruct() { }
-  public function useCache() {
-    return false;
-  }
-  public function requiresAuthentication() {
-    return false;
-  }
+    public function __constructor() {}
+    public function __destruct() { }
+    public function useCache()
+    {
+        return false;
+    }
+    public function requiresAuthentication()
+    {
+        return false;
+    }
 
 }
 

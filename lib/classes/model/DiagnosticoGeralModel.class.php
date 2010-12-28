@@ -19,33 +19,39 @@
 
 class DiagnosticoGeralModel extends PanteonEscolarBaseModel
 {
-  private $_texto_diagnostico_geral;
-  private $_data_hora_cadastro_diagnostico_geral;
-  private $_id_usuario_x_tema_panteon;
+    private $_texto_diagnostico_geral;
+    private $_data_hora_cadastro_diagnostico_geral;
+    private $_id_usuario_x_tema_panteon;
 
-  public function getDataHoraUltimaAtualizacaoDiagnosticoGeral() {
-    return date("Y-m-d H:i:s");
-  }
+    public function getDataHoraUltimaAtualizacaoDiagnosticoGeral()
+    {
+        return date("Y-m-d H:i:s");
+    }
 
-  public function setDataHoraUltimaAtualizacaoDiagnosticoGeral($data_hora_ultima_atualizacao_diagnostico_geral) {
-    $this->_data_hora_ultima_atualizacao_diagnostico_geral = date("Y-m-d H:i:s");
-  }
+    public function setDataHoraUltimaAtualizacaoDiagnosticoGeral($data_hora_ultima_atualizacao_diagnostico_geral)
+    {
+        $this->_data_hora_ultima_atualizacao_diagnostico_geral = date("Y-m-d H:i:s");
+    }
 
-  public function getTextoDiagnosticoGeral() {
-    return $this->_texto_diagnostico_geral;
-  }
+    public function getTextoDiagnosticoGeral()
+    {
+        return $this->_texto_diagnostico_geral;
+    }
 
-  public function setTextoDiagnosticoGeral($texto_diagnostico_geral) {
-    $this->_texto_diagnostico_geral = $texto_diagnostico_geral;
-  }
+    public function setTextoDiagnosticoGeral($texto_diagnostico_geral)
+    {
+        $this->_texto_diagnostico_geral = $texto_diagnostico_geral;
+    }
 
-  public function getIDUsuarioXTemaPanteon() {
-    return $this->_id_usuario_x_tema_panteon;
-  }
+    public function getIDUsuarioXTemaPanteon()
+    {
+        return $this->_id_usuario_x_tema_panteon;
+    }
 
-  public function setIDUsuarioXTemaPanteon($id_usuario_x_tema_panteon) {
-    $this->_id_usuario_x_tema_panteon = id_usuario_x_tema_panteon;
-  }
+    public function setIDUsuarioXTemaPanteon($id_usuario_x_tema_panteon)
+    {
+        $this->_id_usuario_x_tema_panteon = id_usuario_x_tema_panteon;
+    }
 
 }
 

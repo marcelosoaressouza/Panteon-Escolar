@@ -20,27 +20,30 @@
 class GeralDB extends PanteonEscolarBaseDBAccess
 {
 
-  public function obter($oque, $onde, $id) {
-    $sql = "SELECT ".$oque." FROM ".$onde." WHERE ".$onde.".id_".$onde." = ".$id;
-    $it = $this->getIterator($sql);
+    public function obter($oque, $onde, $id)
+    {
+        $sql = "SELECT ".$oque." FROM ".$onde." WHERE ".$onde.".id_".$onde." = ".$id;
+        $it = $this->getIterator($sql);
 
-    while($it->hasNext()) {
-      $sr = $it->moveNext();
-      $texto = $sr->getField($oque);
+        while($it->hasNext())
+        {
+            $sr = $it->moveNext();
+            $texto = $sr->getField($oque);
 
+        }
+
+        return $texto;
     }
 
-    return $texto;
-  }
+    public function excluir($id, $oque)
+    {
+        $sql = "DELETE FROM ".$oque." WHERE id_".$oque." = ".$id;
 
-  public function excluir($id, $oque) {
-    $sql = "DELETE FROM ".$oque." WHERE id_".$oque." = ".$id;
+        $resultado = $this->executeSQL($sql);
 
-    $resultado = $this->executeSQL($sql);
+        return $resultado;
 
-    return $resultado;
-
-  }
+    }
 
 
 }

@@ -20,56 +20,63 @@
 class VerPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-  protected $_context;
-  protected $_opcao;
+    protected $_context;
+    protected $_opcao;
 
-  public function generateObject($current) {
-    $id_perfil_ver = $this->_context->ContextValue("verperfil");
+    public function generateObject($current)
+    {
+        $id_perfil_ver = $this->_context->ContextValue("verperfil");
 
-    $span1 = new XmlnukeSpanCollection();
-    $this->addXmlnukeObject($span1);
+        $span1 = new XmlnukeSpanCollection();
+        $this->addXmlnukeObject($span1);
 
-    if($this->_opcao == "ver") {
-      $db = new PerfilDB($this->_context);
-      $modelPerfil = $db->obterPorId($id_perfil_ver);
+        if($this->_opcao == "ver")
+        {
+            $db = new PerfilDB($this->_context);
+            $modelPerfil = $db->obterPorId($id_perfil_ver);
 
-      $db = new PerfilDB($this->_context);
-      $cidade = $db->obterCidadePorIDCidade($modelPerfil->getIDCidade());
-      $texto_perfil = $modelPerfil->getTextoPerfil();
-      $dt_nasc = DateUtil::ConvertDate($modelPerfil->getDataNascimentoPerfil(), DATEFORMAT::YMD, DATEFORMAT::DMY, "/", false);
-      $idade = PanteonEscolarBaseModule::idade($modelPerfil->getDataNascimentoPerfil());
+            $db = new PerfilDB($this->_context);
+            $cidade = $db->obterCidadePorIDCidade($modelPerfil->getIDCidade());
+            $texto_perfil = $modelPerfil->getTextoPerfil();
+            $dt_nasc = DateUtil::ConvertDate($modelPerfil->getDataNascimentoPerfil(), DATEFORMAT::YMD, DATEFORMAT::DMY, "/", false);
+            $idade = PanteonEscolarBaseModule::idade($modelPerfil->getDataNascimentoPerfil());
 
-      $info_nasc = '<div id="subtitulos">Data Nascimento: </div><div id="textover">'.$dt_nasc.' ('.$idade.' anos)'.'</div>';
+            $info_nasc = '<div id="subtitulos">Data Nascimento: </div><div id="textover">'.$dt_nasc.' ('.$idade.' anos)'.'</div>';
 
-      if($modelPerfil->getCaminhoFotoPerfil() != "") {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="caixa_info_perfil_foto">'));
-        $span1->addXmlnukeObject(new XmlNukeText('<img alt="Foto" src="'.$modelPerfil->getCaminhoFotoPerfil().'"/>'));
-        $span1->addXmlnukeObject(new XmlNukeText('</div>'));
-      }
+            if($modelPerfil->getCaminhoFotoPerfil() != "")
+            {
+                $span1->addXmlnukeObject(new XmlNukeText('<div id="caixa_info_perfil_foto">'));
+                $span1->addXmlnukeObject(new XmlNukeText('<img alt="Foto" src="'.$modelPerfil->getCaminhoFotoPerfil().'"/>'));
+                $span1->addXmlnukeObject(new XmlNukeText('</div>'));
+            }
 
 
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Cidade: </div><div id="textover">'.$cidade.'</div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Estado: </div><div id="textover">'.$modelPerfil->getUFEstado().'</div>'));
-      $span1->addXmlnukeObject(new XmlNukeText($info_nasc));
-      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="subtitulos">Perfil Resumido: </div><div id="textover">'.$texto_perfil.'</div>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Cidade: </div><div id="textover">'.$cidade.'</div>'));
+            $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Estado: </div><div id="textover">'.$modelPerfil->getUFEstado().'</div>'));
+            $span1->addXmlnukeObject(new XmlNukeText($info_nasc));
+            $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="subtitulos">Perfil Resumido: </div><div id="textover">'.$texto_perfil.'</div>'));
+
+        }
+
+        // Gera Página XML Final
+        $node = XmlUtil::CreateChild($current, "blockcenter", "");
+        $body = XmlUtil::CreateChild($node, "body", "");
+
+        parent::generatePage($body);
 
     }
 
-    // Gera Página XML Final
-    $node = XmlUtil::CreateChild($current, "blockcenter", "");
-    $body = XmlUtil::CreateChild($node, "body", "");
+    public function VerPerfilDBXML($context, $opcao)
+    {
+        if(!($context instanceof Context))
+        {
+            throw new Exception("Falta de Context");
+        }
 
-    parent::generatePage($body);
+        $this->_context = $context;
+        $this->_opcao = $opcao;
 
-  }
-
-  public function VerPerfilDBXML($context, $opcao) {
-    if(!($context instanceof Context)) throw new Exception("Falta de Context");
-
-    $this->_context = $context;
-    $this->_opcao = $opcao;
-
-  }
+    }
 
 }
 

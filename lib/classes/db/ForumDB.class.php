@@ -19,98 +19,104 @@
 
 class ForumDB extends PanteonEscolarBaseDBAccess
 {
-  protected $_nome_tabela = "forum";
-  protected $_nome_tabela_primaria = "tema_panteon";
+    protected $_nome_tabela = "forum";
+    protected $_nome_tabela_primaria = "tema_panteon";
 
-  /**
-   * @param int $id
-   * @access public
-   * @return Model
-  */
-  public function obterPorId($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+    /**
+     * @param int $id
+     * @access public
+     * @return Model
+    */
+    public function obterPorId($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
 
-    $param = array("id" => $id);
+        $param = array("id" => $id);
 
-    $it = $this->getIterator($sql, $param);
+        $it = $this->getIterator($sql, $param);
 
-    $model = new ForumModel();
-    $model->bindIterator($it);
+        $model = new ForumModel();
+        $model->bindIterator($it);
 
-    return $model;
+        return $model;
 
-  }
-
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterForumPorIDTemaPanteon($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
-
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
-
-
-
-    $it = $this->getIterator($sql);
-
-    if($it->hasNext()) {
-      $sr = $it->moveNext();
-      $id_forum = $sr->getField("id_forum");
     }
 
-    return $id_forum;
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterForumPorIDTemaPanteon($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-  }
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-  /**
-   * @access public
-   * @return IIterator
-  */
-  public function obterTodos() {
-    $sql  = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
 
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    $it = $this->getIterator($sql);
 
-    return $it;
+        $it = $this->getIterator($sql);
 
-  }
+        if($it->hasNext())
+        {
+            $sr = $it->moveNext();
+            $id_forum = $sr->getField("id_forum");
+        }
 
-  public function cadastrar(ForumModel $forum) {
-    $sql = " INSERT INTO ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " ( id_tema_panteon ) VALUES ('".$forum->getIDTemaPanteon()."')";
+        return $id_forum;
 
-    $this->executeSQL($sql);
+    }
 
-  }
+    /**
+     * @access public
+     * @return IIterator
+    */
+    public function obterTodos()
+    {
+        $sql  = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-  public function verDuplicado($id_tema_panteon) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= " id_tema_panteon = ".$id_tema_panteon;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it->Count();
+        return $it;
 
-  }
+    }
+
+    public function cadastrar(ForumModel $forum)
+    {
+        $sql = " INSERT INTO ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " ( id_tema_panteon ) VALUES ('".$forum->getIDTemaPanteon()."')";
+
+        $this->executeSQL($sql);
+
+    }
+
+    public function verDuplicado($id_tema_panteon)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= " id_tema_panteon = ".$id_tema_panteon;
+
+        $it = $this->getIterator($sql);
+
+        return $it->Count();
+
+    }
 }
 
 ?>

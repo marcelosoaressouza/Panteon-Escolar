@@ -14,7 +14,7 @@ $result=mysql_query($query);
 
 while($row = mysql_fetch_assoc($result))
 {
-  echo '<option value="'.$row['id_cidade'].'">'.utf8_encode($row['nome']).'</option>';
+    echo '<option value="'.$row['id_cidade'].'">'.utf8_encode($row['nome']).'</option>';
 }
 
 mysql_close();

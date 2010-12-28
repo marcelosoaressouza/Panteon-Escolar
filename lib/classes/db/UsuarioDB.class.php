@@ -19,165 +19,174 @@
 
 class UsuarioDB extends PanteonEscolarBaseDBAccess
 {
-  protected $_nome_tabela = "usuario";
-  protected $_nome_tabela_primaria = "instituicao";
-  protected $_nome_tabela_secundaria = "nivel_acesso";
+    protected $_nome_tabela = "usuario";
+    protected $_nome_tabela_primaria = "instituicao";
+    protected $_nome_tabela_secundaria = "nivel_acesso";
 
-  /**
-   * @param void
-   * @access public
-   * @return Model
-  */
-  public function obterUltimoID() {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+    /**
+     * @param void
+     * @access public
+     * @return Model
+    */
+    public function obterUltimoID()
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
 
-    $param = array("id" => $id);
+        $param = array("id" => $id);
 
-    $it = $this->getIterator($sql, $param);
+        $it = $this->getIterator($sql, $param);
 
-    $model = new UsuarioModel();
-    $model->bindIterator($it);
+        $model = new UsuarioModel();
+        $model->bindIterator($it);
 
-    return $model;
-  }
-
-  /**
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosRelacionados() {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
-    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
-
-    $it = $this->getIterator($sql);
-
-    return $it;
-
-  }
-
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosOsUsuariosPorIDInstituicao($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
-
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
-
-
-
-    $it = $this->getIterator($sql);
-
-    return $it;
-
-  }
-
-  /**
-   * @param int $id
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodosOsUsuariosPorIDNivelAcesso($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
-    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
-
-    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria." = ".$id;
-
-
-
-    $it = $this->getIterator($sql);
-
-    return $it;
-
-  }
-
-  /**
-   * @param int $id
-   * @access public
-   * @return Model
-  */
-  public function obterPorId($id) {
-    $sql = "SELECT * FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
-
-    $param = array("id" => $id);
-
-    $it = $this->getIterator($sql, $param);
-
-    $model = new UsuarioModel();
-    $model->bindIterator($it);
-
-    return $model;
-  }
-
-  /**
-   * @param string $email
-   * @access public
-   * @return int
-  */
-  public function obterIDPorEMail($email) {
-    $sql = "SELECT id_usuario FROM ";
-    $sql .= $this->_nome_tabela;
-    $sql .= " WHERE ";
-    $sql .= "email_usuario  = '".$email."'";
-
-    $it = $this->getIterator($sql);
-
-    while($it->hasNext()) {
-      $sr = $it->moveNext();
-      $id_usuario = $sr->getField("id_usuario");
+        return $model;
     }
 
-    return $id_usuario;
+    /**
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosRelacionados()
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-  }
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-  /**
-   * @access public
-   * @return IIterator
-   */
-  public function obterTodos() {
-    $sql = "SELECT * FROM ".$this->_nome_tabela;
+        $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+        $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
 
-    $it = $this->getIterator($sql);
+        $it = $this->getIterator($sql);
 
-    return $it;
+        return $it;
 
-  }
+    }
 
-  public function excluir($id) {
-    $sql = "DELETE FROM ".$this->_nome_tabela." WHERE id_usuario = ".$id;
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosOsUsuariosPorIDInstituicao($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
 
-    $resultado = $this->executeSQL($sql);
+        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
 
-    return $resultado;
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
 
-  }
+
+
+        $it = $this->getIterator($sql);
+
+        return $it;
+
+    }
+
+    /**
+     * @param int $id
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodosOsUsuariosPorIDNivelAcesso($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+
+        $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
+        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+        $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
+
+        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria." = ".$id;
+
+
+
+        $it = $this->getIterator($sql);
+
+        return $it;
+
+    }
+
+    /**
+     * @param int $id
+     * @access public
+     * @return Model
+    */
+    public function obterPorId($id)
+    {
+        $sql = "SELECT * FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+
+        $param = array("id" => $id);
+
+        $it = $this->getIterator($sql, $param);
+
+        $model = new UsuarioModel();
+        $model->bindIterator($it);
+
+        return $model;
+    }
+
+    /**
+     * @param string $email
+     * @access public
+     * @return int
+    */
+    public function obterIDPorEMail($email)
+    {
+        $sql = "SELECT id_usuario FROM ";
+        $sql .= $this->_nome_tabela;
+        $sql .= " WHERE ";
+        $sql .= "email_usuario  = '".$email."'";
+
+        $it = $this->getIterator($sql);
+
+        while($it->hasNext())
+        {
+            $sr = $it->moveNext();
+            $id_usuario = $sr->getField("id_usuario");
+        }
+
+        return $id_usuario;
+
+    }
+
+    /**
+     * @access public
+     * @return IIterator
+     */
+    public function obterTodos()
+    {
+        $sql = "SELECT * FROM ".$this->_nome_tabela;
+
+        $it = $this->getIterator($sql);
+
+        return $it;
+
+    }
+
+    public function excluir($id)
+    {
+        $sql = "DELETE FROM ".$this->_nome_tabela." WHERE id_usuario = ".$id;
+
+        $resultado = $this->executeSQL($sql);
+
+        return $resultado;
+
+    }
 
 }
 
