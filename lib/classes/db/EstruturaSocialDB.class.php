@@ -19,42 +19,42 @@
 
 class EstruturaSocialDB extends PanteonEscolarBaseDBAccess
 {
-    protected $_nome_tabela = "estrutura_social";
+  protected $_nome_tabela = "estrutura_social";
 
-    /**
-     * @param int $id
-     * @access public
-     * @return Model
-    */
-    public function obterPorId($id)
-    {
-        $sql = "SELECT * FROM ";
-        $sql .= $this->_nome_tabela;
-        $sql .= " WHERE ";
-        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+  /**
+   * @param int $id
+   * @access public
+   * @return Model
+  */
+  public function obterPorId($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+    $sql .= " WHERE ";
+    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
 
-        $param = array("id" => $id);
+    $param = array("id" => $id);
 
-        $it = $this->getIterator($sql, $param);
+    $it = $this->getIterator($sql, $param);
 
-        $model = new EstruturaSocialModel();
-        $model->bindIterator($it);
+    $model = new EstruturaSocialModel();
+    $model->bindIterator($it);
 
-        return $model;
-    }
+    return $model;
+  }
 
-    /**
-     * @access public
-     * @return IIterator
-     */
-    public function obterTodos()
-    {
-        $sql = "SELECT * FROM ".$this->_nome_tabela;
+  /**
+   * @access public
+   * @return IIterator
+   */
+  public function obterTodos()
+  {
+    $sql = "SELECT * FROM ".$this->_nome_tabela;
 
-        $it = $this->getIterator($sql);
+    $it = $this->getIterator($sql);
 
-        return $it;
-    }
+    return $it;
+  }
 
 }
 

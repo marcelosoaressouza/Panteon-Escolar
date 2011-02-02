@@ -19,7 +19,7 @@
   <body>
     <blockmensagem>
       <box_titulo titulo="Panteon Escolar"/>
-      <mensagem titulo="Não há Informações "  autor="" conteudo=""/>
+      <mensagem titulo="O Panteon Escolar é um software livre que possibilita o estudo aprofundado de variadas temáticas a partir do acesso a diversas fontes de pesquisa, do confronto de diferentes pontos de vista e do compartilhamento de opiniões."  autor="" conteudo=""/>
     </blockmensagem>
   </body>
 </blockleft>
@@ -31,8 +31,8 @@
       <opcao_menu titulo="biblioteca de temas" href="bibliotecapublica"/>
       <opcao_menu titulo="contato" href="contato"/>
 <!--      <opcao_menu titulo="Créditos" href="sobre"/> -->
-      <opcao_menu_auxiliar titulo="acessar" href="/xmlnuke.php?module=login&site=PanteonEscolar&lang=pt-br&ReturnUrl=%2fmeuperfil"/>
-      <opcao_menu_auxiliar titulo="cadastre-se" href="/xmlnuke.php?module=login&action=action.NEWUSER&ReturnUrl=%2fmeuperfil&site=PanteonEscolar&xsl=page&xml=home&lang=pt-br"/>
+      <opcao_menu_auxiliar titulo="acessar" href="./xmlnuke.php?module=login&site=PanteonEscolar&lang=pt-br&ReturnUrl=%2fmeuperfil"/>
+      <opcao_menu_auxiliar titulo="cadastre-se" href="./xmlnuke.php?module=login&action=action.NEWUSER&ReturnUrl=%2fmeuperfil&site=PanteonEscolar&xsl=page&xml=home&lang=pt-br"/>
     </blockbarramenu>
   </body>
 </blockright>

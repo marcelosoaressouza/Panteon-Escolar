@@ -19,28 +19,28 @@
 
 class TurmaModel extends PanteonEscolarBaseModel
 {
-    private $_nome_turma;
-    private $_id_instituicao;
+  private $_nome_turma;
+  private $_id_instituicao;
 
-    public function getNomeTurma()
-    {
-        return $this->_nome_turma;
-    }
+  public function getNomeTurma()
+  {
+    return $this->_nome_turma;
+  }
 
-    public function setNomeTurma($nome_turma)
-    {
-        $this->_nome_turma = $nome_turma;
-    }
+  public function setNomeTurma($nome_turma)
+  {
+    $this->_nome_turma = $nome_turma;
+  }
 
-    public function getIDInstituicao()
-    {
-        return $this->_id_instituicao;
-    }
+  public function getIDInstituicao()
+  {
+    return $this->_id_instituicao;
+  }
 
-    public function setIDInstituicao($id_instituicao)
-    {
-        $this->_id_instituicao = $id_instituicao;
-    }
+  public function setIDInstituicao($id_instituicao)
+  {
+    $this->_id_instituicao = $id_instituicao;
+  }
 
 }
 

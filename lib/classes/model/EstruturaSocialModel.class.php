@@ -19,28 +19,28 @@
 
 class EstruturaSocialModel extends PanteonEscolarBaseModel
 {
-    private $_nome_estrutura_social;
-    private $_descricao_estrutura_social;
+  private $_nome_estrutura_social;
+  private $_descricao_estrutura_social;
 
-    public function getNomeEstruturaSocial()
-    {
-        return $this->_nome_estrutura_social;
-    }
+  public function getNomeEstruturaSocial()
+  {
+    return $this->_nome_estrutura_social;
+  }
 
-    public function setNomeEstruturaSocial($nome_estrutura_social)
-    {
-        $this->_nome_estrutura_social = $nome_estrutura_social;
-    }
+  public function setNomeEstruturaSocial($nome_estrutura_social)
+  {
+    $this->_nome_estrutura_social = $nome_estrutura_social;
+  }
 
-    public function getDescricaoEstruturaSocial()
-    {
-        return $this->_descricao_estrutura_social;
-    }
+  public function getDescricaoEstruturaSocial()
+  {
+    return $this->_descricao_estrutura_social;
+  }
 
-    public function setDescricaoEstruturaSocial($descricao_estrutura_social)
-    {
-        $this->_descricao_estrutura_social = $descricao_estrutura_social;
-    }
+  public function setDescricaoEstruturaSocial($descricao_estrutura_social)
+  {
+    $this->_descricao_estrutura_social = $descricao_estrutura_social;
+  }
 
 }
 

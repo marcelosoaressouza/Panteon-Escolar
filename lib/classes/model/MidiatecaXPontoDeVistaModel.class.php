@@ -19,28 +19,28 @@
 
 class MidiatecaXPontoDeVistaModel extends PanteonEscolarBaseModel
 {
-    private $_id_midiateca;
-    private $_id_tag;
+  private $_id_midiateca;
+  private $_id_tag;
 
-    public function setIDMidiateca($id_midiateca)
-    {
-        $this->_id_midiateca = $id_midiateca;
-    }
+  public function setIDMidiateca($id_midiateca)
+  {
+    $this->_id_midiateca = $id_midiateca;
+  }
 
-    public function getIDMidiateca()
-    {
-        return $this->_id_midiateca;
-    }
+  public function getIDMidiateca()
+  {
+    return $this->_id_midiateca;
+  }
 
-    public function setIDTag($id_tag)
-    {
-        $this->_id_tag = $id_tag;
-    }
+  public function setIDTag($id_tag)
+  {
+    $this->_id_tag = $id_tag;
+  }
 
-    public function getIDTag()
-    {
-        return $this->_id_tag;
-    }
+  public function getIDTag()
+  {
+    return $this->_id_tag;
+  }
 
 }
 

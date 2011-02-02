@@ -20,108 +20,108 @@
 class MeuDiagnosticoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
-    protected $_num_registros_padrao = 3;
+  protected $_context;
+  protected $_opcao;
+  protected $_num_registros_padrao = 3;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
+
+    $id_usuario = $this->_context->authenticatedUserId();
+    $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
+
+    if($id_tema_panteon == "")
     {
-        $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
+      $this->_context->redirectUrl("/meustemaspanteon");
+    }
 
-        $id_usuario = $this->_context->authenticatedUserId();
-        $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
 
-        if($id_tema_panteon == "")
-        {
-            $this->_context->redirectUrl("/meustemaspanteon");
-        }
+    if($this->_opcao == "listarDireita")
+    {
+      $db = new UsuarioXPontoDeVistaDB($this->_context);
+      $itDB = $db->obterTodosOsPontoDeVistaPorIDTemaPanteonXIDUsuario($id_tema_panteon, $id_usuario, 2, 1);
+      $node = XmlUtil::CreateChild($current, "blockmensagem", "");
+      $body = PanteonEscolarBaseModule::criarTitulo($node, "Últimos Coletados");
 
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
+      if($itDB->Count() > 0)
+      {
+        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "", "texto_ponto_de_vista", "nome_sujeito", PanteonEscolarConsts::PontoDeVista_URL, "id_ponto_de_vista");
+      }
 
-        if($this->_opcao == "listarDireita")
-        {
-            $db = new UsuarioXPontoDeVistaDB($this->_context);
-            $itDB = $db->obterTodosOsPontoDeVistaPorIDTemaPanteonXIDUsuario($id_tema_panteon, $id_usuario, 2, 1);
-            $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-            $body = PanteonEscolarBaseModule::criarTitulo($node, "Últimos Coletados");
+      else
+      {
+        $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
+      }
 
-            if($itDB->Count() > 0)
-            {
-                $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "", "texto_ponto_de_vista", "nome_sujeito", PanteonEscolarConsts::PontoDeVista_URL, "id_ponto_de_vista");
-            }
-
-            else
-            {
-                $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
-            }
-
-            if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
-            {
-                XmlUtil::AddAttribute($node, "criartemapanteon", "true");
-            }
-
-        }
-
-        if($this->_opcao == "processPageField")
-        {
-            $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
-
-            $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/meusdiagnosticos"> Diagnóstico Individual.</a><br/></div>'));
-            $span1->addXmlnukeObject(new XmlNukeText('<br/>'));
-            $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/meusdiagnosticosgrupo">Diagnóstico com o seu Grupo. </a></div>'));
-
-        }
-
-        // Inicio - menu
-        //
-        if($this->_opcao == "menu")
-        {
-            $node = XmlUtil::CreateChild($current, "blockabausuario", "");
-            $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuUsuario(PanteonEscolarMenu::Diagnostico));
-
-        }
-
-        //
-        // Fim - menu
-
-        // Inicio - menu head
-        //
-        if($this->_opcao == "menuHead")
-        {
-            $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
-            XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
-
-            $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
-            $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
-            $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
-            XmlUtil::AddAttribute($node, "nome_usuario", $msg);
-            XmlUtil::AddAttribute($node, "logout", "true");
-
-        }
-
-        //
-        // Fim - menu head
-
-
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      {
+        XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      }
 
     }
 
-    public function MeuDiagnosticoDBXML($context, $opcao)
+    if($this->_opcao == "processPageField")
     {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
+      $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
 
-        $this->_context = $context;
-        $this->_opcao = $opcao;
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/meusdiagnosticos"> Diagnóstico Individual.</a><br/></div>'));
+      $span1->addXmlnukeObject(new XmlNukeText('<br/>'));
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/meusdiagnosticosgrupo">Diagnóstico com o seu Grupo. </a></div>'));
 
     }
+
+    // Inicio - menu
+    //
+    if($this->_opcao == "menu")
+    {
+      $node = XmlUtil::CreateChild($current, "blockabausuario", "");
+      $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuUsuario(PanteonEscolarMenu::Diagnostico));
+
+    }
+
+    //
+    // Fim - menu
+
+    // Inicio - menu head
+    //
+    if($this->_opcao == "menuHead")
+    {
+      $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
+      XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
+
+      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+      $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
+      $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
+      XmlUtil::AddAttribute($node, "nome_usuario", $msg);
+      XmlUtil::AddAttribute($node, "logout", "true");
+
+    }
+
+    //
+    // Fim - menu head
+
+
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+  }
+
+  public function MeuDiagnosticoDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
+    {
+      throw new Exception("Falta de Context");
+    }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

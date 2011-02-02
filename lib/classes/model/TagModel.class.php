@@ -19,17 +19,17 @@
 
 class TagModel extends PanteonEscolarBaseModel
 {
-    private $_nome_tag;
+  private $_nome_tag;
 
-    public function getNomeTag()
-    {
-        return $this->_nome_tag;
-    }
+  public function getNomeTag()
+  {
+    return $this->_nome_tag;
+  }
 
-    public function setNomeTag($nome_tag)
-    {
-        $this->_nome_tag = $nome_tag;
-    }
+  public function setNomeTag($nome_tag)
+  {
+    $this->_nome_tag = $nome_tag;
+  }
 
 }
 

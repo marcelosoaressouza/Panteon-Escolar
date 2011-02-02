@@ -1,6 +1,6 @@
 <xsl:template match="blockmensagem">
   <xsl:if test="@criartemapanteon">
-    <a href="/criartemapanteon"><img src="static/images/Layout/btnCriarTema.png" width="210" height="45" alt="Criar Tema" longdesc="static/images/Layout/btnCriarTema.png" title="Criar tema" /></a>
+    <a href="./criartemapanteon"><img src="static/images/Layout/btnCriarTema.png" width="210" height="45" alt="Criar Tema" longdesc="static/images/Layout/btnCriarTema.png" title="Criar tema" /></a>
   </xsl:if>
   <div id="baseForumHomeTopo"></div>
 

@@ -19,28 +19,38 @@
 
 class GrupoModel extends PanteonEscolarBaseModel
 {
-    private $_nome_grupo;
-    private $_id_tema_panteon;
+  private $_nome_grupo;
+  private $_id_tema_panteon;
 
-    public function getNomeGrupo()
-    {
-        return $this->_nome_grupo;
-    }
+  public function getNomeGrupo()
+  {
+    return $this->_nome_grupo;
+  }
 
-    public function setNomeGrupo($nome_grupo)
-    {
-        $this->_nome_grupo = $nome_grupo;
-    }
+  public function setNomeGrupo($nome_grupo)
+  {
+    $this->_nome_grupo = $nome_grupo;
+  }
 
-    public function getIDTemaPanteon()
-    {
-        return $this->_id_tema_panteon;
-    }
+  public function getIDTemaPanteon()
+  {
+    return $this->_id_tema_panteon;
+  }
 
-    public function setIDTemaPanteon($id_tema_panteon)
-    {
-        $this->_id_tema_panteon = $id_tema_panteon;
-    }
+  public function setIDTemaPanteon($id_tema_panteon)
+  {
+    $this->_id_tema_panteon = $id_tema_panteon;
+  }
+
+  public function getIDUsuario()
+  {
+    return $this->_id_usuario;
+  }
+
+  public function setIDUsuario($id_usuario)
+  {
+    $this->_id_usuario = $id_usuario;
+  }
 
 }
 

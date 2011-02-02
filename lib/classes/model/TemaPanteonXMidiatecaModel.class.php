@@ -19,28 +19,28 @@
 
 class TemaPanteonXMidiatecaModel extends PanteonEscolarBaseModel
 {
-    private $_id_tema_panteon;
-    private $_id_midiateca;
+  private $_id_tema_panteon;
+  private $_id_midiateca;
 
-    public function setIDTemaPanteon($id_tema_panteon)
-    {
-        $this->_id_tema_panteon = $id_tema_panteon;
-    }
+  public function setIDTemaPanteon($id_tema_panteon)
+  {
+    $this->_id_tema_panteon = $id_tema_panteon;
+  }
 
-    public function getIDTemaPanteon()
-    {
-        return $this->_id_tema_panteon;
-    }
+  public function getIDTemaPanteon()
+  {
+    return $this->_id_tema_panteon;
+  }
 
-    public function setIDMidiateca($id_midiateca)
-    {
-        $this->_id_midiateca = $id_midiateca;
-    }
+  public function setIDMidiateca($id_midiateca)
+  {
+    $this->_id_midiateca = $id_midiateca;
+  }
 
-    public function getIDMidiateca()
-    {
-        return $this->_id_midiateca;
-    }
+  public function getIDMidiateca()
+  {
+    return $this->_id_midiateca;
+  }
 
 }
 

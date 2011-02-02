@@ -19,126 +19,126 @@
 
 class UsuarioXNivelAcessoDB extends PanteonEscolarBaseDBAccess
 {
-    protected $_nome_tabela = "usuario_x_nivel_acesso";
-    protected $_nome_tabela_primaria = "usuario";
+  protected $_nome_tabela = "usuario_x_nivel_acesso";
+  protected $_nome_tabela_primaria = "usuario";
 
-    public function obterTodosRelacionados()
+  public function obterTodosRelacionados()
+  {
+
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+
+    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+
+    $it = $this->getIterator($sql);
+
+    return $it;
+
+  }
+
+  /**
+   * @param int $id
+   * @access public
+   * @return Model
+  */
+  public function obterPorId($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+    $sql .= " WHERE ";
+    $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+
+    $param = array("id" => $id);
+
+    $it = $this->getIterator($sql, $param);
+
+    $model = new UsuarioXNivelAcessoModel();
+    $model->bindIterator($it);
+
+    return $model;
+
+  }
+
+  /**
+   * @param int $id
+   * @access public
+   * @return string
+  */
+  public function obterNivelAcessoPorIDUsuario($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+
+    $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
+    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
+    $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+
+    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
+    $sql .= " AND nome_usuario_x_nivel_acesso = 'roles'";
+
+    $it = $this->getIterator($sql);
+
+    if($it->hasNext())
     {
-
-        $sql = "SELECT * FROM ";
-        $sql .= $this->_nome_tabela;
-
-        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
-
-        $it = $this->getIterator($sql);
-
-        return $it;
-
+      $sr = $it->moveNext();
+      $nivel_acesso = $sr->getField("valor_usuario_x_nivel_acesso");
     }
 
-    /**
-     * @param int $id
-     * @access public
-     * @return Model
-    */
-    public function obterPorId($id)
-    {
-        $sql = "SELECT * FROM ";
-        $sql .= $this->_nome_tabela;
-        $sql .= " WHERE ";
-        $sql .= "id_".$this->_nome_tabela." = [[id]] ";
+    return $nivel_acesso;
 
-        $param = array("id" => $id);
+  }
 
-        $it = $this->getIterator($sql, $param);
+  /**
+   * @access public
+   * @return IIterator
+  */
+  public function obterTodos()
+  {
+    $sql  = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
 
-        $model = new UsuarioXNivelAcessoModel();
-        $model->bindIterator($it);
+    $it = $this->getIterator($sql);
 
-        return $model;
+    return $it;
 
-    }
+  }
 
-    /**
-     * @param int $id
-     * @access public
-     * @return string
-    */
-    public function obterNivelAcessoPorIDUsuario($id)
-    {
-        $sql = "SELECT * FROM ";
-        $sql .= $this->_nome_tabela;
+  public function cadastrarAnalista($email)
+  {
 
-        $sql .= " INNER JOIN ".$this->_nome_tabela_primaria ;
-        $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria;
-        $sql .= " = ".$this->_nome_tabela_primaria.".id_".$this->_nome_tabela_primaria;
+    $db = new UsuarioDB($this->_context);
+    $id_usuario = $db->obterIDPorEMail($email);
 
-        // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
-        $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
-        $sql .= " AND nome_usuario_x_nivel_acesso = 'roles'";
+    $sql = " INSERT INTO ";
+    $sql .= $this->_nome_tabela;
 
-        $it = $this->getIterator($sql);
+    // Inicio Campos Tabela a serem Inseridas
 
-        if($it->hasNext())
-        {
-            $sr = $it->moveNext();
-            $nivel_acesso = $sr->getField("valor_usuario_x_nivel_acesso");
-        }
+    $sql .= " ( ";
+    $sql .= "nome_usuario_x_nivel_acesso , ";
+    $sql .= "valor_usuario_x_nivel_acesso , ";
+    $sql .= "id_usuario ";
+    $sql .= " ) ";
 
-        return $nivel_acesso;
+    // Fim Campos Tabela a serem Inseridas
 
-    }
+    $sql .= " VALUES ";
 
-    /**
-     * @access public
-     * @return IIterator
-    */
-    public function obterTodos()
-    {
-        $sql  = "SELECT * FROM ";
-        $sql .= $this->_nome_tabela;
+    // Inicio Valores a serem Inseridas
 
-        $it = $this->getIterator($sql);
+    $sql .= " ( ";
+    $sql .= "'roles', ";
+    $sql .= "'ANALISTA', ";
+    $sql .= "'".$id_usuario."' ";
+    $sql .= " ) ";
 
-        return $it;
+    // Fim Valores a serem Inseridas
 
-    }
-
-    public function cadastrarAnalista($email)
-    {
-
-        $db = new UsuarioDB($this->_context);
-        $id_usuario = $db->obterIDPorEMail($email);
-
-        $sql = " INSERT INTO ";
-        $sql .= $this->_nome_tabela;
-
-        // Inicio Campos Tabela a serem Inseridas
-
-        $sql .= " ( ";
-        $sql .= "nome_usuario_x_nivel_acesso , ";
-        $sql .= "valor_usuario_x_nivel_acesso , ";
-        $sql .= "id_usuario ";
-        $sql .= " ) ";
-
-        // Fim Campos Tabela a serem Inseridas
-
-        $sql .= " VALUES ";
-
-        // Inicio Valores a serem Inseridas
-
-        $sql .= " ( ";
-        $sql .= "'roles', ";
-        $sql .= "'ANALISTA', ";
-        $sql .= "'".$id_usuario."' ";
-        $sql .= " ) ";
-
-        // Fim Valores a serem Inseridas
-
-        $this->executeSQL($sql);
-    }
+    $this->executeSQL($sql);
+  }
 
 }
 

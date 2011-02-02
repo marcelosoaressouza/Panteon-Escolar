@@ -19,39 +19,39 @@
 
 class UsuarioXNivelAcessoModel extends PanteonEscolarBaseModel
 {
-    private $_nome_usuario_x_nivel_acesso;
-    private $_valor_usuario_x_nivel_acesso;
-    private $_id_usuario;
+  private $_nome_usuario_x_nivel_acesso;
+  private $_valor_usuario_x_nivel_acesso;
+  private $_id_usuario;
 
-    public function setIDUsuario($id_usuario)
-    {
-        $this->_id_usuario = $id_usuario;
-    }
+  public function setIDUsuario($id_usuario)
+  {
+    $this->_id_usuario = $id_usuario;
+  }
 
-    public function getIDUsuario()
-    {
-        return $this->_id_usuario;
-    }
+  public function getIDUsuario()
+  {
+    return $this->_id_usuario;
+  }
 
-    public function setNomeUsuarioNivelAcesso($_nome_usuario_x_nivel_acesso)
-    {
-        $this->_nome_usuario_x_nivel_acesso = $_nome_usuario_x_nivel_acesso;
-    }
+  public function setNomeUsuarioNivelAcesso($_nome_usuario_x_nivel_acesso)
+  {
+    $this->_nome_usuario_x_nivel_acesso = $_nome_usuario_x_nivel_acesso;
+  }
 
-    public function getNomeUsuarioNivelAcesso()
-    {
-        return $this->_nome_usuario_x_nivel_acesso;
-    }
+  public function getNomeUsuarioNivelAcesso()
+  {
+    return $this->_nome_usuario_x_nivel_acesso;
+  }
 
-    public function setValorUsuarioNivelAcesso($_valor_usuario_x_nivel_acesso)
-    {
-        $this->_valor_usuario_x_nivel_acesso = $_valor_usuario_x_nivel_acesso;
-    }
+  public function setValorUsuarioNivelAcesso($_valor_usuario_x_nivel_acesso)
+  {
+    $this->_valor_usuario_x_nivel_acesso = $_valor_usuario_x_nivel_acesso;
+  }
 
-    public function getValorUsuarioNivelAcesso()
-    {
-        return $this->_valor_usuario_x_nivel_acesso;
-    }
+  public function getValorUsuarioNivelAcesso()
+  {
+    return $this->_valor_usuario_x_nivel_acesso;
+  }
 
 }
 

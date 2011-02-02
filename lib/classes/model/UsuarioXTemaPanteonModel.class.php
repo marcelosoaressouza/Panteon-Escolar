@@ -19,39 +19,39 @@
 
 class UsuarioXTemaPanteonModel extends PanteonEscolarBaseModel
 {
-    private $_id_usuario;
-    private $_id_tema_panteon;
-    private $_id_permissao;
+  private $_id_usuario;
+  private $_id_tema_panteon;
+  private $_id_permissao;
 
-    public function setIDUsuario($id_usuario)
-    {
-        $this->_id_usuario = $id_usuario;
-    }
+  public function setIDUsuario($id_usuario)
+  {
+    $this->_id_usuario = $id_usuario;
+  }
 
-    public function getIDUsuario()
-    {
-        return $this->_id_usuario;
-    }
+  public function getIDUsuario()
+  {
+    return $this->_id_usuario;
+  }
 
-    public function setIDTemaPanteon($id_tema_panteon)
-    {
-        $this->_id_tema_panteon = $id_tema_panteon;
-    }
+  public function setIDTemaPanteon($id_tema_panteon)
+  {
+    $this->_id_tema_panteon = $id_tema_panteon;
+  }
 
-    public function getIDTemaPanteon()
-    {
-        return $this->_id_tema_panteon;
-    }
+  public function getIDTemaPanteon()
+  {
+    return $this->_id_tema_panteon;
+  }
 
-    public function setIDPermissao($id_permissao)
-    {
-        $this->_id_permissao = $id_permissao;
-    }
+  public function setIDPermissao($id_permissao)
+  {
+    $this->_id_permissao = $id_permissao;
+  }
 
-    public function getIDPermissao()
-    {
-        return $this->_id_permissao;
-    }
+  public function getIDPermissao()
+  {
+    return $this->_id_permissao;
+  }
 
 }
 

@@ -19,28 +19,28 @@
 
 class TipoMidiaModel extends PanteonEscolarBaseModel
 {
-    private $_nome_tipo_midia;
-    private $_caminho_foto_tipo_midia;
+  private $_nome_tipo_midia;
+  private $_caminho_foto_tipo_midia;
 
-    public function getNomeTipoMidia()
-    {
-        return $this->_nome_tipo_midia;
-    }
+  public function getNomeTipoMidia()
+  {
+    return $this->_nome_tipo_midia;
+  }
 
-    public function setNomeTipoMidia($nome_tipo_midia)
-    {
-        $this->_nome_tipo_midia = $nome_tipo_midia;
-    }
+  public function setNomeTipoMidia($nome_tipo_midia)
+  {
+    $this->_nome_tipo_midia = $nome_tipo_midia;
+  }
 
-    public function getCaminhoFotoTipoMidia()
-    {
-        return $this->_caminho_foto_tipo_midia;
-    }
+  public function getCaminhoFotoTipoMidia()
+  {
+    return $this->_caminho_foto_tipo_midia;
+  }
 
-    public function setCaminhoFotoTipoMidia($caminho_foto_tipo_midia)
-    {
-        $this->_caminho_foto_tipo_midia = $caminho_foto_tipo_midia;
-    }
+  public function setCaminhoFotoTipoMidia($caminho_foto_tipo_midia)
+  {
+    $this->_caminho_foto_tipo_midia = $caminho_foto_tipo_midia;
+  }
 
 }
 

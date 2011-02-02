@@ -19,28 +19,28 @@
 
 class UsuarioXTurmaModel extends PanteonEscolarBaseModel
 {
-    private $_id_usuario;
-    private $_id_turma;
+  private $_id_usuario;
+  private $_id_turma;
 
-    public function setIDUsuario($id_usuario)
-    {
-        $this->_id_usuario = $id_usuario;
-    }
+  public function setIDUsuario($id_usuario)
+  {
+    $this->_id_usuario = $id_usuario;
+  }
 
-    public function getIDUsuario()
-    {
-        return $this->_id_usuario;
-    }
+  public function getIDUsuario()
+  {
+    return $this->_id_usuario;
+  }
 
-    public function setIDTurma($id_turma)
-    {
-        $this->_id_turma = $id_turma;
-    }
+  public function setIDTurma($id_turma)
+  {
+    $this->_id_turma = $id_turma;
+  }
 
-    public function getIDTurma()
-    {
-        return $this->_id_turma;
-    }
+  public function getIDTurma()
+  {
+    return $this->_id_turma;
+  }
 
 }
 

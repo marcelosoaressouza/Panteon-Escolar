@@ -19,28 +19,28 @@
 
 class TemaPanteonXTagModel extends PanteonEscolarBaseModel
 {
-    private $_id_tema_panteon;
-    private $_id_tag;
+  private $_id_tema_panteon;
+  private $_id_tag;
 
-    public function setIDTemaPanteon($id_tema_panteon)
-    {
-        $this->_id_tema_panteon = $id_tema_panteon;
-    }
+  public function setIDTemaPanteon($id_tema_panteon)
+  {
+    $this->_id_tema_panteon = $id_tema_panteon;
+  }
 
-    public function getIDTemaPanteon()
-    {
-        return $this->_id_tema_panteon;
-    }
+  public function getIDTemaPanteon()
+  {
+    return $this->_id_tema_panteon;
+  }
 
-    public function setIDTag($id_tag)
-    {
-        $this->_id_tag = $id_tag;
-    }
+  public function setIDTag($id_tag)
+  {
+    $this->_id_tag = $id_tag;
+  }
 
-    public function getIDTag()
-    {
-        return $this->_id_tag;
-    }
+  public function getIDTag()
+  {
+    return $this->_id_tag;
+  }
 
 }
 

@@ -20,57 +20,57 @@
 class VerTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
+  protected $_context;
+  protected $_opcao;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $id_turma_ver = $this->_context->ContextValue("verturma");
+
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+
+    if($this->_opcao == "ver")
     {
-        $id_turma_ver = $this->_context->ContextValue("verturma");
+      $db = new UsuarioXTurmaDB($this->_context);
+      $it = $db->obterTodosOsUsuariosPorIDTurma($id_turma_ver);
 
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
+      if(!$it->hasNext())
+      {
+        $span1->addXmlnukeObject(new XmlNukeText("Ainda não possui usuários"));
+      }
 
-        if($this->_opcao == "ver")
-        {
-            $db = new UsuarioXTurmaDB($this->_context);
-            $it = $db->obterTodosOsUsuariosPorIDTurma($id_turma_ver);
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Membros da Turma:</div><br/>'));
 
-            if(!$it->hasNext())
-            {
-                $span1->addXmlnukeObject(new XmlNukeText("Ainda não possui usuários"));
-            }
+      while($it->hasNext())
+      {
+        $sr = $it->moveNext();
+        $usuario = "<b>".$sr->getField("nome_completo_usuario")."</b><br/>";
+        $span1->addXmlnukeObject(new XmlNukeText($usuario));
+      }
 
-            $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Membros da Turma:</div><br/>'));
-
-            while($it->hasNext())
-            {
-                $sr = $it->moveNext();
-                $usuario = "<b>".$sr->getField("nome_completo_usuario")."</b><br/>";
-                $span1->addXmlnukeObject(new XmlNukeText($usuario));
-            }
-
-
-        }
-
-        // Gera Página XML Final
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
 
     }
 
-    public function VerTurmaDBXML($context, $opcao)
+    // Gera Página XML Final
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+  }
+
+  public function VerTurmaDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
     {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
-
-        $this->_context = $context;
-        $this->_opcao = $opcao;
-
+      throw new Exception("Falta de Context");
     }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

@@ -20,61 +20,61 @@
 class VerMetodoAnaliseDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
+  protected $_context;
+  protected $_opcao;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $id_metodo_analise_ver = $this->_context->ContextValue("vermetodoanalise");
+
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+
+    if($this->_opcao == "ver")
     {
-        $id_metodo_analise_ver = $this->_context->ContextValue("vermetodoanalise");
+      $db = new MetodoAnaliseDB($this->_context);
 
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Metódo de Análise:</div><br/>'));
 
-        if($this->_opcao == "ver")
-        {
-            $db = new MetodoAnaliseDB($this->_context);
+      $texto = '<div id="subtitulos">Descrição</div><br/>';
+      $texto .= $db->obterPorId($id_metodo_analise_ver)->getDescricaoMetodoAnalise().'<br/>';
+      $span1->addXmlnukeObject(new XmlNukeText($texto));
 
-            $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Metódo de Análise:</div><br/>'));
+      $db = new ItemAnaliseDB($this->_context);
+      $it = $db->obterTodosOsItensAnalisePorIDMetodoAnalise($id_metodo_analise_ver);
 
-            $texto = '<div id="subtitulos">Descrição</div><br/>';
-            $texto .= $db->obterPorId($id_metodo_analise_ver)->getDescricaoMetodoAnalise().'<br/>';
-            $span1->addXmlnukeObject(new XmlNukeText($texto));
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Itens de Análise</div><br/>'));
 
-            $db = new ItemAnaliseDB($this->_context);
-            $it = $db->obterTodosOsItensAnalisePorIDMetodoAnalise($id_metodo_analise_ver);
+      while($it->hasNext())
+      {
+        $sr = $it->moveNext();
+        $txt = '<div id="textover">'.$sr->getField("nome_item_analise").'</div>';
+        $span1->addXmlnukeObject(new XmlNukeText($txt));
 
-            $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Itens de Análise</div><br/>'));
+      }
 
-            while($it->hasNext())
-            {
-                $sr = $it->moveNext();
-                $txt = '<div id="textover">'.$sr->getField("nome_item_analise").'</div>';
-                $span1->addXmlnukeObject(new XmlNukeText($txt));
-
-            }
-
-
-        }
-
-        // Gera Página XML Final
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
 
     }
 
-    public function VerMetodoAnaliseDBXML($context, $opcao)
+    // Gera Página XML Final
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+  }
+
+  public function VerMetodoAnaliseDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
     {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
-
-        $this->_context = $context;
-        $this->_opcao = $opcao;
-
+      throw new Exception("Falta de Context");
     }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

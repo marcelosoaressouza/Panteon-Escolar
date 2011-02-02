@@ -19,28 +19,28 @@
 
 class UsuarioXMensagemForumModel extends PanteonEscolarBaseModel
 {
-    private $_id_usuario;
-    private $_id_mensagem_forum;
+  private $_id_usuario;
+  private $_id_mensagem_forum;
 
-    public function setIDUsuario($id_usuario)
-    {
-        $this->_id_usuario = $id_usuario;
-    }
+  public function setIDUsuario($id_usuario)
+  {
+    $this->_id_usuario = $id_usuario;
+  }
 
-    public function getIDUsuario()
-    {
-        return $this->_id_usuario;
-    }
+  public function getIDUsuario()
+  {
+    return $this->_id_usuario;
+  }
 
-    public function setIDMensagemForum($id_mensagem_forum)
-    {
-        $this->_id_mensagem_forum = $id_mensagem_forum;
-    }
+  public function setIDMensagemForum($id_mensagem_forum)
+  {
+    $this->_id_mensagem_forum = $id_mensagem_forum;
+  }
 
-    public function getIDMensagemForum()
-    {
-        return $this->_id_mensagem_forum;
-    }
+  public function getIDMensagemForum()
+  {
+    return $this->_id_mensagem_forum;
+  }
 
 }
 

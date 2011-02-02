@@ -45,11 +45,11 @@ http://www.gnu.org/licenses/gpl-2.0.html
   <xmlnuke-scripts />
 
   <!-- Inicio CSS e JS Default do Panteon Escolar -->
-  <script type="text/javascript" src="static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+  <script type="text/javascript" src="static/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
   <script type="text/javascript" src="static/js/panteonescolar-default.js"></script>
   <script type="text/javascript" src="static/js/jquery-ui/ui.datepicker-pt-BR.js"></script>
 
-  <link href="static/js/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
+  <link href="static/js/fancybox/jquery.fancybox-1.3.1.css" rel="stylesheet" type="text/css"/>
   <link href="static/css/panteonescolar-default.css" rel="stylesheet" type="text/css"/>
   <link href="static/css/principal.css" rel="stylesheet" type="text/css"/>
 

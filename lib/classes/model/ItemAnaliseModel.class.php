@@ -19,40 +19,40 @@
 
 class ItemAnaliseModel extends PanteonEscolarBaseModel
 {
-    private $_nome_item_analise;
-    private $_descricao_item_analise;
+  private $_nome_item_analise;
+  private $_descricao_item_analise;
 
-    private $_id_metodo_analise;
+  private $_id_metodo_analise;
 
-    public function getNomeItemAnalise()
-    {
-        return $this->_nome_item_analise;
-    }
+  public function getNomeItemAnalise()
+  {
+    return $this->_nome_item_analise;
+  }
 
-    public function setNomeItemAnalise($nome_item_analise)
-    {
-        $this->_nome_item_analise = $nome_item_analise;
-    }
+  public function setNomeItemAnalise($nome_item_analise)
+  {
+    $this->_nome_item_analise = $nome_item_analise;
+  }
 
-    public function getDescricaoItemAnalise()
-    {
-        return $this->_descricao_item_analise;
-    }
+  public function getDescricaoItemAnalise()
+  {
+    return $this->_descricao_item_analise;
+  }
 
-    public function setDescricaoItemAnalise($descricao_item_analise)
-    {
-        $this->_descricao_item_analise = $descricao_item_analise;
-    }
+  public function setDescricaoItemAnalise($descricao_item_analise)
+  {
+    $this->_descricao_item_analise = $descricao_item_analise;
+  }
 
-    public function getIDMetodoAnalise()
-    {
-        return $this->_id_metodo_analise;
-    }
+  public function getIDMetodoAnalise()
+  {
+    return $this->_id_metodo_analise;
+  }
 
-    public function setIDMetodoAnalise($id_metodo_analise)
-    {
-        $this->_id_metodo_analise = $id_metodo_analise;
-    }
+  public function setIDMetodoAnalise($id_metodo_analise)
+  {
+    $this->_id_metodo_analise = $id_metodo_analise;
+  }
 
 }
 

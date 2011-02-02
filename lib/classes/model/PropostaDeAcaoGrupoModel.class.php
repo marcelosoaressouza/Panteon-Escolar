@@ -19,40 +19,40 @@
 
 class PropostaDeAcaoGrupoModel extends PanteonEscolarBaseModel
 {
-    private $_texto_proposta_de_acao_grupo;
-    private $_data_hora_cadastro_proposta_de_acao_grupo;
-    private $_id_grupo;
+  private $_texto_proposta_de_acao_grupo;
+  private $_data_hora_cadastro_proposta_de_acao_grupo;
+  private $_id_grupo;
 
 
-    public function getTextoPropostaDeAcaoGrupo()
-    {
-        return $this->_texto_proposta_de_acao_grupo;
-    }
+  public function getTextoPropostaDeAcaoGrupo()
+  {
+    return $this->_texto_proposta_de_acao_grupo;
+  }
 
-    public function setTextoPropostaDeAcaoGrupo($texto_proposta_de_acao_grupo)
-    {
-        $this->_texto_proposta_de_acao_grupo = $texto_proposta_de_acao_grupo;
-    }
+  public function setTextoPropostaDeAcaoGrupo($texto_proposta_de_acao_grupo)
+  {
+    $this->_texto_proposta_de_acao_grupo = $texto_proposta_de_acao_grupo;
+  }
 
-    public function getDataHoraCadastroPropostaDeAcaoGrupo()
-    {
-        return date("Y-m-d H:i:s");
-    }
+  public function getDataHoraCadastroPropostaDeAcaoGrupo()
+  {
+    return date("Y-m-d H:i:s");
+  }
 
-    public function setDataHoraCadastroPropostaDeAcaoGrupo($data_hora_cadastro_proposta_de_acao_grupo)
-    {
-        $this->_data_hora_cadastro_proposta_de_acao_grupo = date("Y-m-d H:i:s");
-    }
+  public function setDataHoraCadastroPropostaDeAcaoGrupo($data_hora_cadastro_proposta_de_acao_grupo)
+  {
+    $this->_data_hora_cadastro_proposta_de_acao_grupo = date("Y-m-d H:i:s");
+  }
 
-    public function getIDGrupo()
-    {
-        return $this->_id_grupo;
-    }
+  public function getIDGrupo()
+  {
+    return $this->_id_grupo;
+  }
 
-    public function setIDGrupo($id_grupo)
-    {
-        $this->_id_grupo = $id_grupo;
-    }
+  public function setIDGrupo($id_grupo)
+  {
+    $this->_id_grupo = $id_grupo;
+  }
 
 }
 

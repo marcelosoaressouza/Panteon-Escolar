@@ -46,11 +46,11 @@ http://www.gnu.org/licenses/gpl-2.0.html
   <xmlnuke-scripts />
 
   <!-- Inicio CSS e JS Default do Panteon Escolar -->
-  <script type="text/javascript" src="static/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+  <script type="text/javascript" src="static/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
   <script type="text/javascript" src="static/js/panteonescolar-default.js"></script>
   <script type="text/javascript" src="static/js/jquery-ui/ui.datepicker-pt-BR.js"></script>
   
-  <link href="static/js/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
+  <link href="static/js/fancybox/jquery.fancybox-1.3.1.css" rel="stylesheet" type="text/css"/>
   <link href="static/css/panteonescolar-default.css" rel="stylesheet" type="text/css"/>
   <link href="static/css/principal.css" rel="stylesheet" type="text/css"/>
 
@@ -144,7 +144,6 @@ http://www.gnu.org/licenses/gpl-2.0.html
 
       <p><strong> Sistema Web Educacional Panteon Escolar.</strong></p>
       <p><strong> Este é um <a href="http://pt.wikipedia.org/wiki/Software_livre">Software Livre</a> licenciado sobre a <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2.</a></strong></p>
-      <p><strong> <a href="http://git.panteonescolar.org">Repositório com Código-Fonte</a></strong></p>
       <p><strong> Desenvolvido utilizando o Framework <a href="http://www.xmlnuke.com/site/">XMLNuke 3.x</a> (PHP5).</strong></p>
 
     </div> <!-- div-rodape -->

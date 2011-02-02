@@ -19,17 +19,17 @@
 
 class ForumModel extends PanteonEscolarBaseModel
 {
-    private $_id_tema_panteon;
+  private $_id_tema_panteon;
 
-    public function setIDTemaPanteon($id_tema_panteon)
-    {
-        $this->_id_tema_panteon = $id_tema_panteon;
-    }
+  public function setIDTemaPanteon($id_tema_panteon)
+  {
+    $this->_id_tema_panteon = $id_tema_panteon;
+  }
 
-    public function getIDTemaPanteon()
-    {
-        return $this->_id_tema_panteon;
-    }
+  public function getIDTemaPanteon()
+  {
+    return $this->_id_tema_panteon;
+  }
 
 }
 

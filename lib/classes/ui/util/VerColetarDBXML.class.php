@@ -20,114 +20,114 @@
 class VerColetarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
+  protected $_context;
+  protected $_opcao;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $id_usuario = $this->_context->authenticatedUserId();
+    $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
+
+    if($this->_context->ContextValue("vercoletar") != "")
     {
-        $id_usuario = $this->_context->authenticatedUserId();
-        $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
+      $id_coletar = $this->_context->ContextValue("vercoletar");
+    }
 
+    else
+    {
+      $id_coletar = $this->_context->ContextValue("verdescartar");
+    }
+
+    $coletar = $this->_context->ContextValue("coletar");
+
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+
+    if($this->_opcao == "ver")
+    {
+      // $dbxml = new UsuarioXPontoDeVistaDBXML($this->_context, "vercoletar", "Ver Coletar");
+      // $permissao = array (true, false, false, false);
+      // $pagina = $dbxml->criarProcessPageFieldsColetar($id_usuario, $id_coletar, $id_tema_panteon, $coletar, $permissao);
+      // if ($id_coletar != "") $pagina->forceCurrentAction("ppnew");
+
+
+      $span = new XmlnukeSpanCollection();
+
+      if($this->_context->ContextValue("chamada") == "")
+      {
         if($this->_context->ContextValue("vercoletar") != "")
         {
-            $id_coletar = $this->_context->ContextValue("vercoletar");
+          $coletar = 1;
         }
 
         else
         {
-            $id_coletar = $this->_context->ContextValue("verdescartar");
+          $coletar = 0;
         }
 
-        $coletar = $this->_context->ContextValue("coletar");
+        $formPost = "module:panteonescolar.vercoletar&amp;chamada=1&amp;xsl=page";
 
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
+        $form = new XmlFormCollection($this->_context, $formPost, "Coletar/Descartar");
 
-        if($this->_opcao == "ver")
-        {
-            // $dbxml = new UsuarioXPontoDeVistaDBXML($this->_context, "vercoletar", "Ver Coletar");
-            // $permissao = array (true, false, false, false);
-            // $pagina = $dbxml->criarProcessPageFieldsColetar($id_usuario, $id_coletar, $id_tema_panteon, $coletar, $permissao);
-            // if ($id_coletar != "") $pagina->forceCurrentAction("ppnew");
+        $comentario = new XmlInputMemo("Comentário: ", "texto_usuario_x_ponto_de_vista", NULL, 60);
+        $comentario->setSize(70,13);
+        $form->addXmlnukeObject($comentario);
 
+        $vercoletar = new XmlInputHidden("id_ponto_de_vista", $id_coletar);
+        $form->addXmlnukeObject($vercoletar);
 
-            $span = new XmlnukeSpanCollection();
+        $vercoletar = new XmlInputHidden("coletar", $coletar);
+        $form->addXmlnukeObject($vercoletar);
 
-            if($this->_context->ContextValue("chamada") == "")
-            {
-                if($this->_context->ContextValue("vercoletar") != "")
-                {
-                    $coletar = 1;
-                }
+        $buttons = new XmlInputButtons();
+        $buttons->addSubmit("Enviar Comentário");
+        $form->addXmlnukeObject($buttons);
 
-                else
-                {
-                    $coletar = 0;
-                }
+        $span1->addXmlnukeObject($form);
 
-                $formPost = "module:panteonescolar.vercoletar&amp;chamada=1&amp;xsl=page";
+        //Debug::PrintValue($id_usuario."-".$id_tema_panteon."-".$id_coletar."-".$coletar);
 
-                $form = new XmlFormCollection($this->_context, $formPost, "Coletar/Descartar");
+      }
 
-                $comentario = new XmlInputMemo("Comentário: ", "texto_usuario_x_ponto_de_vista", NULL, 60);
-                $comentario->setSize(70,13);
-                $form->addXmlnukeObject($comentario);
+      else
+      {
+        $db = new UsuarioXPontoDeVistaDB($this->_context);
+        $model = new UsuarioXPontoDeVistaModel();
+        $model->setIDUsuario($id_usuario);
+        $model->setIDTemaPanteon($id_tema_panteon);
+        $model->setIDPontodeVista($this->_context->ContextValue("id_ponto_de_vista"));
+        $model->setColetadoUsuarioXPontoDeVista($this->_context->ContextValue("coletar"));
+        $model->setTextoUsuarioXPontoDeVista($this->_context->ContextValue("texto_usuario_x_ponto_de_vista"));
 
-                $vercoletar = new XmlInputHidden("id_ponto_de_vista", $id_coletar);
-                $form->addXmlnukeObject($vercoletar);
+        $db->cadastrar($model);
 
-                $vercoletar = new XmlInputHidden("coletar", $coletar);
-                $form->addXmlnukeObject($vercoletar);
+        $this->_context->addCookie("mensagem_aviso", "Ponto de Vista Coletado/Descartado");
+        $this->_context->redirectUrl("./todospontodevistatemapanteon");
 
-                $buttons = new XmlInputButtons();
-                $buttons->addSubmit("Enviar Comentário");
-                $form->addXmlnukeObject($buttons);
-
-                $span1->addXmlnukeObject($form);
-
-                //Debug::PrintValue($id_usuario."-".$id_tema_panteon."-".$id_coletar."-".$coletar);
-
-            }
-
-            else
-            {
-                $db = new UsuarioXPontoDeVistaDB($this->_context);
-                $model = new UsuarioXPontoDeVistaModel();
-                $model->setIDUsuario($id_usuario);
-                $model->setIDTemaPanteon($id_tema_panteon);
-                $model->setIDPontodeVista($this->_context->ContextValue("id_ponto_de_vista"));
-                $model->setColetadoUsuarioXPontoDeVista($this->_context->ContextValue("coletar"));
-                $model->setTextoUsuarioXPontoDeVista($this->_context->ContextValue("texto_usuario_x_ponto_de_vista"));
-
-                $db->cadastrar($model);
-
-                $this->_context->addCookie("mensagem_aviso", "Ponto de Vista Coletado/Descartado");
-                $this->_context->redirectUrl("./todospontodevistatemapanteon");
-
-            }
-
-        }
-
-        // Gera Página XML Final
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
-
+      }
 
     }
 
-    public function VerColetarDBXML($context, $opcao)
+    // Gera Página XML Final
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+
+  }
+
+  public function VerColetarDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
     {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
-
-        $this->_context = $context;
-        $this->_opcao = $opcao;
-
+      throw new Exception("Falta de Context");
     }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

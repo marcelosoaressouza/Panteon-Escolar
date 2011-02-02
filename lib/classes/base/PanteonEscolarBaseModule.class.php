@@ -19,34 +19,34 @@
 
 class PanteonEscolarMenu
 {
-    const Anotacoes = 'static/images/Layout/MenuUsuario/Anotacoes.png';
-    const Grupos = 'static/images/Layout/MenuUsuario/Grupos.png';
-    const MeuPerfil = 'static/images/Layout/MenuUsuario/meuPerfil.png';
-    const Mural = 'static/images/Layout/MenuUsuario/Mural.png';
-    const Turmas = 'static/images/Layout/MenuUsuario/Turmas.png';
-    const Midiateca = 'static/images/Layout/MenuUsuario/Midiateca.png';
-    const PontoDeVista = 'static/images/Layout/MenuUsuario/PontoDeVista.png';
-    const Diagnostico = 'static/images/Layout/MenuUsuario/Diagnostico.png';
-    const PlanoDeAcao = 'static/images/Layout/MenuUsuario/PlanoDeAcao.png';
-    const MetodoDeAnalise = 'static/images/Layout/MenuUsuario/MetodoDeAnalise.png';
-    const EstruturaSocial = 'static/images/Layout/MenuUsuario/EstruturaSocial.png';
-    const CriarTema = 'static/images/Layout/MenuUsuario/CriarTemaPanteon.png';
-    const SituacaoProblema = 'static/images/Layout/MenuUsuario/SituacaoProblema.png';
-    const Forum = 'static/images/Layout/MenuUsuario/Forum.png';
-    const Instituicao = 'static/images/Layout/MenuUsuario/Instituicao.png';
-    const Usuario = 'static/images/Layout/MenuUsuario/Usuario.png';
-    const TipoMidia = 'static/images/Layout/MenuUsuario/TipoMidia.png';
-    const Tag = 'static/images/Layout/MenuUsuario/Tag.png';
-    const MeusTemas = 'static/images/Layout/MenuUsuario/MeusTemas.png';
-    const Biblioteca = 'static/images/Layout/MenuUsuario/Biblioteca.png';
-    const TemaPanteon = 'static/images/Layout/MenuUsuario/MeusTemas.png';
+  const Anotacoes = 'static/images/Layout/MenuUsuario/Anotacoes.png';
+  const Grupos = 'static/images/Layout/MenuUsuario/Grupos.png';
+  const MeuPerfil = 'static/images/Layout/MenuUsuario/meuPerfil.png';
+  const Mural = 'static/images/Layout/MenuUsuario/Mural.png';
+  const Turmas = 'static/images/Layout/MenuUsuario/Turmas.png';
+  const Midiateca = 'static/images/Layout/MenuUsuario/Midiateca.png';
+  const PontoDeVista = 'static/images/Layout/MenuUsuario/PontoDeVista.png';
+  const Diagnostico = 'static/images/Layout/MenuUsuario/Diagnostico.png';
+  const PlanoDeAcao = 'static/images/Layout/MenuUsuario/PlanoDeAcao.png';
+  const MetodoDeAnalise = 'static/images/Layout/MenuUsuario/MetodoDeAnalise.png';
+  const EstruturaSocial = 'static/images/Layout/MenuUsuario/EstruturaSocial.png';
+  const CriarTema = 'static/images/Layout/MenuUsuario/CriarTemaPanteon.png';
+  const SituacaoProblema = 'static/images/Layout/MenuUsuario/SituacaoProblema.png';
+  const Forum = 'static/images/Layout/MenuUsuario/Forum.png';
+  const Instituicao = 'static/images/Layout/MenuUsuario/Instituicao.png';
+  const Usuario = 'static/images/Layout/MenuUsuario/Usuario.png';
+  const TipoMidia = 'static/images/Layout/MenuUsuario/TipoMidia.png';
+  const Tag = 'static/images/Layout/MenuUsuario/Tag.png';
+  const MeusTemas = 'static/images/Layout/MenuUsuario/MeusTemas.png';
+  const Biblioteca = 'static/images/Layout/MenuUsuario/Biblioteca.png';
+  const TemaPanteon = 'static/images/Layout/MenuUsuario/MeusTemas.png';
 
 }
 
 class PanteonEscolarConsts
 {
-    const PontoDeVista_URL = '/xmlnuke.php?module=panteonescolar.verpontodevista&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;ReturnUrl=%2fmeusdiagnosticos&amp;pontodevista=';
-    const Contato = 'soares.souza@gmail.com';
+  const PontoDeVista_URL = '/xmlnuke.php?module=panteonescolar.verpontodevista&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;ReturnUrl=%2fmeusdiagnosticos&amp;pontodevista=';
+  const Contato = 'soares.souza@gmail.com';
 
 }
 
@@ -201,6 +201,7 @@ ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MinhasMensagensD
 ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MeuMuralDBXML.class.php");
 ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MeuForumDBXML.class.php");
 ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MeuForumMensagemDBXML.class.php");
+ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MeuForumMensagensTopicoDBXML.class.php");
 ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MeusPontosDeVistasDBXML.class.php");
 ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/MeuTemaPanteonDBXML.class.php");
 ModuleFactory::IncludePhp("panteonescolar", "classes/ui/analise/PesquisadoresDBXML.class.php");
@@ -263,521 +264,521 @@ ModuleFactory::IncludePhp("panteonescolar", "classes/ui/intro/SobreDBXML.class.p
 
 class PanteonEscolarBaseModule extends BaseModule
 {
-    public function aviso($context)
-    {
+  public function aviso($context)
+  {
 
-        if($context->getCookie("mensagem_aviso") != "")
+    if($context->getCookie("mensagem_aviso") != "")
+    {
+      $aviso = PanteonEscolarBaseModule::caixaAviso($context);
+      $aviso->addXmlnukeObject(new XmlNukeText($context->getCookie("mensagem_aviso")));
+      $context->removeCookie("mensagem_aviso");
+
+    }
+
+    else
+    {
+      $aviso = new XmlNukeText("");
+    }
+
+    return $aviso;
+
+  }
+
+  public function getNivelAcesso($context, $id_usuario)
+  {
+    $db = new UsuarioXNivelAcessoDB($context);
+
+    return $db->obterNivelAcessoPorIDUsuario($id_usuario);
+  }
+
+  public function caixaAviso($context)
+  {
+    $container = new XmlnukeUIAlert($context, UIAlert::BoxAlert);
+    $container->setAutoHide(5000);
+    $container->setUIAlertType(UIAlert::BoxInfo);
+
+    return $container;
+
+  }
+
+  public function meusPontosDeVistas($id_usuario, $id_tema_panteon, $context)
+  {
+    $span = new XmlnukeSpanCollection();
+    $db = new UsuarioXPontoDeVistaDB($context);
+    $itC = $db->obterTodosOsPontoDeVistaPorIDUsuarioXIDTemaPanteonColetados($id_usuario, $id_tema_panteon, '1');
+    $itD = $db->obterTodosOsPontoDeVistaPorIDUsuarioXIDTemaPanteonColetados($id_usuario, $id_tema_panteon, '0');
+
+    $texto .= "<div id='meusPontosDeVistas'> Ponto(s) de Vista(s): ";
+    $texto .= " <a href='./meuspontosdevistas&coletados=1'>(".$itC->Count().") Coletado(s)</a>. ";
+    $texto .= " <a href='./meuspontosdevistas&coletados=0'>(".$itD->Count().") Descartados(s)</a>";
+    $texto .= "</div>";
+
+    return new XmlnukeText($texto);
+
+  }
+
+  public function definirTitulo($original, $temaPanteonDefinido, $voltar = "")
+  {
+    $url_voltar = '<a style="color: #A82B1C; font-size: 10px;" href="javascript:history.go(-1)">Anterior</a> > ';
+
+    if($temaPanteonDefinido =="")
+    {
+      $titulo = new XmlnukeDocument($original." (Escolha um Tema Panteon)", $url_voltar.$original." (Escolha um Tema Panteon)");
+
+    }
+
+    else
+    {
+      $tema_panteon = $temaPanteonDefinido;
+
+      if(strlen($temaPanteonDefinido) > 21)
+      {
+        $tema_panteon = substr($temaPanteonDefinido, 0 , 21).'...';
+
+      }
+
+      $titulo_tema_panteon = $tema_panteon;
+      $url_tema_panteon = '<a style="color: #A82B1C;" href="/meutemapanteon">'.$tema_panteon.'</a>';
+
+
+      // title e abstract
+      $titulo = new XmlnukeDocument($original." (" .$titulo_tema_panteon.")", $url_voltar.$original." (".$url_tema_panteon.")");
+
+    }
+
+    return $titulo;
+
+  }
+
+  public function definirTituloSimples($titulo_original)
+  {
+    $url_voltar = '<a style="color: #A82B1C; font-size: 10px;" href="javascript:history.go(-1)">Anterior</a> > ';
+    $titulo = new XmlnukeDocument($titulo_original, $url_voltar.$titulo_original);
+
+    return $titulo;
+
+  }
+
+  // curPageURL
+  public function curPageURL()
+  {
+    $pageURL = 'http';
+
+    if($_SERVER["HTTPS"] == "on")
+    {
+      $pageURL .= "s";
+    }
+
+    $pageURL .= "://";
+
+    if($_SERVER["SERVER_PORT"] != "80")
+    {
+      $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    }
+
+    else
+    {
+      $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+
+    return $pageURL;
+  }
+
+  // criarTitulo
+  public function criarTitulo($node, $titulo = "Panteon Escolar")
+  {
+    $body = XmlUtil::CreateChild($node, "box_titulo", "");
+    XmlUtil::AddAttribute($body, "titulo", $titulo);
+
+  }
+
+  // preencherBarra
+  public function preencherBarra($node, $itDB, $titulo, $conteudo = "", $autor = " ", $link = " ", $id = "")
+  {
+    $tam_max = 330;
+
+    $titulo = strip_tags($titulo);
+    $conteudo = strip_tags($conteudo);
+    $autor = strip_tags($autor);
+
+    while($itDB->hasNext())
+    {
+      $sr = $itDB->moveNext();
+      $texto = $sr->getField($conteudo);
+
+      if(($link !="") && ($id !=""))
+      {
+        $linkFinal = '<div id="link_barra_direita">'. '<a class="lista_direita_detalhe" ' . 'title="Detalhes '.$sr->getField($autor) .'" href="'. $link . $sr->getField($id) . '"> Leia Mais </a></div>';
+      }
+
+      if(strlen($texto) > $tam_max)
+      {
+        $texto =  strip_tags(substr($texto, 0 , $tam_max));
+        $texto = $texto;
+      }
+
+      $body = XmlUtil::CreateChild($node, "mensagem", "");
+
+      if($titulo != "")
+      {
+        XmlUtil::AddAttribute($body, "titulo", "<b>".$sr->getField($titulo)."</b><br/>");
+      }
+
+      XmlUtil::AddAttribute($body, "conteudo", $texto);
+      XmlUtil::AddAttribute($body, "autor", $sr->getField($autor));
+
+      if(($link !="") && ($id !=""))
+      {
+        XmlUtil::AddAttribute($body, "link", $linkFinal);
+      }
+
+    }
+  }
+
+  // preencherBarraVazia
+  public function preencherBarraVazia($node)
+  {
+    $body = XmlUtil::CreateChild($node, "mensagem", "");
+    XmlUtil::AddAttribute($body, "titulo", "Não há Informações");
+    XmlUtil::AddAttribute($body, "conteudo", " ");
+    XmlUtil::AddAttribute($body, "autor", " ");
+
+  }
+
+  public function preencherBarraComTexto($node, $titulo, $conteudo, $autor)
+  {
+    $titulo = strip_tags($titulo);
+    $conteudo = strip_tags($conteudo);
+    $autor = strip_tags($autor);
+
+    $body = XmlUtil::CreateChild($node, "mensagem", "");
+    XmlUtil::AddAttribute($body, "titulo", $titulo);
+    XmlUtil::AddAttribute($body, "conteudo", $conteudo);
+    XmlUtil::AddAttribute($body, "autor", $autor);
+
+  }
+  // preencherMenuUsuario
+  public function preencherMenuUsuario($ativo = "")
+  {
+    $menu = array(PanteonEscolarMenu::PontoDeVista    => "todospontodevistatemapanteon",
+                  PanteonEscolarMenu::Diagnostico    => "meusdiagnosticos",
+                  PanteonEscolarMenu::PlanoDeAcao    => "minhaspropostasdeacao",
+                  PanteonEscolarMenu::Forum    => "meuforummensagem",
+                  PanteonEscolarMenu::Midiateca    => "midiatecatemapanteon",
+                 );
+
+    if($ativo != "")
+    {
+      $opcao = $menu[$ativo];
+
+      $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
+
+      $keys = array_keys($menu);
+      $values = array_values($menu);
+
+      foreach($keys as $k => $v)
+      {
+        if($v == $ativo)
         {
-            $aviso = PanteonEscolarBaseModule::caixaAviso($context);
-            $aviso->addXmlnukeObject(new XmlNukeText($context->getCookie("mensagem_aviso")));
-            $context->removeCookie("mensagem_aviso");
-
+          $keys[$k] = $arquivo;
         }
+      }
 
-        else
+      $menu = array_combine($keys, $values);
+    }
+
+    return $menu;
+
+  }
+
+  // preencherMenuBiblioteca
+  public function preencherMenuBiblioteca($ativo = "")
+  {
+
+    $menu = array(PanteonEscolarMenu::Biblioteca    => "biblioteca");
+
+    if($ativo != "")
+    {
+      $opcao = $menu[$ativo];
+
+      $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
+
+      $keys = array_keys($menu);
+      $values = array_values($menu);
+
+      foreach($keys as $k => $v)
+      {
+        if($v == $ativo)
         {
-            $aviso = new XmlNukeText("");
+          $keys[$k] = $arquivo;
         }
+      }
 
-        return $aviso;
-
+      $menu = array_combine($keys, $values);
     }
 
-    public function getNivelAcesso($context, $id_usuario)
+    return $menu;
+
+  }
+
+  // preencherMenuTemaPanteon
+  public function preencherMenuTemaPanteon($ativo = "")
+  {
+
+    $menu = array(PanteonEscolarMenu::TemaPanteon    => "meutemapanteon");
+
+    if($ativo != "")
     {
-        $db = new UsuarioXNivelAcessoDB($context);
+      $opcao = $menu[$ativo];
 
-        return $db->obterNivelAcessoPorIDUsuario($id_usuario);
-    }
+      $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
 
-    public function caixaAviso($context)
-    {
-        $container = new XmlnukeUIAlert($context, UIAlert::BoxAlert);
-        $container->setAutoHide(5000);
-        $container->setUIAlertType(UIAlert::BoxInfo);
+      $keys = array_keys($menu);
+      $values = array_values($menu);
 
-        return $container;
-
-    }
-
-    public function meusPontosDeVistas($id_usuario, $id_tema_panteon, $context)
-    {
-        $span = new XmlnukeSpanCollection();
-        $db = new UsuarioXPontoDeVistaDB($context);
-        $itC = $db->obterTodosOsPontoDeVistaPorIDUsuarioXIDTemaPanteonColetados($id_usuario, $id_tema_panteon, '1');
-        $itD = $db->obterTodosOsPontoDeVistaPorIDUsuarioXIDTemaPanteonColetados($id_usuario, $id_tema_panteon, '0');
-
-        $texto .= "<div id='meusPontosDeVistas'> Ponto(s) de Vista(s): ";
-        $texto .= " <a href='/meuspontosdevistas&coletados=1'>(".$itC->Count().") Coletado(s)</a>. ";
-        $texto .= " <a href='/meuspontosdevistas&coletados=0'>(".$itD->Count().") Descartados(s)</a>";
-        $texto .= "</div>";
-
-        return new XmlnukeText($texto);
-
-    }
-
-    public function definirTitulo($original, $temaPanteonDefinido, $voltar = "")
-    {
-        $url_voltar = '<a style="color: #A82B1C; font-size: 10px;" href="javascript:history.go(-1)">Anterior</a> > ';
-
-        if($temaPanteonDefinido =="")
+      foreach($keys as $k => $v)
+      {
+        if($v == $ativo)
         {
-            $titulo = new XmlnukeDocument($original." (Escolha um Tema Panteon)", $url_voltar.$original." (Escolha um Tema Panteon)");
-
+          $keys[$k] = $arquivo;
         }
+      }
 
-        else
+      $menu = array_combine($keys, $values);
+    }
+
+    return $menu;
+
+  }
+
+  // preencherMenuCriarTemaPanteon
+  public function preencherMenuCriarTemaPanteon($ativo = "")
+  {
+    $menu = array(PanteonEscolarMenu::MetodoDeAnalise => "meusmetodosdeanalise",
+                  PanteonEscolarMenu::EstruturaSocial => "minhasestruturassociais",
+                  PanteonEscolarMenu::CriarTema => "criartemapanteon",
+                 );
+
+    if($ativo != "")
+    {
+      $opcao = $menu[$ativo];
+
+      $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
+
+      $keys = array_keys($menu);
+      $values = array_values($menu);
+
+      foreach($keys as $k => $v)
+      {
+        if($v == $ativo)
         {
-            $tema_panteon = $temaPanteonDefinido;
-
-            if(strlen($temaPanteonDefinido) > 21)
-            {
-                $tema_panteon = substr($temaPanteonDefinido, 0 , 21).'...';
-
-            }
-
-            $titulo_tema_panteon = $tema_panteon;
-            $url_tema_panteon = '<a style="color: #A82B1C;" href="/meutemapanteon">'.$tema_panteon.'</a>';
-
-
-            // title e abstract
-            $titulo = new XmlnukeDocument($original." (" .$titulo_tema_panteon.")", $url_voltar.$original." (".$url_tema_panteon.")");
-
+          $keys[$k] = $arquivo;
         }
+      }
 
-        return $titulo;
+      $menu = array_combine($keys, $values);
+    }
+
+    return $menu;
+
+  }
+
+  public function preencherMenuPadrao($node, $ativo = "")
+  {
+    $menu = array(PanteonEscolarMenu::MeuPerfil => "meuperfil",
+                  PanteonEscolarMenu::MeusTemas    => "meustemaspanteon",
+                  PanteonEscolarMenu::Grupos    => "meusgrupos",
+                  PanteonEscolarMenu::Turmas    => "minhasturmas",
+                  PanteonEscolarMenu::Anotacoes => "minhasnotas"
+                 );
+
+    if($ativo != "")
+    {
+      $opcao = $menu[$ativo];
+
+      $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
+
+      $keys = array_keys($menu);
+      $values = array_values($menu);
+
+      foreach($keys as $k => $v)
+      {
+        if($v == $ativo)
+        {
+          $keys[$k] = $arquivo;
+        }
+      }
+
+      $menu = array_combine($keys, $values);
+    }
+
+    $body = PanteonEscolarBaseModule::preencherMenu($node, $menu);
+
+    return $body;
+
+  }
+  public function preencherMenuConfig($ativo = "", $permissao = "")
+  {
+    $menu = array(
+              PanteonEscolarMenu::Instituicao  => "configinstituicao",
+              PanteonEscolarMenu::Usuario      => "configusuario",
+              PanteonEscolarMenu::Turmas       => "configturma",
+              PanteonEscolarMenu::Tag          => "configtag",
+            );
+
+    if($permissao == 'ADMINISTRADOR')
+    {
+      $menu[PanteonEscolarMenu::TipoMidia] = "configtipomidia";
+    }
+
+    if($ativo != "")
+    {
+      $opcao = $menu[$ativo];
+
+      $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
+
+      $keys = array_keys($menu);
+      $values = array_values($menu);
+
+      foreach($keys as $k => $v)
+      {
+        if($v == $ativo)
+        {
+          $keys[$k] = $arquivo;
+        }
+      }
+
+      $menu = array_combine($keys, $values);
+    }
+
+    return $menu;
+
+  }
+
+  // preencherMenu
+  public function preencherMenu($node, $menu)
+  {
+    foreach($menu as $imagem=>$endereco)
+    {
+      $body = XmlUtil::CreateChild($node, "imagem_aba", "");
+      XmlUtil::AddAttribute($body, "src", $imagem);
+      XmlUtil::AddAttribute($body, "href", $endereco);
+    }
+
+    return $body;
+
+  }
+
+  //
+  // Menu de Cabeçalho
+  //
+
+  public function preencherMenuHead($node, $menu)
+  {
+    foreach($menu as $href => $titulo)
+    {
+      $body = XmlUtil::CreateChild($node, "opcao_menu", "");
+      XmlUtil::AddAttribute($body, "href", $href);
+      XmlUtil::AddAttribute($body, "titulo", $titulo);
+
 
     }
 
-    public function definirTituloSimples($titulo_original)
-    {
-        $url_voltar = '<a style="color: #A82B1C; font-size: 10px;" href="javascript:history.go(-1)">Anterior</a> > ';
-        $titulo = new XmlnukeDocument($titulo_original, $url_voltar.$titulo_original);
+    return $body;
 
-        return $titulo;
+  }
+
+  public function preencherMenuHeadAuxiliar($node, $menu)
+  {
+    foreach($menu as $href => $titulo)
+    {
+      $body = XmlUtil::CreateChild($node, "opcao_menu_auxiliar", "");
+      XmlUtil::AddAttribute($body, "href", $href);
+      XmlUtil::AddAttribute($body, "titulo", $titulo);
 
     }
 
-    // curPageURL
-    public function curPageURL()
+    return $body;
+
+  }
+
+  public function preencherMenuHeadPadrao($nivel_acesso = "", $ativo = "")
+  {
+    $menu = array("meuperfil" => "Meu Perfil",
+                  "meutemapanteon" => "Tema Panteon",
+                  "biblioteca" => "Biblioteca de Temas Panteon",
+                  "oquee" => "Sobre o Panteon Escolar",
+                  "configinstituicao" => "Configuração",
+                 );
+
+    if(($nivel_acesso != "GESTOR") && ($nivel_acesso != "ADMINISTRADOR") && ($nivel_acesso != "MEDIADOR"))
     {
-        $pageURL = 'http';
-
-        if($_SERVER["HTTPS"] == "on")
-        {
-            $pageURL .= "s";
-        }
-
-        $pageURL .= "://";
-
-        if($_SERVER["SERVER_PORT"] != "80")
-        {
-            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-        }
-
-        else
-        {
-            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-        }
-
-        return $pageURL;
+      unset($menu["configinstituicao"]);
     }
 
-    // criarTitulo
-    public function criarTitulo($node, $titulo = "Panteon Escolar")
+    if($menu[$ativo])
     {
-        $body = XmlUtil::CreateChild($node, "box_titulo", "");
-        XmlUtil::AddAttribute($body, "titulo", $titulo);
-
+      $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
     }
 
-    // preencherBarra
-    public function preencherBarra($node, $itDB, $titulo, $conteudo = "", $autor = " ", $link = " ", $id = "")
-    {
-        $tam_max = 330;
-
-        $titulo = strip_tags($titulo);
-        $conteudo = strip_tags($conteudo);
-        $autor = strip_tags($autor);
-
-        while($itDB->hasNext())
-        {
-            $sr = $itDB->moveNext();
-            $texto = $sr->getField($conteudo);
-
-            if(($link !="") && ($id !=""))
-            {
-                $linkFinal = '<div id="link_barra_direita">'. '<a class="lista_direita_detalhe" ' . 'title="Detalhes '.$sr->getField($autor) .'" href="'. $link . $sr->getField($id) . '"> Leia Mais </a></div>';
-            }
-
-            if(strlen($texto) > $tam_max)
-            {
-                $texto =  strip_tags(substr($texto, 0 , $tam_max));
-                $texto = $texto;
-            }
-
-            $body = XmlUtil::CreateChild($node, "mensagem", "");
-
-            if($titulo != "")
-            {
-                XmlUtil::AddAttribute($body, "titulo", "<b>".$sr->getField($titulo)."</b><br/>");
-            }
-
-            XmlUtil::AddAttribute($body, "conteudo", $texto);
-            XmlUtil::AddAttribute($body, "autor", $sr->getField($autor));
-
-            if(($link !="") && ($id !=""))
-            {
-                XmlUtil::AddAttribute($body, "link", $linkFinal);
-            }
-
-        }
-    }
-
-    // preencherBarraVazia
-    public function preencherBarraVazia($node)
-    {
-        $body = XmlUtil::CreateChild($node, "mensagem", "");
-        XmlUtil::AddAttribute($body, "titulo", "Não há Informações");
-        XmlUtil::AddAttribute($body, "conteudo", " ");
-        XmlUtil::AddAttribute($body, "autor", " ");
-
-    }
-
-    public function preencherBarraComTexto($node, $titulo, $conteudo, $autor)
-    {
-        $titulo = strip_tags($titulo);
-        $conteudo = strip_tags($conteudo);
-        $autor = strip_tags($autor);
-
-        $body = XmlUtil::CreateChild($node, "mensagem", "");
-        XmlUtil::AddAttribute($body, "titulo", $titulo);
-        XmlUtil::AddAttribute($body, "conteudo", $conteudo);
-        XmlUtil::AddAttribute($body, "autor", $autor);
-
-    }
-    // preencherMenuUsuario
-    public function preencherMenuUsuario($ativo = "")
-    {
-        $menu = array(PanteonEscolarMenu::PontoDeVista    => "todospontodevistatemapanteon",
-                      PanteonEscolarMenu::Diagnostico    => "meusdiagnosticos",
-                      PanteonEscolarMenu::PlanoDeAcao    => "minhaspropostasdeacao",
-                      PanteonEscolarMenu::Forum    => "meuforummensagem",
-                      PanteonEscolarMenu::Midiateca    => "midiatecatemapanteon",
-                     );
-
-        if($ativo != "")
-        {
-            $opcao = $menu[$ativo];
-
-            $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
-
-            $keys = array_keys($menu);
-            $values = array_values($menu);
-
-            foreach($keys as $k => $v)
-            {
-                if($v == $ativo)
-                {
-                    $keys[$k] = $arquivo;
-                }
-            }
-
-            $menu = array_combine($keys, $values);
-        }
-
-        return $menu;
-
-    }
-
-    // preencherMenuBiblioteca
-    public function preencherMenuBiblioteca($ativo = "")
-    {
-
-        $menu = array(PanteonEscolarMenu::Biblioteca    => "biblioteca");
-
-        if($ativo != "")
-        {
-            $opcao = $menu[$ativo];
-
-            $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
-
-            $keys = array_keys($menu);
-            $values = array_values($menu);
-
-            foreach($keys as $k => $v)
-            {
-                if($v == $ativo)
-                {
-                    $keys[$k] = $arquivo;
-                }
-            }
-
-            $menu = array_combine($keys, $values);
-        }
-
-        return $menu;
-
-    }
-
-    // preencherMenuTemaPanteon
-    public function preencherMenuTemaPanteon($ativo = "")
-    {
-
-        $menu = array(PanteonEscolarMenu::TemaPanteon    => "meutemapanteon");
-
-        if($ativo != "")
-        {
-            $opcao = $menu[$ativo];
-
-            $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
-
-            $keys = array_keys($menu);
-            $values = array_values($menu);
-
-            foreach($keys as $k => $v)
-            {
-                if($v == $ativo)
-                {
-                    $keys[$k] = $arquivo;
-                }
-            }
-
-            $menu = array_combine($keys, $values);
-        }
-
-        return $menu;
-
-    }
-
-    // preencherMenuCriarTemaPanteon
-    public function preencherMenuCriarTemaPanteon($ativo = "")
-    {
-        $menu = array(PanteonEscolarMenu::MetodoDeAnalise => "meusmetodosdeanalise",
-                      PanteonEscolarMenu::EstruturaSocial => "minhasestruturassociais",
-                      PanteonEscolarMenu::CriarTema => "criartemapanteon",
-                     );
-
-        if($ativo != "")
-        {
-            $opcao = $menu[$ativo];
-
-            $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
-
-            $keys = array_keys($menu);
-            $values = array_values($menu);
-
-            foreach($keys as $k => $v)
-            {
-                if($v == $ativo)
-                {
-                    $keys[$k] = $arquivo;
-                }
-            }
-
-            $menu = array_combine($keys, $values);
-        }
-
-        return $menu;
-
-    }
-
-    public function preencherMenuPadrao($node, $ativo = "")
-    {
-        $menu = array(PanteonEscolarMenu::MeuPerfil => "meuperfil",
-                      PanteonEscolarMenu::MeusTemas    => "meustemaspanteon",
-                      PanteonEscolarMenu::Grupos    => "meusgrupos",
-                      PanteonEscolarMenu::Turmas    => "minhasturmas",
-                      PanteonEscolarMenu::Anotacoes => "minhasnotas"
-                     );
-
-        if($ativo != "")
-        {
-            $opcao = $menu[$ativo];
-
-            $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
-
-            $keys = array_keys($menu);
-            $values = array_values($menu);
-
-            foreach($keys as $k => $v)
-            {
-                if($v == $ativo)
-                {
-                    $keys[$k] = $arquivo;
-                }
-            }
-
-            $menu = array_combine($keys, $values);
-        }
-
-        $body = PanteonEscolarBaseModule::preencherMenu($node, $menu);
-
-        return $body;
-
-    }
-    public function preencherMenuConfig($ativo = "", $permissao = "")
-    {
-        $menu = array(
-                    PanteonEscolarMenu::Instituicao  => "configinstituicao",
-                    PanteonEscolarMenu::Usuario      => "configusuario",
-                    PanteonEscolarMenu::Turmas       => "configturma",
-                    PanteonEscolarMenu::Tag          => "configtag",
-                );
-
-        if($permissao == 'ADMINISTRADOR')
-        {
-            $menu[PanteonEscolarMenu::TipoMidia] = "configtipomidia";
-        }
-
-        if($ativo != "")
-        {
-            $opcao = $menu[$ativo];
-
-            $arquivo = substr($ativo, 0, strrpos($ativo, '.'))."Ativo.png";
-
-            $keys = array_keys($menu);
-            $values = array_values($menu);
-
-            foreach($keys as $k => $v)
-            {
-                if($v == $ativo)
-                {
-                    $keys[$k] = $arquivo;
-                }
-            }
-
-            $menu = array_combine($keys, $values);
-        }
-
-        return $menu;
-
-    }
-
-    // preencherMenu
-    public function preencherMenu($node, $menu)
-    {
-        foreach($menu as $imagem=>$endereco)
-        {
-            $body = XmlUtil::CreateChild($node, "imagem_aba", "");
-            XmlUtil::AddAttribute($body, "src", $imagem);
-            XmlUtil::AddAttribute($body, "href", $endereco);
-        }
-
-        return $body;
-
-    }
-
-    //
-    // Menu de Cabeçalho
-    //
-
-    public function preencherMenuHead($node, $menu)
-    {
-        foreach($menu as $href => $titulo)
-        {
-            $body = XmlUtil::CreateChild($node, "opcao_menu", "");
-            XmlUtil::AddAttribute($body, "href", $href);
-            XmlUtil::AddAttribute($body, "titulo", $titulo);
-
-
-        }
-
-        return $body;
-
-    }
-
-    public function preencherMenuHeadAuxiliar($node, $menu)
-    {
-        foreach($menu as $href => $titulo)
-        {
-            $body = XmlUtil::CreateChild($node, "opcao_menu_auxiliar", "");
-            XmlUtil::AddAttribute($body, "href", $href);
-            XmlUtil::AddAttribute($body, "titulo", $titulo);
-
-        }
-
-        return $body;
-
-    }
-
-    public function preencherMenuHeadPadrao($nivel_acesso = "", $ativo = "")
-    {
-        $menu = array("meuperfil" => "Meu Perfil",
-                      "meutemapanteon" => "Tema Panteon",
-                      "biblioteca" => "Biblioteca de Temas Panteon",
-                      "oquee" => "Sobre o Panteon Escolar",
-                      "configinstituicao" => "Configuração",
-                     );
-
-        if(($nivel_acesso != "GESTOR") && ($nivel_acesso != "ADMINISTRADOR") && ($nivel_acesso != "MEDIADOR"))
-        {
-            unset($menu["configinstituicao"]);
-        }
-
-        if($menu[$ativo])
-        {
-            $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
-        }
-
-        return $menu;
-
-    }
-
-    public function preencherMenuHeadInicial($ativo = "")
-    {
-        $menu = array("oquee" => "o que é?",
-                      "bibliotecapublica" => "biblioteca de temas",
-                      "contato" => "contato",
+    return $menu;
+
+  }
+
+  public function preencherMenuHeadInicial($ativo = "")
+  {
+    $menu = array("oquee" => "o que é?",
+                  "bibliotecapublica" => "biblioteca de temas",
+                  "contato" => "contato",
 //                  "sobre" => "créditos",
-                     );
+                 );
 
-        if($menu[$ativo])
-        {
-            $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
-        }
-
-        return $menu;
-
-    }
-
-    public function preencherMenuHeadInicialAcesso($ativo = "")
+    if($menu[$ativo])
     {
-        $menu = array("xmlnuke.php?module=login&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil" =>  'acessar',
-                      './xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br' => "cadastre-se"
-                     );
-
-        if($menu[$ativo])
-        {
-            $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
-        }
-
-        return $menu;
-
+      $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
     }
 
-    function idade($aniversario)
+    return $menu;
+
+  }
+
+  public function preencherMenuHeadInicialAcesso($ativo = "")
+  {
+    $menu = array("xmlnuke.php?module=login&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil" =>  'acessar',
+                  './xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br' => "cadastre-se"
+                 );
+
+    if($menu[$ativo])
     {
-
-        return floor((time() - strtotime($aniversario))/31556926);
-
+      $menu[$ativo] = '<div style="color:#A42112">'.$menu[$ativo].'</div>';
     }
+
+    return $menu;
+
+  }
+
+  function idade($aniversario)
+  {
+
+    return floor((time() - strtotime($aniversario))/31556926);
+
+  }
 }
 
 class PanteonEscolarMyProcess extends ProcessPageStateDB
 {
-    public function renderField($field, $curValue)
+  public function renderField($field, $curValue)
+  {
+    if($field->fieldXmlInput == XmlInputObjectType::CUSTOM)
     {
-        if($field->fieldXmlInput == XmlInputObjectType::CUSTOM)
-        {
-            return new XmlInputFile($field->fieldCaption);
-        }
-
-        else
-        {
-            return parent::renderField($field, $curValue);
-        }
+      return new XmlInputFile($field->fieldCaption);
     }
+
+    else
+    {
+      return parent::renderField($field, $curValue);
+    }
+  }
 }
 
 ?>

@@ -20,56 +20,56 @@
 class VerAjaxDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
+  protected $_context;
+  protected $_opcao;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $uf_estado = $this->_context->ContextValue("verestado");
+
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+
+    if($this->_opcao == "ver")
     {
-        $uf_estado = $this->_context->ContextValue("verestado");
-
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
-
-        if($this->_opcao == "ver")
-        {
-            $db = new PerfilDB($this->_context);
-            $it = $db->obterCidadesPorUFEstado($uf_estado);
+      $db = new PerfilDB($this->_context);
+      $it = $db->obterCidadesPorUFEstado($uf_estado);
 
 //      $span1->addXmlnukeObject(new XmlNukeText('<div id="cidades">'));
-            $span1->addXmlnukeObject(new XmlNukeText('<select name="id_cidade" id="id_cidade">'));
+      $span1->addXmlnukeObject(new XmlNukeText('<select name="id_cidade" id="id_cidade">'));
 
-            while($it->hasNext())
-            {
-                $sr = $it->moveNext();
-                $span1->addXmlnukeObject(new XmlNukeText('<option value="'.$sr->getField("id_cidade").'">'.$sr->getField("nome").'</option>'));
+      while($it->hasNext())
+      {
+        $sr = $it->moveNext();
+        $span1->addXmlnukeObject(new XmlNukeText('<option value="'.$sr->getField("id_cidade").'">'.$sr->getField("nome").'</option>'));
 
 
-            }
+      }
 
-            $span1->addXmlnukeObject(new XmlNukeText('</select>'));
+      $span1->addXmlnukeObject(new XmlNukeText('</select>'));
 //      $span1->addXmlnukeObject(new XmlNukeText('</div>'));
 
-        }
-
-        // Gera Página XML Final
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
-
     }
 
-    public function VerAjaxDBXML($context, $opcao)
+    // Gera Página XML Final
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+  }
+
+  public function VerAjaxDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
     {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
-
-        $this->_context = $context;
-        $this->_opcao = $opcao;
-
+      throw new Exception("Falta de Context");
     }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

@@ -19,73 +19,73 @@
 
 class MensagemForumModel extends PanteonEscolarBaseModel
 {
-    private $_nome_mensagem_forum;
-    private $_texto_mensagem_forum;
-    private $_data_hora_cadastro_mensagem_forum;
+  private $_nome_mensagem_forum;
+  private $_texto_mensagem_forum;
+  private $_data_hora_cadastro_mensagem_forum;
 
-    private $_id_usuario;
-    private $_id_forum;
-    private $_id_mensagem_resposta;
+  private $_id_usuario;
+  private $_id_forum;
+  private $_id_mensagem_resposta;
 
-    public function getNomeMensagemForum()
-    {
-        return $this->_nome_mensagem_forum;
-    }
+  public function getNomeMensagemForum()
+  {
+    return $this->_nome_mensagem_forum;
+  }
 
-    public function setNomeMensagemForum($nome_mensagem_forum)
-    {
-        $this->_nome_mensagem_forum = $nome_mensagem_forum;
-    }
+  public function setNomeMensagemForum($nome_mensagem_forum)
+  {
+    $this->_nome_mensagem_forum = $nome_mensagem_forum;
+  }
 
-    public function getTextoMensagemForum()
-    {
-        return $this->_texto_mensagem_forum;
-    }
+  public function getTextoMensagemForum()
+  {
+    return $this->_texto_mensagem_forum;
+  }
 
-    public function setTextoMensagemForum($texto_mensagem_forum)
-    {
-        $this->_texto_mensagem_forum = $texto_mensagem_forum;
-    }
+  public function setTextoMensagemForum($texto_mensagem_forum)
+  {
+    $this->_texto_mensagem_forum = $texto_mensagem_forum;
+  }
 
-    public function getDataHoraCadastroMensagemForum()
-    {
-        return date("Y-m-d H:i:s");
-    }
+  public function getDataHoraCadastroMensagemForum()
+  {
+    return date("Y-m-d H:i:s");
+  }
 
-    public function setDataHoraCadastroMensagemForum($data_hora_cadastro_mensagem_forum)
-    {
-        $this->_data_hora_cadastro_mensagem_forum = date("Y-m-d H:i:s");
-    }
+  public function setDataHoraCadastroMensagemForum($data_hora_cadastro_mensagem_forum)
+  {
+    $this->_data_hora_cadastro_mensagem_forum = date("Y-m-d H:i:s");
+  }
 
-    public function getIDUsuario()
-    {
-        return $this->_id_usuario;
-    }
+  public function getIDUsuario()
+  {
+    return $this->_id_usuario;
+  }
 
-    public function setIDUsuario($id_usuario)
-    {
-        $this->_id_usuario = $id_usuario;
-    }
+  public function setIDUsuario($id_usuario)
+  {
+    $this->_id_usuario = $id_usuario;
+  }
 
-    public function getIDForum()
-    {
-        return $this->_id_id_forum;
-    }
+  public function getIDForum()
+  {
+    return $this->_id_id_forum;
+  }
 
-    public function setIDForum($id_forum)
-    {
-        $this->_id_forum = $id_forum;
-    }
+  public function setIDForum($id_forum)
+  {
+    $this->_id_forum = $id_forum;
+  }
 
-    public function getIDMensagemResposta()
-    {
-        return $this->_id_id_mensagem_resposta;
-    }
+  public function getIDMensagemResposta()
+  {
+    return $this->_id_mensagem_resposta;
+  }
 
-    public function setIDMensagemResposta($id_mensagem_resposta)
-    {
-        $this->_id_mensagem_resposta = $id_mensagem_resposta;
-    }
+  public function setIDMensagemResposta($id_mensagem_resposta)
+  {
+    $this->_id_mensagem_resposta = $id_mensagem_resposta;
+  }
 
 }
 

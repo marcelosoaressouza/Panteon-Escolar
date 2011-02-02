@@ -19,51 +19,51 @@
 
 class GrupoSocialModel extends PanteonEscolarBaseModel
 {
-    private $_nome_grupo_social;
-    private $_descricao_grupo_social;
+  private $_nome_grupo_social;
+  private $_descricao_grupo_social;
 
-    private $_id_subgrupo_social;
-    private $_id_estrutura_social;
+  private $_id_subgrupo_social;
+  private $_id_estrutura_social;
 
-    public function getNomeGrupoSocial()
-    {
-        return $this->_nome_grupo_social;
-    }
+  public function getNomeGrupoSocial()
+  {
+    return $this->_nome_grupo_social;
+  }
 
-    public function setNomeGrupoSocial($nome_grupo_social)
-    {
-        $this->_nome_grupo_social = $nome_grupo_social;
-    }
+  public function setNomeGrupoSocial($nome_grupo_social)
+  {
+    $this->_nome_grupo_social = $nome_grupo_social;
+  }
 
-    public function getDescricaoGrupoSocial()
-    {
-        return $this->_descricao_grupo_social;
-    }
+  public function getDescricaoGrupoSocial()
+  {
+    return $this->_descricao_grupo_social;
+  }
 
-    public function setDescricaoGrupoSocial($descricao_grupo_social)
-    {
-        $this->_descricao_grupo_social = $descricao_grupo_social;
-    }
+  public function setDescricaoGrupoSocial($descricao_grupo_social)
+  {
+    $this->_descricao_grupo_social = $descricao_grupo_social;
+  }
 
-    public function getIDSubGrupoSocial()
-    {
-        return $this->_id_subgrupo_social;
-    }
+  public function getIDSubGrupoSocial()
+  {
+    return $this->_id_subgrupo_social;
+  }
 
-    public function setIDSubGrupoSocial($id_sub_grupo_social)
-    {
-        $this->_id_subgrupo_social = $id_sub_grupo_social;
-    }
+  public function setIDSubGrupoSocial($id_sub_grupo_social)
+  {
+    $this->_id_subgrupo_social = $id_sub_grupo_social;
+  }
 
-    public function getIDEstruturaSocial()
-    {
-        return $this->_id_estrutura_social;
-    }
+  public function getIDEstruturaSocial()
+  {
+    return $this->_id_estrutura_social;
+  }
 
-    public function setIDEstruturaSocial($id_estrutura_social)
-    {
-        $this->_id_estrutura_social = $id_estrutura_social;
-    }
+  public function setIDEstruturaSocial($id_estrutura_social)
+  {
+    $this->_id_estrutura_social = $id_estrutura_social;
+  }
 
 }
 

@@ -19,17 +19,17 @@
 
 class PermissaoModel extends PanteonEscolarBaseModel
 {
-    private $_nome_permissao;
+  private $_nome_permissao;
 
-    public function getNomePermissao()
-    {
-        return $this->_nome_permissao;
-    }
+  public function getNomePermissao()
+  {
+    return $this->_nome_permissao;
+  }
 
-    public function setNomePermissao($nome_permissao)
-    {
-        $this->_nome_permissao = $nome_permissao;
-    }
+  public function setNomePermissao($nome_permissao)
+  {
+    $this->_nome_permissao = $nome_permissao;
+  }
 
 }
 

@@ -19,10 +19,10 @@
 
 class PanteonEscolarBaseModel extends BaseModel
 {
-    public function __construct()
-    {
-        $this->setPropertyPattern("_", "");
-    }
+  public function __construct()
+  {
+    $this->setPropertyPattern("_", "");
+  }
 }
 
 ?>

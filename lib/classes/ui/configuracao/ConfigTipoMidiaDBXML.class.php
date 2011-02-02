@@ -20,172 +20,172 @@
 class ConfigTipoMidiaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
-    protected $_num_registros_padrao = 3;
+  protected $_context;
+  protected $_opcao;
+  protected $_num_registros_padrao = 3;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $id_usuario = $this->_context->authenticatedUserId();
+    $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
+
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+
+    $titulo = "Tipo Midia";
+    $nome_modulo = "configtipomidia";
+
+    // Inicio - Area Principal
+    //
+    if($this->_opcao == "processPageField")
     {
-        $id_usuario = $this->_context->authenticatedUserId();
-        $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
+      $nome_modulo = "configtipomidia";
 
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
+      if($this->_context->ContextValue("acao") == 'ppmsgs')
+      {
+        $this->_context->redirectUrl($nome_modulo);
+      }
 
-        $titulo = "Tipo Midia";
-        $nome_modulo = "configtipomidia";
+      // Mensagem de Avisos
+      $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
 
-        // Inicio - Area Principal
-        //
-        if($this->_opcao == "processPageField")
-        {
-            $nome_modulo = "configtipomidia";
+      $dbUsuarioXNivelAcesso = new UsuarioXNivelAcessoDB($this->_context);
+      $nivel_acesso = $dbUsuarioXNivelAcesso->obterNivelAcessoPorIDUsuario($id_usuario);
 
-            if($this->_context->ContextValue("acao") == 'ppmsgs')
-            {
-                $this->_context->redirectUrl($nome_modulo);
-            }
+      if($nivel_acesso == "GESTOR")
+      {
+        $dbUsuario = new UsuarioDB($this->_context);
+        $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
 
-            // Mensagem de Avisos
-            $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
+      }
 
-            $dbUsuarioXNivelAcesso = new UsuarioXNivelAcessoDB($this->_context);
-            $nivel_acesso = $dbUsuarioXNivelAcesso->obterNivelAcessoPorIDUsuario($id_usuario);
+      else if($nivel_acesso == "ADMINISTRADOR")
+      {
+        $id = "";
+      }
 
-            if($nivel_acesso == "GESTOR")
-            {
-                $dbUsuario = new UsuarioDB($this->_context);
-                $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
+      else
+      {
+        $this->_context->redirectUrl("/meuperfil");
+        $id = "";
 
-            }
+      }
 
-            else if($nivel_acesso == "ADMINISTRADOR")
-            {
-                $id = "";
-            }
+      $permissao = array(true, false, true, false);
 
-            else
-            {
-                $this->_context->redirectUrl("/meuperfil");
-                $id = "";
+      $dbxml = new TipoMidiaDBXML($this->_context, $nome_modulo, $titulo);
+      $pagina = $dbxml->criarProcessPageFields($permissao);
 
-            }
+      if($pagina->getAllRecords()->Count() > 0)
+      {
+        $span1->addXmlnukeObject($pagina);
 
-            $permissao = array(true, false, true, false);
+      }
 
-            $dbxml = new TipoMidiaDBXML($this->_context, $nome_modulo, $titulo);
-            $pagina = $dbxml->criarProcessPageFields($permissao);
+      else
+      {
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum registro encontrado.</div>'));
 
-            if($pagina->getAllRecords()->Count() > 0)
-            {
-                $span1->addXmlnukeObject($pagina);
-
-            }
-
-            else
-            {
-                $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum registro encontrado.</div>'));
-
-            }
-
-        }
-
-        //
-        // Fim - Area Principal
-
-        // Inicio Lista Direita
-        //
-        if($this->_opcao == "listarDireita")
-        {
-            $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-            $body = PanteonEscolarBaseModule::criarTitulo($node);
-            $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
-
-            if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
-            {
-                XmlUtil::AddAttribute($node, "criartemapanteon", "true");
-            }
-
-        }
-
-        //
-        // Fim - Lista Direita
-
-        // Inicio - menu
-        //
-        if($this->_opcao == "menu")
-        {
-            $node = XmlUtil::CreateChild($current, "blockabausuario", "");
-            $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuConfig(PanteonEscolarMenu::TipoMidia, $nivel_acesso));
-
-        }
-
-        //
-        // Fim - menu
-
-        // Inicio - menu head
-        //
-        if($this->_opcao == "menuHead")
-        {
-            $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
-            XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
-
-            $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
-            $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
-            $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'configinstituicao'));
-            XmlUtil::AddAttribute($node, "nome_usuario", $msg);
-            XmlUtil::AddAttribute($node, "logout", "true");
-
-        }
-
-        //
-        // Fim - menu head
-
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
+      }
 
     }
 
-    public function filtro()
+    //
+    // Fim - Area Principal
+
+    // Inicio Lista Direita
+    //
+    if($this->_opcao == "listarDireita")
     {
-        $span = new XmlnukeSpanCollection();
-        $formPost = "module:panteonescolar.ConfigTipoMidia";
-        $form = new XmlFormCollection($this->_context, $formPost, "Minhas Mensagens");
+      $node = XmlUtil::CreateChild($current, "blockmensagem", "");
+      $body = PanteonEscolarBaseModule::criarTitulo($node);
+      $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-        $buttons = new XmlInputButtons();
-        $buttons->addSubmit("Filtrar");
-
-        $form->addXmlnukeObject($this->filtroConfigTipoMidia());
-        $form->addXmlnukeObject($buttons);
-
-        $span->addXmlnukeObject($form);
-
-        return $span;
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      {
+        XmlUtil::AddAttribute($node, "criartemapanteon", "true");
+      }
 
     }
 
-    public function filtroConfigTipoMidia()
-    {
-        $listaConfigTipoMidia = array(1 => "Mensagens Enviadas por Mim", 2 => "Mensagens Recebidas");
-        $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_minhas_mensagens_filtro", "Minhas Mensagens", $listaConfigTipoMidia);
+    //
+    // Fim - Lista Direita
 
-        return $lista;
+    // Inicio - menu
+    //
+    if($this->_opcao == "menu")
+    {
+      $node = XmlUtil::CreateChild($current, "blockabausuario", "");
+      $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuConfig(PanteonEscolarMenu::TipoMidia, $nivel_acesso));
 
     }
 
-    public function ConfigTipoMidiaDBXML($context, $opcao)
-    {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
+    //
+    // Fim - menu
 
-        $this->_context = $context;
-        $this->_opcao = $opcao;
+    // Inicio - menu head
+    //
+    if($this->_opcao == "menuHead")
+    {
+      $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
+      XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
+
+      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+      $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
+      $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'configinstituicao'));
+      XmlUtil::AddAttribute($node, "nome_usuario", $msg);
+      XmlUtil::AddAttribute($node, "logout", "true");
 
     }
+
+    //
+    // Fim - menu head
+
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+  }
+
+  public function filtro()
+  {
+    $span = new XmlnukeSpanCollection();
+    $formPost = "module:panteonescolar.ConfigTipoMidia";
+    $form = new XmlFormCollection($this->_context, $formPost, "Minhas Mensagens");
+
+    $buttons = new XmlInputButtons();
+    $buttons->addSubmit("Filtrar");
+
+    $form->addXmlnukeObject($this->filtroConfigTipoMidia());
+    $form->addXmlnukeObject($buttons);
+
+    $span->addXmlnukeObject($form);
+
+    return $span;
+
+  }
+
+  public function filtroConfigTipoMidia()
+  {
+    $listaConfigTipoMidia = array(1 => "Mensagens Enviadas por Mim", 2 => "Mensagens Recebidas");
+    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_minhas_mensagens_filtro", "Minhas Mensagens", $listaConfigTipoMidia);
+
+    return $lista;
+
+  }
+
+  public function ConfigTipoMidiaDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
+    {
+      throw new Exception("Falta de Context");
+    }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

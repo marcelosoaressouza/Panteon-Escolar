@@ -20,55 +20,55 @@
 class VerSitucaoProblemaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
-    protected $_context;
-    protected $_opcao;
+  protected $_context;
+  protected $_opcao;
 
-    public function generateObject($current)
+  public function generateObject($current)
+  {
+    $id_tema_panteon = $this->_context->ContextValue("vertemapanteon");
+
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+
+    if($this->_opcao == "ver")
     {
-        $id_tema_panteon = $this->_context->ContextValue("vertemapanteon");
+      if($id_tema_panteon != "")
+      {
+        $db = new SituacaoProblemaDB($this->_context);
+        $itSituacao = $db->obterTodasAsSituacoesProblemasPorIDTemaPanteon($id_tema_panteon);
 
-        $span1 = new XmlnukeSpanCollection();
-        $this->addXmlnukeObject($span1);
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Situações Problemas:</div><br/>'));
 
-        if($this->_opcao == "ver")
+        while($itSituacao->hasNext())
         {
-            if($id_tema_panteon != "")
-            {
-                $db = new SituacaoProblemaDB($this->_context);
-                $itSituacao = $db->obterTodasAsSituacoesProblemasPorIDTemaPanteon($id_tema_panteon);
-
-                $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Situações Problemas:</div><br/>'));
-
-                while($itSituacao->hasNext())
-                {
-                    $sr = $itSituacao->moveNext();
-                    $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">'.$sr->getField("nome_situacao_problema").'</div>'));
-                    $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$sr->getField("descricao_situacao_problema").'</div><br/>'));
-
-                }
-            }
+          $sr = $itSituacao->moveNext();
+          $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">'.$sr->getField("nome_situacao_problema").'</div>'));
+          $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$sr->getField("descricao_situacao_problema").'</div><br/>'));
 
         }
-
-        // Gera Página XML Final
-        $node = XmlUtil::CreateChild($current, "blockcenter", "");
-        $body = XmlUtil::CreateChild($node, "body", "");
-
-        parent::generatePage($body);
+      }
 
     }
 
-    public function VerSitucaoProblemaDBXML($context, $opcao)
+    // Gera Página XML Final
+    $node = XmlUtil::CreateChild($current, "blockcenter", "");
+    $body = XmlUtil::CreateChild($node, "body", "");
+
+    parent::generatePage($body);
+
+  }
+
+  public function VerSitucaoProblemaDBXML($context, $opcao)
+  {
+    if(!($context instanceof Context))
     {
-        if(!($context instanceof Context))
-        {
-            throw new Exception("Falta de Context");
-        }
-
-        $this->_context = $context;
-        $this->_opcao = $opcao;
-
+      throw new Exception("Falta de Context");
     }
+
+    $this->_context = $context;
+    $this->_opcao = $opcao;
+
+  }
 
 }
 

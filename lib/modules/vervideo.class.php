@@ -22,43 +22,43 @@ ModuleFactory::IncludePhp("panteonescolar", "classes/base/PanteonEscolarBaseModu
 class VerVideo extends PanteonEscolarBaseModule
 {
 
-    public function CreatePage()
-    {
-        $myWords = $this->WordCollection();
+  public function CreatePage()
+  {
+    $myWords = $this->WordCollection();
 
-        $titulo = "Video Midiateca";
-        $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTitulo($titulo, $this->_context->getCookie("nome_tema_panteon_definido"));
+    $titulo = "Video Midiateca";
+    $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTitulo($titulo, $this->_context->getCookie("nome_tema_panteon_definido"));
 
-        $blockHead   = new XmlBlockCollection(NULL, BlockPosition::Right);
-        $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
-        $blockInfo   = new XmlBlockCollection(NULL, BlockPosition::Left);
-        $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
+    $blockHead   = new XmlBlockCollection(NULL, BlockPosition::Right);
+    $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
+    $blockInfo   = new XmlBlockCollection(NULL, BlockPosition::Left);
+    $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
 
-        $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
-        $blockHead->addXmlnukeObject(new VerVideoDBXML($this->_context, "menuHead"));
+    $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
+    $blockHead->addXmlnukeObject(new VerVideoDBXML($this->_context, "menuHead"));
 
-        $this->defaultXmlnukeDocument->addXmlnukeObject($blockInfo);
-        $blockInfo->addXmlnukeObject(new VerVideoDBXML($this->_context, "listarDireita"));
+    $this->defaultXmlnukeDocument->addXmlnukeObject($blockInfo);
+    $blockInfo->addXmlnukeObject(new VerVideoDBXML($this->_context, "listarDireita"));
 
-        $this->defaultXmlnukeDocument->addXmlnukeObject($blockMenu);
-        $blockMenu->addXmlnukeObject(new VerVideoDBXML($this->_context, "menu"));
+    $this->defaultXmlnukeDocument->addXmlnukeObject($blockMenu);
+    $blockMenu->addXmlnukeObject(new VerVideoDBXML($this->_context, "menu"));
 
-        $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
-        $blockCenter->addXmlnukeObject(new VerVideoDBXML($this->_context, "ver"));
+    $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
+    $blockCenter->addXmlnukeObject(new VerVideoDBXML($this->_context, "ver"));
 
-        return $this->defaultXmlnukeDocument;
-    }
+    return $this->defaultXmlnukeDocument;
+  }
 
-    public function __constructor() {}
-    public function __destruct() { }
-    public function useCache()
-    {
-        return false;
-    }
-    public function requiresAuthentication()
-    {
-        return false;
-    }
+  public function __constructor() {}
+  public function __destruct() { }
+  public function useCache()
+  {
+    return false;
+  }
+  public function requiresAuthentication()
+  {
+    return false;
+  }
 
 }
 
