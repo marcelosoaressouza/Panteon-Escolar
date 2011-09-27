@@ -905,11 +905,7 @@ class PanteonEscolarBaseModule extends BaseModule
    */
   public function preencherMenuHeadInicialAcesso($context, $ativo = "")
   {
-//        $menu = array("xmlnuke.php?module=login&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil" => 'acessar',
-//            './xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br' => "cadastre-se"
-//        );
-    $login_module = $context->ContextValue('xmlnuke.LOGINMODULE');
-    $menu = array('module:'.$login_module.'&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br' => "cadastre-se");
+    $menu = array('module:?module=panteonescolar.panteonescolarlogin&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br' => "cadastrar-se");
 
     if($menu[$ativo])
     {
