@@ -93,6 +93,30 @@ class SujeitoDB extends PanteonEscolarBaseDBAccess
   }
 
   /**
+  * @param int $id
+  * @access public
+  * @return IIterator
+  */
+  public function obterTodosOsSujeitosPorIDGrupoSocialGroupBy($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+
+    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria;
+    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
+
+    // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria." = ".$id;
+    $sql .= " GROUP BY ".$this->_nome_tabela.".nome_sujeito";
+
+    $it = $this->getIterator($sql);
+
+    return $it;
+
+  }
+
+  /**
    * @param int $id
    * @access public
    * @return Model

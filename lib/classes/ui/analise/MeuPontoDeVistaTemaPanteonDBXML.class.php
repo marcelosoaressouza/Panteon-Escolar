@@ -33,7 +33,7 @@ class MeuPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXmln
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $container = PanteonEscolarBaseModule::caixaAviso($this->_context);
@@ -57,7 +57,7 @@ class MeuPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXmln
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

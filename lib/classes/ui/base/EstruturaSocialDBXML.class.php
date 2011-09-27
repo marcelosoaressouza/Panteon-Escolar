@@ -31,6 +31,7 @@ class EstruturaSocialDBXML extends XmlnukeCollection implements IXmlnukeDocument
   {
     // Inicio ProcessPageField
     $fieldList = new ProcessPageFields();
+    $fileUpload = new ProcessPageStateBaseSaveFormatterFileUpload($this->_context, "upload/estruturasocial");
 
     // Inicio Campos da Entidade
 
@@ -39,11 +40,17 @@ class EstruturaSocialDBXML extends XmlnukeCollection implements IXmlnukeDocument
       $field = ProcessPageFields::FactoryMinimal("nome_estrutura_social", "Estrutura Social", 45, false, false);
       $field->fieldXmlInput = XmlInputObjectType::TEXTBOX;
       $fieldList->addProcessPageField($field);
+
+      $field = ProcessPageFields::FactoryMinimal("caminho_foto_estrutura_social", "Imagem", 30, false, false);
+      $field->fieldXmlInput = XmlInputObjectType::FILEUPLOAD;
+      $field->saveDatabaseFormatter = $fileUpload;
+      $fieldList->addProcessPageField($field);
+
     }
 
     $field = ProcessPageFields::FactoryMinimal("id_usuario", "Criador", 30, false, false);
     $field->fieldXmlInput = XmlInputObjectType::HIDDEN;
-    $field->defaultValue = $id_usuario;
+    $field->defaultValue = 7;
     $fieldList->addProcessPageField($field);
 
     if($this->_context->ContextValue("acao") == "")

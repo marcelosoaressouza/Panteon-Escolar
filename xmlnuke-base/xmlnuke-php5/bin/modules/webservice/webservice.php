@@ -21,7 +21,7 @@ ini_set('error_log','/var/www/error.log');
  * @author     Manfred Weber <weber@mayflower.de>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: webservice.php,v 1.1 2006/02/24 18:57:16 jg Exp $
+ * @version    CVS: $Id: webservice.php 2 2011-08-24 10:01:15Z lvasconcelos $
  * @link       http://dschini.org/Services/
  */
 

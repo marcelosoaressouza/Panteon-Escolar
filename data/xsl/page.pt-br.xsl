@@ -44,11 +44,11 @@ http://www.gnu.org/licenses/gpl-2.0.html
   <!-- Inicio Snippet XMLNuke - Base -->
   <xmlnuke-htmlheader />
   <xmlnuke-scripts />
-
+  <xmlnuke-randernet_htmlheader />
   <!-- Inicio CSS e JS Default do Panteon Escolar -->
   <script type="text/javascript" src="static/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
   <script type="text/javascript" src="static/js/panteonescolar-default.js"></script>
-  <script type="text/javascript" src="static/js/jquery-ui/ui.datepicker-pt-BR.js"></script>
+  <!-- script type="text/javascript" src="static/js/jquery-ui/ui.datepicker-pt-BR.js"></script -->
   
   <link href="static/js/fancybox/jquery.fancybox-1.3.1.css" rel="stylesheet" type="text/css"/>
   <link href="static/css/panteonescolar-default.css" rel="stylesheet" type="text/css"/>
@@ -123,19 +123,12 @@ http://www.gnu.org/licenses/gpl-2.0.html
       <p>
         <img src="static/images/logo/marcaFisica.png" alt="Logo Física"/>
         <img src="static/images/logo/marcauneb.png" alt="Logo UNEB"/>
-
         <img src="static/images/logo/sec_original.png" alt="Logo SEC"/>
+        <img src="static/images/logo/Logos_Gov_Federal.png" alt="Logo Brasil"/>
         <!-- <img src="static/images/logo/marca_todospelaescola.png" alt="Logo Todos"/> -->
         <!-- <img src="static/images/logo/marcasec.png" alt="Logo SEC"/> -->
       </p>
 
-      <p>
-        <!-- <img src="static/images/logo/min_cienciaetecnologia.png" alt="Logo Min Cien"/> -->
-        <!-- <img src="static/images/logo/min_educacao.png" alt="Logo Min Educ"/> -->
-        <!-- <img src="static/images/logo/brasil.png" alt="Logo Brasil"/> -->
-        <img src="static/images/logo/Logos_Gov_Federal.png" alt="Logo Brasil"/>
-
-      </p>
 
       <p>
         <a href="http://validator.w3.org/check?uri=referer"> <img src="static/images/logo/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional" height="31" width="88" /> </a>
@@ -152,7 +145,7 @@ http://www.gnu.org/licenses/gpl-2.0.html
 </div> <!-- div-baseLayout -->
   
 <!-- Fim Layout Principal -->
-
+<xmlnuke-randernet_htmlfooter />
 </body>
 </html>
 
@@ -162,4 +155,5 @@ http://www.gnu.org/licenses/gpl-2.0.html
   <xmlnuke-blockmensagem />
   <xmlnuke-blockabausuario />
   <xmlnuke-blockbarramenu />
+  <xmlnuke-randernet_htmlbody />
 </xsl:stylesheet>

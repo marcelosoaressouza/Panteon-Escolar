@@ -1,3 +1,1 @@
-#!/bin/sh
-
-git push ssh://panteonescolar@panteonescolar.org:5537/home/panteonescolar/git/panteonescolar.git
+git push ssh://rejunteorg@rejunte.org:5537/home/rejunteorg/panteonescolar/git/panteonescolar-src.git

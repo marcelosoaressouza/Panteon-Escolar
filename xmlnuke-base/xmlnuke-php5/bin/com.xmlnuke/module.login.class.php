@@ -88,7 +88,7 @@ class Login extends LoginBase
 	{
 		$myWords = $this->WordCollection();
 
-                if($this->_context->IsAuthenticated()) $this->_context->redirectUrl("/meuperfil");
+                if($this->_context->IsAuthenticated()) $this->_context->redirectUrl("module:panteonescolar.meuperfil");
 
 		$this->_users = $this->getUsersDatabase();
 		
@@ -295,7 +295,7 @@ class Login extends LoginBase
 		$paragraph = new XmlParagraphCollection();
 		$this->_blockCenter->addXmlnukeObject($paragraph);
                 
-        $this->_blockCenter->addXmlnukeObject(new XmlNukeText('<img src="static/images/imagem_central-baixo.jpg"/>'));
+                $this->_blockCenter->addXmlnukeObject(new XmlNukeText('<img src="static/images/imagem_central-baixo.jpg"/>'));
 		
 		$url = new XmlnukeManageUrl(URLTYPE::MODULE, $this->_module);
 		$url->addParam('action', ModuleActionLogin::NEWUSERCONFIRM);
@@ -328,6 +328,12 @@ class Login extends LoginBase
                 $textbox->setMaxLength(12);
 		$form->addXmlnukeObject($textbox);
 
+                $textbox = new XmlInputTextBox("Confirmar Senha", 'confirmar_senha_usuario', $this->_context->ContextValue("confirmar_senha_usuario"), 12);
+		$textbox->setInputTextBoxType(InputTextBoxType::PASSWORD );
+		$textbox->setRequired(true);
+                $textbox->setMaxLength(12);
+		$form->addXmlnukeObject($textbox);
+
 		$textbox = new XmlEasyList(EasyListType::SELECTLIST, "id_instituicao", "Instituição", $instituicoes);
 		$textbox->setRequired(true);
 		$form->addXmlnukeObject($textbox);
@@ -353,6 +359,7 @@ class Login extends LoginBase
 	 */
 	protected function CreateNewUserConfirm()
 	{
+                
 		$myWords = $this->WordCollection();
 		$container = new XmlnukeUIAlert($this->_context, UIAlert::BoxAlert);
 		$container->setAutoHide(5000);
@@ -368,19 +375,25 @@ class Login extends LoginBase
 		}
 		else 
 		{
-			if (!$this->_users->addUserPanteonEscolar( $this->_context->ContextValue("name"), $this->_context->ContextValue("loguser"), $this->_context->ContextValue("email"), $newpassword, $this->_context->ContextValue("id_instituicao") ) )
+                        if ( $newpassword != $this->_context->ContextValue("confirmar_senha_usuario"))
 			{
-				$container->addXmlnukeObject(new XmlnukeText($myWords->Value("CREATEUSERFAIL"), true));
+				$container->addXmlnukeObject(new XmlnukeText($myWords->Value("PASSFAIL"), true));
 				$this->CreateNewUser($block);
-			}
-			else
-			{
-				// $this->sendWelcomeMessage($myWords, $this->_context->ContextValue("name"), $this->_context->ContextValue("loguser"), $this->_context->ContextValue("email"), $newpassword );
-				$this->_users->Save();
-				$container->addXmlnukeObject(new XmlnukeText("Usuário criado com Sucesso!", true));
-				$container->setUIAlertType(UIAlert::BoxInfo);
-				$this->FormLogin($block);
-			}
+			} else{
+                            if (!$this->_users->addUserPanteonEscolar( $this->_context->ContextValue("name"), $this->_context->ContextValue("loguser"), $this->_context->ContextValue("email"), $newpassword, $this->_context->ContextValue("id_instituicao") ) )
+                            {
+                                    $container->addXmlnukeObject(new XmlnukeText($myWords->Value("CREATEUSERFAIL"), true));
+                                    $this->CreateNewUser($block);
+                            }
+                            else
+                            {
+                                    // $this->sendWelcomeMessage($myWords, $this->_context->ContextValue("name"), $this->_context->ContextValue("loguser"), $this->_context->ContextValue("email"), $newpassword );
+                                    $this->_users->Save();
+                                    $container->addXmlnukeObject(new XmlnukeText("Usuário criado com Sucesso!", true));
+                                    $container->setUIAlertType(UIAlert::BoxInfo);
+                                    $this->FormLogin($block);
+                            }
+                        }
 		}
 	}	
 }

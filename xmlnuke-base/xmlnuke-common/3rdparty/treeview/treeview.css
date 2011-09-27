@@ -1,4 +1,4 @@
-
+
 /*
 **
 **   Description : STYLESHEET FOR GENERATION OF THE HTML Treeview
@@ -11,24 +11,24 @@
 **
 **   Source is free but feel free (!) to send any comment / suggestion to garnierjm@ifrance.com
 **   One of the best tool to customize a css is TopStyle (www.bradsoft.com)
-*/
-
+*/
+
 a.folder:visited {text-decoration:none }
-a.folder:hover {text-decoration:underline; cursor: hand; }a.leaf:visited {text-decoration:none; }
-a.leaf:hover {text-decoration:underline; cursor: hand;}
-/* Customize the "folder" style here */
+a.folder:hover {text-decoration:underline; cursor: hand; }a.leaf:visited {text-decoration:none; }
+a.leaf:hover {text-decoration:underline; cursor: hand;}
+/* Customize the "folder" style here */
 a.folder {  font-family: arial;
             font-size: 11px;
             padding:0px;
-}
-
-/* Customize the "leaf" style here */
+}
+
+/* Customize the "leaf" style here */
 a.leaf {
 	font-family : arial;
 	padding:0px;
 	cursor: hand;
 	font-size : 11px;                             
-}
-a.leafsel {	font-family : arial;	padding:0px;	cursor: hand;	font-size : 11px;	font-weight: bold;                             }
-
-
+}
+a.leafsel {	font-family : arial;	padding:0px;	cursor: hand;	font-size : 11px;	font-weight: bold;                             }
+
+

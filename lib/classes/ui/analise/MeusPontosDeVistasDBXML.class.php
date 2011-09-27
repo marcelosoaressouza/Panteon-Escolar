@@ -33,7 +33,7 @@ class MeusPontosDeVistasDBXML extends XmlnukeCollection implements IXmlnukeDocum
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module=panteonescolar.meustemaspanteon");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -45,7 +45,7 @@ class MeusPontosDeVistasDBXML extends XmlnukeCollection implements IXmlnukeDocum
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -61,35 +61,53 @@ class MeusPontosDeVistasDBXML extends XmlnukeCollection implements IXmlnukeDocum
 
       if($this->_context->ContextValue("acao") == "delete")
       {
+
         $db = new UsuarioXPontoDeVistaDB($this->_context);
+        $modelUsuarioXPontoDeVista = $db->obterPorId($this->_context->ContextValue("id"));
+        $isColetado = $modelUsuarioXPontoDeVista->getColetadoUsuarioXPontoDeVista();
         $db->excluir($this->_context->ContextValue("id"));
         $this->_context->addCookie("mensagem_aviso", "Ponto de Vista removido");
-        $this->_context->redirectUrl("/todospontodevistatemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.meuspontosdevistas&site=PanteonEscolar&xsl=page&lang=pt-br&coletados=".$isColetado);
+
+//xmlnuke.php?module=panteonescolar.meuspontosdevistas&site=PanteonEscolar&xsl=apagar&xml=home&lang=pt-br
+//xmlnuke.php?module=panteonescolar.todospontodevistatemapanteon&site=PanteonEscolar&xsl=page&xml=home&lang=pt-br
+//xmlnuke.php?module=panteonescolar.meuspontosdevistas&site=PanteonEscolar&xsl=page&lang=pt-br&coletados=1
 
       }
 
       $permissao = array(false, false, false, false);
       $pagina = $dbxml->criarProcessPageFields($id_usuario, $id_tema_panteon, $permissao, $coletado);
 
-//      Filtro a ser implementado no DBXML
-//      $span1->addXmlnukeObject($this->filtro($id_tema_panteon));
+
 
       if($pagina->getAllRecords()->Count() > 0)
       {
-        $span1->addXmlnukeObject($pagina);
+//      Filtro a ser implementado no DBXML
 
+
+        $voltar = new XmlInputLabelObjects("");
+        $url = $this->_context->bindModuleUrl("panteonescolar.todospontodevistatemapanteon");
+        $txt = '<div id="meusPontosDeVistas"><a href="'.$url.'">Voltar</a> aos Pontos de Vistas</div>';
+        $voltar->addXmlnukeObject(new XmlNukeText($txt));
+        $span1->addXmlnukeObject($voltar);
+
+
+        $span1->addXmlnukeObject($this->filtro($id_tema_panteon));
+        $span1->addXmlnukeObject($pagina);
       }
 
       else
       {
         if($coletado == 0)
         {
-          $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Descartado.</div>'));
+          $url = $this->_context->bindModuleUrl("panteonescolar.todospontodevistatemapanteon");
+          $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Coletado.<br></br> <a href="'.$url.'">Clique aqui</a> para voltar </div>'));
         }
 
         else
         {
-          $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Coletado.</div>'));
+          $url = $this->_context->bindModuleUrl("panteonescolar.todospontodevistatemapanteon");
+          $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Ponto de Vista Coletado.<br></br> <a href="'.$url.'">Clique aqui</a> para voltar </div>'));
         }
       }
 
@@ -141,6 +159,7 @@ class MeusPontosDeVistasDBXML extends XmlnukeCollection implements IXmlnukeDocum
     $buttons = new XmlInputButtons();
     $buttons->addSubmit("Filtrar");
 
+    $form->addXmlnukeObject($this->filtroPontoDeVista());
     $form->addXmlnukeObject($this->filtroItemAnalise($id_tema_panteon));
     $form->addXmlnukeObject($this->filtroSituacaoProblema($id_tema_panteon));
     $form->addXmlnukeObject($buttons);
@@ -179,6 +198,12 @@ class MeusPontosDeVistasDBXML extends XmlnukeCollection implements IXmlnukeDocum
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_situacao_problema_filtro", "Situação-Problema", $listaSituacaoProblem);
 
     return $lista;
+
+  }
+
+  public function filtroPontoDeVista()
+  {
+    return new XmlInputTextBox("Texto: ", "texto_ponto_de_vista_filtro", NULL, 40);
 
   }
 

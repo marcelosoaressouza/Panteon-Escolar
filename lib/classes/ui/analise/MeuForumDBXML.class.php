@@ -19,16 +19,19 @@
 
 class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
-
+  /**
+   * @access protected
+   * @var Context
+   */
   protected $_context;
   protected $_opcao;
-  protected $_num_registros_padrao = 3;
+  protected $_num_registros_padrao = 10;
 
   public function generateObject($current)
   {
 
 
-
+    //Debug::PrintValue($this->_context->ContextValue("acao"), $this->_opcao);
     $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
 
     $id_usuario = $this->_context->authenticatedUserId();
@@ -38,7 +41,7 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $container = PanteonEscolarBaseModule::caixaAviso($this->_context);
@@ -49,47 +52,49 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     if($this->_opcao == "processPageField")
     {
       $db = new ForumDB($this->_context);
-      $id_forum = $db->obterForumPorIDTemaPanteon($id_tema_panteon);
+      $id_forum = intval($db->obterForumPorIDTemaPanteon($id_tema_panteon));
+      //Debug::PrintValue($id_forum, $id_tema_panteon);
+      $dbxml = new MensagemForumDBXML($this->_context, "meuforum", "Tópicos do Fórum");
 
-      $dbxml = new MensagemForumDBXML($this->_context, "meuforum", "Forum");
 
-      $permissao = array(true, false, false, false, false);
+      //Define as permissões para os botroes do grid
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
+      {
+        $permissao = array(true, false, false, true, false);
+      }
 
+      else
+      {
+        $permissao = array(true, false, false, false, false);
+      }
+
+      // Mensagem de Avisos
+      $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
+
+//      if($this->_context->ContextValue("acao") == "delete") {
+//        $dbmensagem = new MensagemForumDB($this->_context);
+//        $dbmensagem->excluir($this->_context->ContextValue("id_mensagem_forum"));
+//        $this->_context->addCookie("mensagem_aviso", "Mensagem excluída.");
+//        $this->_context->redirectUrl("module:panteonescolar.meuforum");
+//
+//      }
+
+      //Redireciona para lista de mensagens do topico do forum
       if($this->_context->ContextValue("acao") == "visualizarMensagens")
       {
-        //$this->_context->addCookie("id_tema_panteon_definido", $this->_context->ContextValue("valueid"));
-        $this->_context->addCookie("id_mensagem_forum", $this->_context->ContextValue("valueid"));
+        $this->_context->addCookie("id_mensagem_forum", $this->_context->ContextValue("id_mensagem_forum"));
 
-        $this->_context->redirectUrl("./meuforummensagenstopico");
-
+        //Redireciona para pagina/classe de exibicao das mensagens associadas ao topico clicado
+        $this->_context->redirectUrl("module:panteonescolar.meuforummensagenstopico");
       }
+
 
       if($this->_context->ContextValue("acao") == "responderMensagem")
       {
         //$idMensagemOriginal = $id_mensagem_forum;//$this->_context->ContextValue("id_mensagem_forum");//$this->_context->ContextValue("valueid");
-        $dbMensagemForum = new MensagemForumDB($this->_context);
 
-        if($dbMensagemForum->obterPorId($this->_context->ContextValue("valueid"))->getIDMensagemResposta()=="")
-        {
-          $idMensagemOriginal = $this->_context->ContextValue("valueid");
-        }
-
-        else
-        {
-          $idMensagemOriginal = $this->_context->getCookie("id_mensagem_forum");
-        }
-
-        $dbMensagemForum = new MensagemForumDB($this->_context);
-        $dbUsuario = new UsuarioDB($this->_context);
-
-        $nomeMensagemOriginalForum = $dbMensagemForum->obterPorId($idMensagemOriginal)->getNomeMensagemForum();
-        $idUsuarioMensagemOriginal = $dbMensagemForum->obterPorId($idMensagemOriginal)->getIDUsuario();
-        $autorMensagemOriginalForum = $dbUsuario->obterPorId($idUsuarioMensagemOriginal)->getNomeCompletoUsuario();
-
-        $texto .= "<div id='meusPontosDeVistas'> ";
-        $texto .= " Tópico: <a>".$nomeMensagemOriginalForum."</a>";
-        $texto .= " Autor: <a>".$autorMensagemOriginalForum."</a>";
-        $texto .= "</div>";
+        $idMensagemOriginal = $this->_context->ContextValue("valueid");
+        $texto = $this->MontarTituloCadastroMensagem($idMensagemOriginal);
 
         $aviso = new XmlInputLabelObjects("<p></p>");
         $aviso->addXmlnukeObject(new XmlNukeText($texto));
@@ -97,6 +102,7 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
         $pagina = $dbxml->criarProcessPageFields($id_forum, $id_usuario, $permissao, $idMensagemOriginal, false, $id_usuario);
         $pagina->forceCurrentAction("ppnew");
+        //Debug::PrintValue("context", $this->_context);
         $span1->addXmlnukeObject($pagina);
 
       }
@@ -104,7 +110,7 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       else
       {
 
-        // Filtro
+        // Filtro - Codificação já existente no Fórum
         if($this->_context->ContextValue("id_meu_forum_filtro") == 2)
         {
           $permissao = array(true, true, true, true, true);
@@ -126,6 +132,20 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
         }
 
+
+
+        $id_mensagem = $this->_context->getCookie("id_mensagem_forum");
+
+        //Debug::PrintValue("id-mensagem ---",$id_mensagem);
+        if($this->_context->ContextValue("acao") == "ppnew" && !empty($id_mensagem))
+        {
+          $texto = $this->MontarTituloCadastroMensagem($id_mensagem);
+
+          $aviso = new XmlInputLabelObjects("<p></p>");
+          $aviso->addXmlnukeObject(new XmlNukeText($texto));
+          $span1->addXmlnukeObject($aviso);
+        }
+
         $pagina = $dbxml->criarProcessPageFields($id_forum, $id_usuario_orig, $permissao, NULL, $respostas, $id_usuario);
 
         if($this->_context->ContextValue("acao") == "")
@@ -141,7 +161,6 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
         else
         {
-
 
           if(($this->_context->ContextValue("acao") == "ppnew") || ($this->_context->ContextValue("chamada") == 1))
           {
@@ -162,6 +181,12 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
           }
         }
 
+        if($this->_context->ContextValue("chamada") == "")
+        {
+          //Remove a variavel de cookie do id da mensagem de topico na listagem de Topicos
+          $this->_context->removeCookie("id_mensagem_forum");
+        }
+
       }
     }
 
@@ -171,7 +196,7 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Fórum");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Neste espaço você, seus colegas e seu(a) professor(a) podem interagir e discutir sobre o Tema Panteon. ', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -249,6 +274,30 @@ class MeuForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     $this->_context = $context;
     $this->_opcao = $opcao;
 
+  }
+
+  /**
+   * @method Metodo para gerar o titulo do cadastro de mensagem / topico do forum
+   * @param int $idMensagemOriginal
+   * @return string
+   */
+  public function MontarTituloCadastroMensagem($idMensagemOriginal)
+  {
+
+    $dbMensagemForum = new MensagemForumDB($this->_context);
+
+    $dbMensagemForum = new MensagemForumDB($this->_context);
+    $dbUsuario = new UsuarioDB($this->_context);
+
+    $nomeMensagemOriginalForum = $dbMensagemForum->obterPorId($idMensagemOriginal)->getNomeMensagemForum();
+    $idUsuarioMensagemOriginal = $dbMensagemForum->obterPorId($idMensagemOriginal)->getIDUsuario();
+    $autorMensagemOriginalForum = $dbUsuario->obterPorId($idUsuarioMensagemOriginal)->getNomeCompletoUsuario();
+
+    $texto .= "<div id='meusPontosDeVistas'> ";
+    $texto .= " Tópico: <a>".$nomeMensagemOriginalForum."</a>";
+    $texto .= " Autor: <a>".$autorMensagemOriginalForum."</a>";
+    $texto .= "</div>";
+    return $texto;
   }
 
 }

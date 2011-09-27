@@ -1,25 +1,29 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
 
+  /**
+   *
+   * @var Context
+   */
   protected $_context;
   protected $_opcao;
   protected $_num_registros_padrao = 3;
@@ -35,7 +39,7 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $container = PanteonEscolarBaseModule::caixaAviso($this->_context);
@@ -45,11 +49,14 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
     if($this->_opcao == "processPageField")
     {
-      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="./meumural"> Mural <img class="texto_alinhado" src="/static/images/icones/Mural.png" alt="Mural" title="Mural"/> </a> </div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="common/3rdparty/ajaxchat/" onclick="openWindow(this.href);this.blur();return false;"><img class="texto_alinhado" src="/static/images/icones/Bate-Papo.png" alt="Bate-Papo" title="Bate-Papo"/> Bate-Papo Web </a> </div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="./meuforum"> Fórum <img class="texto_alinhado" src="/static/images/icones/Forum.png" alt="Fórum" title="Fórum"/></a> </div>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="./minhasmensagens"><img class="texto_alinhado" src="/static/images/icones/Mensagem.png" alt="Mensagem" title="Mensagem"/> Mensagens </a> </div>'));
-
+      $login = $this->_context->authenticatedUser();
+      $url_link = $this->_context->bindModuleUrl("panteonescolar.meumural");
+      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="'.$url_link.'"> Mural <img class="texto_alinhado" src="static/images/icones/Mural.png" alt="Mural" title="Mural"/> </a> </div>'));
+      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="common/3rdparty/ajaxchat/?login=' . $login . '" onclick="openWindow(this.href);this.blur();return false;"><img class="texto_alinhado" src="static/images/icones/Bate-Papo.png" alt="Bate-Papo" title="Bate-Papo"/> Bate-Papo Web </a> </div>'));
+      $url_link = $this->_context->bindModuleUrl("panteonescolar.meuforum");
+      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="'.$url_link.'"> Fórum <img class="texto_alinhado" src="static/images/icones/Forum.png" alt="Fórum" title="Fórum"/></a> </div>'));
+      $url_link = $this->_context->bindModuleUrl("panteonescolar.minhasmensagens");
+      $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas"> <a href="'.$url_link.'"><img class="texto_alinhado" src="static/images/icones/Mensagem.png" alt="Mensagem" title="Mensagem"/> Mensagens </a> </div>'));
     }
 
     if($this->_opcao == "listarDireita")
@@ -62,7 +69,8 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       if($itDB->Count() > 0)
       {
-        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "");
+        $url_barra = $this->_context->bindModuleUrl("panteonescolar.minhasmensagens", "ver") . "&amp;&amp;chamada=1&amp;xsl=ver&amp;acao=ppnew&amp;usuario=";
+        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "nome_completo_usuario", $url_barra, "id_usuario", "Mensagem", "Envie mensagem para ");
       }
 
       else
@@ -70,13 +78,13 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      XmlUtil::AddAttribute($node, "link_info", '<a href="pesquisadores">Clique aqui para ver lista completa de Pesquisadores</a>');
+      $url_link = $this->_context->ContextValue("xmlnuke.URLMODULE") . "?module=panteonescolar.pesquisadores";
+      XmlUtil::AddAttribute($node, "link_info", '<a href="'.$url_link.'">Clique aqui para ver lista completa de Pesquisadores</a>');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso == "GESTOR") || ($nivel_acesso == "ADMINISTRADOR") || ($nivel_acesso == "EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
-
     }
 
     // Inicio - menu
@@ -85,12 +93,10 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
     {
       $node = XmlUtil::CreateChild($current, "blockabausuario", "");
       $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuUsuario(PanteonEscolarMenu::Forum));
-
     }
 
     //
     // Fim - menu
-
     // Inicio - menu head
     //
     if($this->_opcao == "menuHead")
@@ -98,12 +104,11 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
       XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
 
-      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+      $msg = "Bem-Vindo, " . ucfirst($this->_context->authenticatedUser()) . " (" . $nivel_acesso . ").";
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
       XmlUtil::AddAttribute($node, "nome_usuario", $msg);
       XmlUtil::AddAttribute($node, "logout", "true");
-
     }
 
     //
@@ -114,7 +119,6 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
     $body = XmlUtil::CreateChild($node, "body", "");
 
     parent::generatePage($body);
-
   }
 
   public function filtro()
@@ -132,7 +136,6 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
     $span->addXmlnukeObject($form);
 
     return $span;
-
   }
 
   public function filtroMeuForumMensagem()
@@ -141,7 +144,6 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_meu_forum_filtro", "Meu Forum", $listaMeuForumMensagem);
 
     return $lista;
-
   }
 
   public function MeuForumMensagemDBXML($context, $opcao)
@@ -153,7 +155,6 @@ class MeuForumMensagemDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
     $this->_context = $context;
     $this->_opcao = $opcao;
-
   }
 
 }

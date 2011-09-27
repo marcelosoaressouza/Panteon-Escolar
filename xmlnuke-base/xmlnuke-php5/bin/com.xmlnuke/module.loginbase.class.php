@@ -94,7 +94,7 @@ abstract class LoginBase extends BaseModule
 	{
 		$this->_context->MakeLogin($usernamevalid, $id);
 		$url = XmlnukeManageUrl::decodeParam($this->_urlReturn);
-		$this->_context->redirectUrl("meuperfil");
+		$this->_context->redirectUrl("module:panteonescolar.meuperfil");
 
 	}
 

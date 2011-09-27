@@ -55,6 +55,9 @@ class VerPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Estado: </div><div id="textover">'.$modelPerfil->getUFEstado().'</div>'));
       $span1->addXmlnukeObject(new XmlNukeText($info_nasc));
       $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="subtitulos">Perfil Resumido: </div><div id="textover">'.$texto_perfil.'</div>'));
+      //$span1->addXmlnukeObject(new XmlNukeText('<br/><div id="subtitulos" ><a href="xmlnuke.php?module=panteonescolar.minhasmensagens&chamada=1&xsl=ver&acao=ppnew&usuario=18">Enviar Mensagem</a></div>'));
+      //$span1->addXmlnukeObject(new XmlNukeText('<br/><div id="subtitulos" ><a href="#" onclick="javascript:$(\'#fancybox-close\').click();" >Enviar Mensagem</a></div>'));
+
 
     }
 

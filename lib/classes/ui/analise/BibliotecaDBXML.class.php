@@ -44,7 +44,7 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Biblioteca Tema Panteon");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Na Biblioteca de Temas Panteon você pode visualizar os Temas Panteon existentes. Caso queira analisar, selecione o Tema Panteon. Ele ficará registrado no item “Meus Temas”.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -81,7 +81,7 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
           $this->_context->addCookie("mensagem_aviso", "<b>Tema Panteon Coletado</b>");
           $this->_context->addCookie("id_tema_panteon_definido", $idTemaPanteon);
           $this->_context->addCookie("nome_tema_panteon_definido", $modelTemaPanteon->getNomeTemaPanteon());
-          $this->_context->redirectUrl("./meutemapanteon");
+          $this->_context->redirectUrl("module:panteonescolar.meutemapanteon");
 
         }
 
@@ -90,7 +90,7 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
           $this->_context->addCookie("mensagem_aviso", "<b>Este Tema Panteon já foi coletado</b>");
           $this->_context->addCookie("id_tema_panteon_definido", $idTemaPanteon);
           $this->_context->addCookie("nome_tema_panteon_definido", $modelTemaPanteon->getNomeTemaPanteon());
-          $this->_context->redirectUrl("./meutemapanteon");
+          $this->_context->redirectUrl("module:panteonescolar.meutemapanteon");
 
         }
 
@@ -108,7 +108,7 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
       {
         if($this->_context->ContextValue("acao") == "")
         {
-          $span1->addXmlnukeObject($this->filtro());
+          $span1->addXmlnukeObject($this->filtro($nivel_acesso));
         }
 
         $span1->addXmlnukeObject($pagina_biblioteca);
@@ -166,8 +166,9 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
 
   }
 
-  public function filtro()
+  public function filtro($nivel_acesso)
   {
+
     $span = new XmlnukeSpanCollection();
 
     $script  = '<script type="text/javascript">';
@@ -200,6 +201,12 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
     $form = new XmlFormCollection($this->_context, $formPost, "Bilbioteca Tema Panteon");
 
     $form->addXmlnukeObject($this->filtroDescricao());
+
+    if($nivel_acesso =="ADMINISTRADOR")
+    {
+      $form->addXmlnukeObject($this->filtroInstituicao());
+    }
+
     $form->addXmlnukeObject($this->filtroMetodoAnalise());
     $form->addXmlnukeObject($this->filtroEstruturaSocial());
 
@@ -245,6 +252,24 @@ class BibliotecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
   {
     return new XmlInputTextBox("Texto: ", "descricao_tema_panteon_filtro", NULL, 40);
 
+  }
+
+  public function filtroInstituicao()
+  {
+    //    Debug::PrintValue($this->_context->getXsl());
+    $db = new InstituicaoDB($this->_context);
+    $it = $db->obterTodos();
+
+    $listaInstituicao = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_instituicao", "nome_instituicao");
+    $listaInstituicao[""] = "Todas as Instituições";
+
+    $id_instituicao_filtro_selecionado = $this->_context->ContextValue("id_instituicao_filtro");
+
+    $lista = new RanderNetXmlEasyList(EasyListType::SELECTLIST, "id_instituicao_filtro", "Instituição", $listaInstituicao, $id_instituicao_filtro_selecionado);
+    $lista->setRanderNetDadosAjax("panteonescolar.configusuario", "id_turma_filtro", "&amp;acao=turma");
+//    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_instituicao_filtro", "Instituição", $listaInstituicao, $id_instituicao_filtro_selecionado);
+
+    return $lista;
   }
 
   public function BibliotecaDBXML($context, $opcao)

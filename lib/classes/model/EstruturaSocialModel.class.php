@@ -21,6 +21,7 @@ class EstruturaSocialModel extends PanteonEscolarBaseModel
 {
   private $_nome_estrutura_social;
   private $_descricao_estrutura_social;
+  private $_caminho_foto_estrutura_social;
 
   public function getNomeEstruturaSocial()
   {
@@ -37,9 +38,19 @@ class EstruturaSocialModel extends PanteonEscolarBaseModel
     return $this->_descricao_estrutura_social;
   }
 
-  public function setDescricaoEstruturaSocial($descricao_estrutura_social)
+  public function setDescricaoEstruturaSocial($caminho_foto_estrutura_social)
   {
     $this->_descricao_estrutura_social = $descricao_estrutura_social;
+  }
+
+  public function getCaminhoFotoEstruturaSocial()
+  {
+    return $this->_caminho_foto_estrutura_social;
+  }
+
+  public function setCaminhoFotoEstruturaSocial($caminho_foto_estrutura_social)
+  {
+    $this->_caminho_foto_estrutura_social = $caminho_foto_estrutura_social;
   }
 
 }

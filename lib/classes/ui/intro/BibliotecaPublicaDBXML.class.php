@@ -1,21 +1,21 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
@@ -29,7 +29,7 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
 
     if($this->_context->IsAuthenticated())
     {
-      $this->_context->redirectUrl("/meuperfil");
+      $this->_context->redirectUrl("module:panteonescolar.meuperfil");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -37,11 +37,12 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
 
     if($this->_opcao == "listarDireita")
     {
-      $txt = "Para ter acesso completo ao contéudo dos Temas Panteon aqui listados efetive seu cadastro na opção <a href='/xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fcriartemapanteon&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'>Cadastre-se</a>";
+      $modulo_login = $this->_context->ContextValue('xmlnuke.LOGINMODULE');
+      $url_link = $this->_context->bindModuleUrl($modulo_login);
+      $txt = "Para ter acesso completo ao contéudo dos Temas Panteon aqui listados efetive seu cadastro na opção <a href='" . $url_link . "&amp;action=action.NEWUSER&amp;ReturnUrl=%2fcriartemapanteon&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'>Cadastre-se</a>";
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Como tenho Acesso?");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, "", $txt, "");
-
     }
 
     if($this->_opcao == "processPageField")
@@ -60,7 +61,6 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
         }
 
         $span1->addXmlnukeObject($pagina_BibliotecaPublica);
-
       }
 
       else
@@ -74,8 +74,6 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
           $span1->addXmlnukeObject($this->filtro());
         }
       }
-
-
     }
 
     // Inicio - menu head
@@ -84,8 +82,7 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
     {
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial('bibliotecapublica'));
-      $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso());
-
+      $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso($this->_context));
     }
 
     //
@@ -96,14 +93,13 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
     $body = XmlUtil::CreateChild($node, "body", "");
 
     parent::generatePage($body);
-
   }
 
   public function filtro()
   {
     $span = new XmlnukeSpanCollection();
 
-    $script  = '<script type="text/javascript">';
+    $script = '<script type="text/javascript">';
     $script .= ' $("#formGeralLabelid_metodo_analise_filtro").hide(); $("#id_metodo_analise_filtro").hide();';
     $script .= ' $("#formGeralLabelid_estrutura_social_filtro").hide(); $("#id_estrutura_social_filtro").hide();';
     $script .= '</script>';
@@ -119,7 +115,7 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
     $script .= '    $("#formGeralLabelid_metodo_analise_filtro").hide(); $("#id_metodo_analise_filtro").hide();';
     $script .= '    $("#formGeralLabelid_estrutura_social_filtro").hide(); $("#id_estrutura_social_filtro").hide();';
     $script .= '    $("#filtro").html("Busca avançada");';
-    $script .=  '}';
+    $script .= '}';
     $script .= '});';
     $script .= '</script>';
 
@@ -142,7 +138,6 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
     $span->addXmlnukeObject($form);
 
     return $span;
-
   }
 
   public function filtroMetodoAnalise()
@@ -156,7 +151,6 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_metodo_analise_filtro", "Metódo Análise", $listaMetodoAnalise, $id_metodo_analise_filtro_selecionado);
 
     return $lista;
-
   }
 
   public function filtroEstruturaSocial()
@@ -170,13 +164,11 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_estrutura_social_filtro", "Estrutura Social", $listaEstruturaSocial, $id_estrutura_social_filtro_selecionado);
 
     return $lista;
-
   }
 
   public function filtroDescricao()
   {
     return new XmlInputTextBox("Texto: ", "descricao_tema_panteon_filtro", NULL, 40);
-
   }
 
   public function BibliotecaPublicaDBXML($context, $opcao)
@@ -188,7 +180,6 @@ class BibliotecaPublicaDBXML extends XmlnukeCollection implements IXmlnukeDocume
 
     $this->_context = $context;
     $this->_opcao = $opcao;
-
   }
 
 }

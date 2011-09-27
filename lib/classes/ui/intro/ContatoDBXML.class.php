@@ -29,7 +29,7 @@ class ContatoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     if($this->_context->IsAuthenticated())
     {
-      $this->_context->redirectUrl("/meuperfil");
+      $this->_context->redirectUrl("module:panteonescolar.meuperfil");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -58,22 +58,37 @@ class ContatoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $texto = new XmlInputMemo("Dúvida ou Sugestão?", "texto_contato", $this->_context->ContextValue("texto_contato"));
       $texto->setVisualEditor(false);
 
+      $imagevalidade = new XmlInputImageValidate("Verificação");
+      $imagevalidade->NumberOfChars(5);
+      $imagevalidade->UseChallengeQuestion(false);
+
+
+
       $buttons = new XmlInputButtons();
       $buttons->addSubmit("Enviar");
       $form->addXmlnukeObject($email);
       $form->addXmlnukeObject($texto);
+      $form->addXmlnukeObject($imagevalidade);
       $form->addXmlnukeObject($buttons);
 
       if($this->_context->ContextValue("chamada") == 1)
       {
         if(($this->_context->ContextValue("email_contato") != "") && ($this->_context->ContextValue("texto_contato") != ""))
         {
-          $aviso = new XmlInputLabelObjects("<p></p>");
-          $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Obrigado pelo Contato.</div>'));
-          $span1->addXmlnukeObject($aviso);
+          if($imagevalidade->validateText($this->_context))
+          {
+            $aviso = new XmlInputLabelObjects("<p></p>");
+            $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Obrigado pelo Contato.</div>'));
+            $span1->addXmlnukeObject($aviso);
+            MailUtil::Mail($this->_context, PanteonEscolarConsts::Contato, $this->_context->ContextValue("email_contato"), "Contato", "", "", $this->_context->ContextValue("texto_contato"));
+          }
 
-          MailUtil::Mail($this->_context, PanteonEscolarConsts::Contato, $this->_context->ContextValue("email_contato"), "Contato", "", "", $this->_context->ContextValue("texto_contato"));
-
+          else
+          {
+            $aviso = new XmlInputLabelObjects("<p></p>");
+            $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Para enviar um email você precisa digitar o texto correto existente na caixa de imagem abaixo. O texto é sensível a maiúsculas e minúsculas.</div>'));
+            $span1->addXmlnukeObject($aviso);
+          }
         }
 
         else
@@ -101,7 +116,7 @@ class ContatoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     {
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial('contato'));
-      $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso());
+      $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso($this->_context));
 
     }
 

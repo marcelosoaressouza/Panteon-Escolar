@@ -55,7 +55,7 @@ class ConfigUsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocu
         $db = new UsuarioXTurmaDB($this->_context);
         $db->excluir($this->_context->ContextValue("id"));
         $this->_context->addCookie("mensagem_aviso", "Usuário excluido da Turma");
-        $this->_context->redirectUrl("/configusuarioxturma");
+        $this->_context->redirectUrl("module:panteonescolar.configusuarioxturma");
 
       }
 
@@ -64,7 +64,7 @@ class ConfigUsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocu
 
       $permissao = array(true, false, false, false);
 
-      if($nivel_acesso == "GESTOR" || $nivel_acesso == "MEDIADOR")
+      if($nivel_acesso == "GESTOR" || $nivel_acesso == "EDITOR")
       {
         $dbUsuario = new UsuarioDB($this->_context);
         $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
@@ -81,7 +81,7 @@ class ConfigUsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocu
 
       else
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
         $id = "";
 
       }
@@ -122,7 +122,7 @@ class ConfigUsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocu
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

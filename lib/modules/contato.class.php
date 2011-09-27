@@ -36,8 +36,19 @@ class Contato extends PanteonEscolarBaseModule
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
     $blockHead->addXmlnukeObject(new ContatoDBXML($this->_context, "menuHead"));
 
+
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockInfo);
-    $blockInfo->addXmlnukeObject(new ContatoDBXML($this->_context, "listarDireita"));
+
+    if($this->_context->IsAuthenticated())
+    {
+      $blockInfo->addXmlnukeObject(new ContatoDBXML($this->_context, "listarDireita"));
+    }
+
+    else
+    {
+      $this->FormLogin($blockInfo);
+    }
+
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
     $blockCenter->addXmlnukeObject(new ContatoDBXML($this->_context, "processPageField"));

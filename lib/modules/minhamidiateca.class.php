@@ -1,21 +1,21 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 ModuleFactory::IncludePhp("panteonescolar", "classes/base/PanteonEscolarBaseModule.class.php");
 
@@ -29,10 +29,10 @@ class MinhaMidiateca extends PanteonEscolarBaseModule
     $titulo = "Midiateca Geral";
     $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTituloSimples($titulo);
 
-    $blockHead   = new XmlBlockCollection(NULL, BlockPosition::Right);
+    $blockHead = new XmlBlockCollection(NULL, BlockPosition::Right);
     $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
-    $blockInfo   = new XmlBlockCollection(NULL, BlockPosition::Left);
-    $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
+    $blockInfo = new XmlBlockCollection(NULL, BlockPosition::Left);
+    $blockMenu = new XmlBlockCollection(NULL, BlockPosition::Menu);
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
     $blockHead->addXmlnukeObject(new MinhaMidiatecaDBXML($this->_context, "menuHead"));
@@ -46,12 +46,37 @@ class MinhaMidiateca extends PanteonEscolarBaseModule
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
     $blockCenter->addXmlnukeObject(new MinhaMidiatecaDBXML($this->_context, "processPageField"));
 
+    $jsSource = "$(document).ready(function() {
+                $(function() { $('#url_midiateca').click(function() {
+                $('#caminho_arquivo_midiateca').val('');
+              });
+              });
+
+                $(function() {
+                $('#caminho_arquivo_midiateca').click(function() {
+                $('#url_midiateca').val('');
+              });
+              });
+              });";
+
+    $this->defaultXmlnukeDocument->addJavaScriptSource($jsSource);
+    // $this->defaultXmlnukeDocument->addJavaScriptMethod("url_midiateca", "onfocus", "$('#caminho_arquivo_midiateca').val('');");
+    // $this->defaultXmlnukeDocument->addJavaScriptMethod("caminho_arquivo_midiateca", "onfocus", "$('#url_midiateca').val('');");
+
+
     return $this->defaultXmlnukeDocument;
+  }
+
+  public function __constructor()
+  {
 
   }
 
-  public function __constructor() {}
-  public function __destruct() { }
+  public function __destruct()
+  {
+
+  }
+
   public function useCache()
   {
     return false;
@@ -69,7 +94,7 @@ class MinhaMidiateca extends PanteonEscolarBaseModule
 
   public function getRole()
   {
-    return array("ANALISTA", "MEDIADOR", "GESTOR", "ADMINISTRADOR");
+    return array("ANALISTA", "EDITOR", "GESTOR", "ADMINISTRADOR");
   }
 
 }

@@ -103,7 +103,7 @@ class CriarUsuarioXGrupoDBXML extends XmlnukeCollection implements IXmlnukeDocum
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

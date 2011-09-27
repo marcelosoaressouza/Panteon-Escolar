@@ -1,17 +1,15 @@
-#!/bin/sh
+for file in `find .` ; do
 
-DIR=`pwd`
+  if [ ! -d "$file" ]; then
+     echo "Arquivo" $file
 
-for FILE in `find $DIR`; do
-  if [ -d $FILE ]
-  then
-    echo "Diretorio"
-    chmod a+rx $FILE
-    chmod o-w $FILE
+     chmod a+rwx $file
+     chmod a-x $file
+     chmod o-w $file
   else
-    echo "Arquivo"
-    chmod a+r $FILE
-    chmod a-x $FILE
+     chmod a+rwx $file
+     chmod o-w $file
+
   fi
 
 done

@@ -77,14 +77,14 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
         {
           $modelUsuarioXPontoDeVista = $dbUsuarioXPontoDeVista->cadastrar($modelUsuarioXPontoDeVista);
           $this->_context->addCookie("mensagem_aviso", $msgacao.$modelPontoDeVista->getTextoPontodeVista());
-          $this->_context->redirectUrl("./todospontodevistatemapanteon");
+          $this->_context->redirectUrl("module:panteonescolar.todospontodevistatemapanteon");
 
         }
 
         else
         {
           $this->_context->addCookie("mensagem_aviso", "Este Ponto de Vista já foi coletado ou descartado");
-          $this->_context->redirectUrl("./todospontodevistatemapanteon");
+          $this->_context->redirectUrl("module:panteonescolar.todospontodevistatemapanteon");
 
         }
 
@@ -159,7 +159,10 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
           $aviso->addXmlnukeObject(PanteonEscolarBaseModule::meusPontosDeVistas($id_usuario, $id_tema_panteon, $this->_context));
           $span1->addXmlnukeObject($aviso);
 
-          $span1->addXmlnukeObject($this->filtro($id_tema_panteon));
+
+          $dbEstruturaSocial = new TemaPanteonDB($this->_context);
+          $id_estrutura_social = $dbEstruturaSocial->obterPorId($id_tema_panteon)->getIDEstruturaSocial();
+          $span1->addXmlnukeObject($this->filtro($id_tema_panteon, $id_estrutura_social));
           $span1->addXmlnukeObject($paginaPontoDeVista);
 
         }
@@ -193,7 +196,7 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -240,12 +243,14 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
 
   }
 
-  public function filtro($id_tema_panteon)
+  public function filtro($id_tema_panteon, $id_estrutura_social)
   {
     $span = new XmlnukeSpanCollection();
     $script  = '<script type="text/javascript">';
     $script .= ' $("#formGeralLabelid_item_analise_filtro").hide(); $("#id_item_analise_filtro").hide();';
     $script .= ' $("#formGeralLabelid_situacao_problema_filtro").hide(); $("#id_situacao_problema_filtro").hide();';
+    $script .= ' $("#formGeralLabelid_grupo_social_filtro").hide(); $("#id_grupo_social_filtro").hide();';
+    $script .= ' $("#formGeralLabelid_sujeito_filtro").hide(); $("#id_sujeito_filtro").hide();';
     $script .= '</script>';
 
     $script .= '<script type="text/javascript">';
@@ -253,11 +258,15 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
     $script .= '  if ( $("#formGeralLabelid_item_analise_filtro").is(":hidden") ) {';
     $script .= '    $("#formGeralLabelid_item_analise_filtro").show(); $("#id_item_analise_filtro").show();';
     $script .= '    $("#formGeralLabelid_situacao_problema_filtro").show(); $("#id_situacao_problema_filtro").show();';
+    $script .= '    $("#formGeralLabelid_grupo_social_filtro").show(); $("#id_grupo_social_filtro").show();';
+    $script .= '    $("#formGeralLabelid_sujeito_filtro").show(); $("#id_sujeito_filtro").show();';
     $script .= '    $("#filtro").html("Busca simples");';
     $script .= '  }';
     $script .= ' else {';
     $script .= '    $("#formGeralLabelid_item_analise_filtro").hide(); $("#id_item_analise_filtro").hide();';
     $script .= '    $("#formGeralLabelid_situacao_problema_filtro").hide(); $("#id_situacao_problema_filtro").hide();';
+    $script .= '    $("#formGeralLabelid_grupo_social_filtro").hide(); $("#id_grupo_social_filtro").hide();';
+    $script .= '    $("#formGeralLabelid_sujeito_filtro").hide(); $("#id_sujeito_filtro").hide();';
     $script .= '    $("#filtro").html("Busca avançada");';
     $script .=  '}';
     $script .= '});';
@@ -273,10 +282,12 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
     $formPost = "module:panteonescolar.todospontodevistatemapanteon";
     $form = new XmlFormCollection($this->_context, $formPost, "Ver Ponto de Vista");
 
-    $form->addXmlnukeObject($this->filtroColetado());
+    //$form->addXmlnukeObject($this->filtroColetado());
     $form->addXmlnukeObject($this->filtroPontoDeVista());
     $form->addXmlnukeObject($this->filtroItemAnalise($id_tema_panteon));
     $form->addXmlnukeObject($this->filtroSituacaoProblema($id_tema_panteon));
+    $form->addXmlnukeObject($this->filtroGruposSociais($id_estrutura_social));
+    $form->addXmlnukeObject($this->filtroSujeito($id_tema_panteon));
 
     $buttons = new XmlInputButtons();
     $buttons->addSubmit("Pesquisar");
@@ -321,6 +332,40 @@ class TodosPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
     $id_situacao_problema_filtro_selecionado = $this->_context->ContextValue("id_situacao_problema_filtro");
 
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_situacao_problema_filtro", "Situação-Problema", $listaSituacaoProblem, $id_situacao_problema_filtro_selecionado);
+
+    return $lista;
+
+  }
+
+  public function filtroGruposSociais($id_estrutura_social)
+  {
+    $gruposocial = new GrupoSocialDB($this->_context);
+    $it = $gruposocial->obterTodosOsGruposSociaisPorIDEstruturaSocial($id_estrutura_social);
+
+    $listaGrupoSocial = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_grupo_social", "nome_grupo_social");
+    $listaGrupoSocial[""] = "Todas os Grupos Sociais";
+
+    $id_grupo_social_filtro_selecionado = $this->_context->ContextValue("id_grupo_social_filtro");
+
+    $dbEstruturaSocial = new EstruturaSocialDB($this->_context);
+    $nome_estrutura_social = $dbEstruturaSocial->obterPorId($id_estrutura_social)->getNomeEstruturaSocial();
+    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_grupo_social_filtro", $nome_estrutura_social, $listaGrupoSocial, $id_grupo_social_filtro_selecionado);
+
+    return $lista;
+
+  }
+
+  public function filtroSujeito($id_tema_panteon)
+  {
+    $sujeito = new SujeitoDB($this->_context);
+    $it = $sujeito->obterTodosOsSujeitosPorIDTemaPanteon($id_tema_panteon);
+
+    $listaSujeito = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_sujeito", "nome_sujeito");
+    $listaSujeito[""] = "Todas os Sujeitos";
+
+    $id_sujeito_filtro_selecionado = $this->_context->ContextValue("id_sujeito_filtro");
+
+    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_sujeito_filtro", "Sujeito", $listaSujeito, $id_sujeito_filtro_selecionado);
 
     return $lista;
 

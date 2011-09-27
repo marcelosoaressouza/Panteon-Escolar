@@ -34,8 +34,9 @@ class PropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnukeDocu
     $fieldList = new ProcessPageFields();
 
     // Inicio dos Campos do ProcessPageFields
-    $field = ProcessPageFields::FactoryMinimal("nome_proposta_de_acao_geral", "Titulo", 50, true, true);
-    $field->fieldXmlInput = XmlInputObjectType::TEXTBOX;
+    $field = ProcessPageFields::FactoryMinimal("nome_proposta_de_acao_geral", "Titulo", 50, false, true);
+    $field->fieldXmlInput = XmlInputObjectType::HIDDEN;
+    $field->defaultValue = " ";
     $fieldList->addProcessPageField($field);
 
     if(($this->_context->ContextValue("acao") == "") || ($this->_context->ContextValue("acao") == "move"))
@@ -85,10 +86,12 @@ class PropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnukeDocu
     $fieldList->addProcessPageField($field);
 
     // Fim dos Campos do ProcessPageFields
+//xmlnuke.php?module=panteonescolar.minhapropostadeacaogeral
 
     $processpage = new PanteonEscolarMyProcess($this->_context, $fieldList, $this->_titulo_entidade,
         "module:panteonescolar.".$this->_nome_modulo."&amp;chamada=1", NULL, $this->_nome_entidade,
         PanteonEscolarBaseDBAccess::DATABASE());
+    //Debug::PrintValue($this->_nome_modulo);
 
     if($permissao)
     {

@@ -36,10 +36,44 @@ class VerSujeitoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
       if($id_sujeito_ver != "")
       {
         $db = new SujeitoDB($this->_context);
+
+        $foto_sujeito = $db->obterPorId($id_sujeito_ver)->getCaminhoFotoSujeito();
         $nome_sujeito = $db->obterPorId($id_sujeito_ver)->getNomeSujeito();
         $desc_sujeito = $db->obterPorId($id_sujeito_ver)->getDescricaoSujeito();
+        $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos"><img alt="Imagem" width="100" src="'.$foto_sujeito.'"/></div>'));
         $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">'.$nome_sujeito.'</div><br/>'));
-        $span1->addXmlnukeObject(new XmlNukeText($desc_sujeito));
+        $span1->addXmlnukeObject(new XmlNukeText($desc_sujeito."<br/>"));
+        //$txt  = '<div id="subtitulos"> - Meus Pontos de Vista</div>';
+        //$span1->addXmlnukeObject(new XmlNukeText($txt));
+        /*
+        $dbPontoDeVista = new PontodeVistaDB($this->_context);
+
+        $itPontoDeVista= $dbPontoDeVista->obterTodosOsPontosDeVistaComItemAnaliseESituacaoProblemaPorIDSujeito($id_sujeito_ver);
+        while($itPontoDeVista->hasNext()) {
+            $srPontoDeVista = $itPontoDeVista->moveNext();
+            $desc_ponto_de_vista = $srPontoDeVista->getField("texto_ponto_de_vista");
+            $desc_item_analise = $srPontoDeVista->getField("nome_item_analise");
+            $desc_situacao_problema = $srPontoDeVista->getField("nome_situacao_problema");
+            $txt .= '<div id="textover">'.$nome_sujeito.'</div>';
+            $txt  = '<table>
+                    <tr>
+                        <td width="60%"><b>Ponto de Vista</b></td>
+                        <td width="15%"><b>Item Ánalise</b></td>
+                        <td width="25%"><b>Situação Problema</b></td>
+                    </tr>
+                    <tr>
+                        <td>'.$desc_ponto_de_vista.'</td>
+                        <td>'.$desc_item_analise.'</td>
+                        <td>'.$desc_situacao_problema.'</td>
+                    </tr>
+                 </table>';
+            $span1->addXmlnukeObject(new XmlNukeText($txt));
+        }
+         *
+         */
+
+
+
       }
 
       if($id_tema_panteon != "")
@@ -55,8 +89,13 @@ class VerSujeitoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
           $dbGrupoSocial = new GrupoSocialDB($this->_context);
           $grupo_social = $dbGrupoSocial->obterPorId($sr->getField("id_grupo_social"))->getNomeGrupoSocial();
 
+          //return '<img alt="Imagem" width="100" src="'.$sr->getField("caminho_foto_sujeito").'"/>';
+          $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos"><img alt="Imagem" width="100" src="'.$sr->getField("caminho_foto_sujeito").'"/></div>'));
+          $url_link = $this->_context->bindModuleUrl("panteonescolar.versujeito");
+          //$span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos"><a href="'.$url_link.'&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;versujeito='.$sr->getField("id_sujeito").'">'.$sr->getField("nome_sujeito").'</a></div>'));
           $span1->addXmlnukeObject(new XmlNukeText('<div id ="subtitulos">'.$sr->getField("nome_sujeito").'</div>'));
-          $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$grupo_social.'</div><br/>'));
+          $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$grupo_social.'</div>'));
+          $span1->addXmlnukeObject(new XmlNukeText('<div id="textover">'.$sr->getField("descricao_sujeito").'</div><br/>'));
 
         }
       }

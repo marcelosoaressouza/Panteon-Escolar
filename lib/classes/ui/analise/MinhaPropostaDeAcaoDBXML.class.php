@@ -1,21 +1,21 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
@@ -39,11 +39,11 @@ class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocu
     if($this->_opcao == "processPageField")
     {
       $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
-
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/minhaspropostasdeacao"> Proposta de Ação detalhada.</a><br/></div>'));
+      $url_link = $this->_context->bindModuleUrl("panteonescolar.minhaspropostasdeacao");
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="' . $url_link . '"> Proposta de Ação detalhada.</a><br/></div>'));
       $span1->addXmlnukeObject(new XmlNukeText('<br/>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/minhapropostadeacaogeral">Proposta de Ação Geral. </a></div>'));
-
+      $url_link = $this->_context->bindModuleUrl("panteonescolar.minhapropostadeacaogeral");
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="' . $url_link . '">Proposta de Ação Geral. </a></div>'));
     }
 
     // Inicio - menu
@@ -52,7 +52,6 @@ class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocu
     {
       $node = XmlUtil::CreateChild($current, "blockabausuario", "");
       $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuUsuario(PanteonEscolarMenu::PlanoDeAcao));
-
     }
 
     //
@@ -76,11 +75,10 @@ class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocu
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso == "GESTOR") || ($nivel_acesso == "ADMINISTRADOR") || ($nivel_acesso == "EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
-
     }
 
     // Inicio - menu head
@@ -90,12 +88,11 @@ class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocu
       $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
       XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
 
-      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+      $msg = "Bem-Vindo, " . ucfirst($this->_context->authenticatedUser()) . " (" . $nivel_acesso . ").";
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
       XmlUtil::AddAttribute($node, "nome_usuario", $msg);
       XmlUtil::AddAttribute($node, "logout", "true");
-
     }
 
     //
@@ -106,7 +103,6 @@ class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocu
     $body = XmlUtil::CreateChild($node, "body", "");
 
     parent::generatePage($body);
-
   }
 
   public function MinhaPropostaDeAcaoDBXML($context, $opcao)
@@ -118,7 +114,6 @@ class MinhaPropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocu
 
     $this->_context = $context;
     $this->_opcao = $opcao;
-
   }
 
 }

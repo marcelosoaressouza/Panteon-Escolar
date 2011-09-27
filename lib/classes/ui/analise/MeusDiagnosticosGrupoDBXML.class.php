@@ -33,7 +33,7 @@ class MeusDiagnosticosGrupoDBXML extends XmlnukeCollection implements IXmlnukeDo
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -47,7 +47,7 @@ class MeusDiagnosticosGrupoDBXML extends XmlnukeCollection implements IXmlnukeDo
       if($id_grupo == "")
       {
         $this->_context->addCookie("mensagem_aviso", "<b>Você ainda não pertence a um Grupo</b>");
-        $this->_context->redirectUrl("./meusdiagnosticos");
+        $this->_context->redirectUrl("module:panteonescolar.meusdiagnosticos");
       }
 
       if($this->_context->ContextValue("Pesquisar") == true && $this->_context->ContextValue("id_grupo_filtro")!="")
@@ -68,7 +68,7 @@ class MeusDiagnosticosGrupoDBXML extends XmlnukeCollection implements IXmlnukeDo
 
       if($pagina->getAllRecords()->Count() > 0)
       {
-        if($this->_context->ContextValue("acao") == "" && (($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")))
+        if($this->_context->ContextValue("acao") == "" && (($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")))
         {
           $span1->addXmlnukeObject($this->filtro());
         }
@@ -142,7 +142,7 @@ class MeusDiagnosticosGrupoDBXML extends XmlnukeCollection implements IXmlnukeDo
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

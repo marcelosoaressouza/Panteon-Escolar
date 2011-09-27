@@ -1,6 +1,19 @@
+<xsl:template match="blocklogin">
+    <div id="boxBaixoDireitaTitulo">
+      <div id="BoxTituloDireitaBoxBaixo">Acesso Panteon Escolar</div>
+    </div>
+    <div id="baseForumHome">
+        <div id="ForumHomeContent">
+            <xsl:apply-templates />
+        </div>
+    </div>
+    <div id="baseForumHomeRodape"></div>
+</xsl:template>
+
+
 <xsl:template match="blockmensagem">
   <xsl:if test="@criartemapanteon">
-    <a href="./criartemapanteon"><img src="static/images/Layout/btnCriarTema.png" width="210" height="45" alt="Criar Tema" longdesc="static/images/Layout/btnCriarTema.png" title="Criar tema" /></a>
+    <a href="module:panteonescolar.criartemapanteon"><img src="static/images/Layout/btnCriarTema.png" width="210" height="45" alt="Criar Tema" longdesc="static/images/Layout/btnCriarTema.png" title="Criar tema" /></a>
   </xsl:if>
   <div id="baseForumHomeTopo"></div>
 

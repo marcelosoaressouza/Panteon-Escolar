@@ -28,7 +28,7 @@ class TermoDeUsoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
   {
     if($this->_context->IsAuthenticated())
     {
-      $this->_context->redirectUrl("/meuperfil");
+      $this->_context->redirectUrl("module:panteonescolar.meuperfil");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -46,16 +46,13 @@ class TermoDeUsoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
     if($this->_opcao == "processPageField")
     {
       $txt = "
-             <b>1.</b> Os presentes termos governam todo o acesso e uso do site Panteon Escolar (doravante denominado “Panteon Escolar” ou “site”) por você (doravante denominado “usuário”). O registro de uma conta de usuário no Panteon Escolar implica, imediatamente, a aceitação da integridade deste documento e do documento FAQ, que esclarece algumas das regras destes termos e acrescenta outras. O registro de uma conta pressupõe que o usuário tenha lido atentamente os presentes termos e o documento FAQ, bem como eventuais versões futuras de qualquer um deles.
-             <b>2.</b> A ausência de registro por parte de um usuário não o escusa da leitura destes termos e do documento FAQ. Usuários, registrados ou não, devem necessariamente observar o disposto no item 6, infra.
-             <b>3.</b> As versões mais recentes destes termos e do documento FAQ são as vinculantes, regulando as relações passadas e presentes entre o Panteon Escolar e o usuário. Todo usuário encontra-se sujeito a eventuais mudanças na redação dos presentes termos e do documento FAQ, devendo manter-se em dia com qualquer atualização, comprometendo-se a ler os documentos sempre que estes forem alterados.
-             <b>4.</b> O Panteon Escolar se compromete a apenas revelar dados de registro do usuário mediante ordem judicial, mas não se responsabiliza por eventuais danos causados pela obtenção ilícita dos mesmos dados por terceiros. Ao se registrar no Panteon Escolar, o usuário tem ciência de que, apesar de todos os cuidados tomados com a segurança do site, essa é uma possibilidade. Compromete-se, assim, a não ter o Panteon Escolar como responsável por danos que possam ocorrer pela obtenção ilícita, por terceiros, de seus dados pessoais.
-             <b>5.</b> Todo o conteúdo enviado ao Panteon Escolar pelo usuário, seja como tópico ou comentário de tópico, é de integral responsabilidade do usuário, que atesta a) ser detentor de seus direitos autorais; b) estar sob o amparo de uma das limitações do art. 46 da Lei n.º 9.610/98 (Lei de Direitos Autorais); ou c) estar autorizado por licença para a publicação e reprodução do conteúdo. O envio de conteúdo de autoria do usuário implica, além disso, autorização automática para publicação e reprodução pelo Panteon Escolar, nos limites do próprio site.
-             <b>6.</b> Os presentes termos são regidos pela legislação brasileira. Para eventuais controvérsias judiciais, tendo-se em mente e mais uma vez frisado o já afirmado no item 4, supra, fica eleito o foro da Capital do Estado da Bahia, com exclusão de qualquer outro.
-
-
+             <p align='justify'><b>1.</b> Os presentes termos governam todo o acesso e uso do site Panteon Escolar (doravante denominado “Panteon Escolar” ou “site”) por você (doravante denominado “usuário”). O registro de uma conta de usuário no Panteon Escolar implica, imediatamente, a aceitação da integridade deste documento e do documento FAQ, que esclarece algumas das regras destes termos e acrescenta outras. O registro de uma conta pressupõe que o usuário tenha lido atentamente os presentes termos e o documento FAQ, bem como eventuais versões futuras de qualquer um deles.<br></br></p>
+             <p align='justify'><b>2.</b> A ausência de registro por parte de um usuário não o escusa da leitura destes termos e do documento FAQ. Usuários, registrados ou não, devem necessariamente observar o disposto no item 6, infra.<br></br></p>
+             <p align='justify'><b>3.</b> As versões mais recentes destes termos e do documento FAQ são as vinculantes, regulando as relações passadas e presentes entre o Panteon Escolar e o usuário. Todo usuário encontra-se sujeito a eventuais mudanças na redação dos presentes termos e do documento FAQ, devendo manter-se em dia com qualquer atualização, comprometendo-se a ler os documentos sempre que estes forem alterados.<br></br></p>
+             <p align='justify'><b>4.</b> O Panteon Escolar se compromete a apenas revelar dados de registro do usuário mediante ordem judicial, mas não se responsabiliza por eventuais danos causados pela obtenção ilícita dos mesmos dados por terceiros. Ao se registrar no Panteon Escolar, o usuário tem ciência de que, apesar de todos os cuidados tomados com a segurança do site, essa é uma possibilidade. Compromete-se, assim, a não ter o Panteon Escolar como responsável por danos que possam ocorrer pela obtenção ilícita, por terceiros, de seus dados pessoais.<br></br></p>
+             <p align='justify'><b>5.</b> Todo o conteúdo enviado ao Panteon Escolar pelo usuário, seja como tópico ou comentário de tópico, é de integral responsabilidade do usuário, que atesta a) ser detentor de seus direitos autorais; b) estar sob o amparo de uma das limitações do art. 46 da Lei n.º 9.610/98 (Lei de Direitos Autorais); ou c) estar autorizado por licença para a publicação e reprodução do conteúdo. O envio de conteúdo de autoria do usuário implica, além disso, autorização automática para publicação e reprodução pelo Panteon Escolar, nos limites do próprio site.<br></br></p>
+             <p align='justify'><b>6.</b> Os presentes termos são regidos pela legislação brasileira. Para eventuais controvérsias judiciais, tendo-se em mente e mais uma vez frisado o já afirmado no item 4, supra, fica eleito o foro da Capital do Estado da Bahia, com exclusão de qualquer outro.<br></br></p>
              ";
-
       $span1->addXmlnukeObject(new XmlNukeText($txt));
 
     }

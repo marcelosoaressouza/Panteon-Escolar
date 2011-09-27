@@ -49,12 +49,12 @@ class MensagemForumModel extends PanteonEscolarBaseModel
 
   public function getDataHoraCadastroMensagemForum()
   {
-    return date("Y-m-d H:i:s");
+    return $this->_data_hora_cadastro_mensagem_forum;
   }
 
   public function setDataHoraCadastroMensagemForum($data_hora_cadastro_mensagem_forum)
   {
-    $this->_data_hora_cadastro_mensagem_forum = date("Y-m-d H:i:s");
+    $this->_data_hora_cadastro_mensagem_forum = $data_hora_cadastro_mensagem_forum;
   }
 
   public function getIDUsuario()

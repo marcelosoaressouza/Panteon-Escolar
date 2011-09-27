@@ -45,7 +45,7 @@ class CriarPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Sujeito');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Os sujeitos são pessoas que têm envolvimento com o tema. Portanto, emitem seu ponto de vista a respeito das situações-problema do tema. Cada sujeito faz parte de um grupo social.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -69,7 +69,7 @@ class CriarPontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXm
       if($this->_context->ContextValue("acao") == "criarPontoDeVistaSujeito")
       {
         $this->_context->addCookie("id_sujeito_tema_panteon", $this->_context->ContextValue("valueid"));
-        $this->_context->redirectUrl("/criarpontodevistasujeitotemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.criarpontodevistasujeitotemapanteon");
 
       }
 

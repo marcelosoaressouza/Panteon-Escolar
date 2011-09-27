@@ -1,21 +1,21 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 ModuleFactory::IncludePhp("panteonescolar", "classes/base/PanteonEscolarBaseModule.class.php");
 
@@ -28,10 +28,11 @@ class MinhasTurmas extends PanteonEscolarBaseModule
 
     $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTituloSimples("Minhas Turmas");
 
-    $blockHead   = new XmlBlockCollection(NULL, BlockPosition::Right);
+    $blockHead = new XmlBlockCollection(NULL, BlockPosition::Right);
     $blockCenter = new XmlBlockCollection(NULL, BlockPosition::Center);
-    $blockInfo   = new XmlBlockCollection(NULL, BlockPosition::Left);
-    $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
+    $blockInfo = new XmlBlockCollection(NULL, BlockPosition::Left);
+    $blockMenu = new XmlBlockCollection(NULL, BlockPosition::Menu);
+
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
     $blockHead->addXmlnukeObject(new MinhasTurmasDBXML($this->_context, "menuHead"));
@@ -49,12 +50,20 @@ class MinhasTurmas extends PanteonEscolarBaseModule
     $nivel_acesso = $dbNivelAcesso->obterNivelAcessoPorIDUsuario($this->_context->authenticatedUserId());
     $this->_context->addCookie("papel_usuario", $nivel_acesso);
 
+
     return $this->defaultXmlnukeDocument;
+  }
+
+  public function __constructor()
+  {
 
   }
 
-  public function __constructor() {}
-  public function __destruct() { }
+  public function __destruct()
+  {
+
+  }
+
   public function useCache()
   {
     return false;
@@ -72,7 +81,7 @@ class MinhasTurmas extends PanteonEscolarBaseModule
 
   public function getRole()
   {
-    return array("ANALISTA", "MEDIADOR", "GESTOR", "ADMINISTRADOR");
+    return array("ANALISTA", "EDITOR", "GESTOR", "ADMINISTRADOR");
   }
 
 }

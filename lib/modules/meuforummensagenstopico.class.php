@@ -69,7 +69,7 @@ class MeuForumMensagensTopico extends PanteonEscolarBaseModule
 
   public function getRole()
   {
-    return array("ANALISTA", "MEDIADOR", "GESTOR", "ADMINISTRADOR");
+    return array("ANALISTA", "EDITOR", "GESTOR", "ADMINISTRADOR");
   }
 
 }

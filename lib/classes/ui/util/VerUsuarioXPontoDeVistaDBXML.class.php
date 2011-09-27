@@ -34,7 +34,8 @@ class VerUsuarioXPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnuke
     {
       if($id_usuarioxpontodevista_ver != "")
       {
-        $url = '/meuspontosdevistas&acao=delete&id='.$id_usuarioxpontodevista_ver;
+        $url_module = $this->_context->bindModuleUrl("panteonescolar.meuspontosdevistas");
+        $url = $url_module.'&acao=delete&id='.$id_usuarioxpontodevista_ver;
         $retorno = $this->_context->ContextValue("returnurl");
 
         $db = new UsuarioXPontoDeVistaDB($this->_context);
@@ -45,7 +46,7 @@ class VerUsuarioXPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnuke
         $span1->addXmlnukeObject(new XmlNukeText('<div style="color: #A92D1E; font-size: 18px; font-weight:900;">Ponto de Vista</div>'));
         //$span1->addXmlnukeObject(new XmlNukeText('<div style="color: #000000; font-weight:900;">'.$ponto_de_vista.'...</div><br/>'));
 
-        $span1->addXmlnukeObject(new XmlNukeText('<div id ="titulo_confirma">Remover este Ponto de Vista?</div>'));
+        $span1->addXmlnukeObject(new XmlNukeText('<div id ="titulo_confirma">Restaurar este Ponto de Vista?</div>'));
         $span1->addXmlnukeObject(new XmlNukeText('<div style="color: #A92D1E; font-size: 21px; font-weight:900;"><a href="'.$url.'">(Sim)</a> ou <a href="'.$retorno.'" id="fecharfancy">(Não)</a></div>'));
 
 

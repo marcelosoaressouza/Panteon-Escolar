@@ -127,7 +127,7 @@
 		<xsl:if test="$name and $name!=''"></xsl:if>
                 <xsl:value-of select="$caption"/>
                 <xsl:if test="$caption and $caption!='#'"></xsl:if>
-                <xsl:if test="$required='true'"></xsl:if>
+                <xsl:if test="$required='true'">*</xsl:if>
 	</label>
         </div>
 </xsl:template>

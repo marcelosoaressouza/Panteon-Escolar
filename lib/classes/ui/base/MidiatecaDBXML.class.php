@@ -39,7 +39,16 @@ class MidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     // Inicio ProcessPageField
     $fieldList = new ProcessPageFields();
-    $fileUpload = new ProcessPageStateBaseSaveFormatterFileUpload($this->_context, "upload/midiateca");
+    $nomeArquivo = $this->_context->getUploadFileNames();
+    $p = strtr($nomeArquivo[caminho_arquivo_midiateca], "áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ ", "aaaaeeiooouucAAAAEEIOOOUUC_");
+    $url = @ereg_replace('[^a-zA-Z0-9_.]', '', $p);
+    $novoNomeArquivo = strtolower($url);
+    //Debug::PrintValue($novoNomeArquivo);
+    //exit();
+    //Debug::PrintValue();
+    //exit();
+    $fileUpload = new ProcessPageStateBaseSaveFormatterFileUpload($this->_context, "upload/midiateca", $novoNomeArquivo);
+    //$fileUpload->Format("caminho_arquivo_midiateca" , $fieldList ,  "");
     // $fileUpload->resizeImageTo(85, 85);
 
     // Inicio dos Campos do ProcessPageFields
@@ -71,6 +80,11 @@ class MidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     $field->editListFormatter = new PanteonEscolarTextoFormatter();
     $field->fieldXmlInput = XmlInputObjectType::HTMLTEXT;
     $field->required = true;
+    $fieldList->addProcessPageField($field);
+
+    $field = ProcessPageFields::FactoryMinimal("fonte", "Fonte", 45, true, true);
+    $field->fieldXmlInput = XmlInputObjectType::TEXTBOX;
+    $field->saveDatabaseFormatter = new  PanteonEscolarTagFormatter($this->_context);
     $fieldList->addProcessPageField($field);
 
     $field = ProcessPageFields::FactoryMinimal("tag_midiateca", "Palavra(s) Chave", 45, false, false);
@@ -122,8 +136,7 @@ class MidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
         $this->_titulo_entidade,
         "module:panteonescolar.".$this->_nome_modulo."&amp;chamada=1",
         array($button),
-        $this->_nome_entidade,
-        PanteonEscolarBaseDBAccess::DATABASE());
+        $this->_nome_entidade);
 
     if($permissao)
     {
@@ -219,6 +232,8 @@ class MidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     $processpage->setPageSize($this->_num_registros_padrao, $this->_context->ContextValue("curpage"));
     $processpage->setSort("data_hora_cadastro_midiateca DESC");
+
+    $processpage->renderField($field, $curValue);
 
     return $processpage;
 

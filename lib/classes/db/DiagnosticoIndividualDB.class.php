@@ -160,6 +160,30 @@ class DiagnosticoIndividualDB extends PanteonEscolarBaseDBAccess
     return $it;
   }
 
+  public function verDuplicado(DiagnosticoIndividualModel $modelDiagnosticoIndividual)
+  {
+
+    /*
+    protected $_nome_tabela = "diagnostico_individual";
+    protected $_nome_tabela_primaria = "item_analise";
+    protected $_nome_tabela_secundaria = "situacao_problema";
+    protected $_nome_tabela_terciaria = "usuario_x_tema_panteon ";
+     *
+     */
+
+
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+    $sql .= " WHERE ";
+    $sql .= "id_".$this->_nome_tabela_primaria." = ".$modelDiagnosticoIndividual->getIDItemAnalise();
+    $sql .= " AND ";
+    $sql .= "id_".$this->_nome_tabela_secundaria." = ".$modelDiagnosticoIndividual->getIDSituacaoProblema();
+
+    $it = $this->getIterator($sql, $param);
+
+    return $it->Count();
+
+  }
 }
 
 ?>

@@ -101,6 +101,8 @@ class UsuarioDB extends PanteonEscolarBaseDBAccess
   */
   public function obterTodosOsUsuariosQueNaoEstaoNaTurmaPorIDInstituicao($id, $id_turma)
   {
+
+
     $sql = "SELECT * FROM ";
     $sql .= $this->_nome_tabela;
 

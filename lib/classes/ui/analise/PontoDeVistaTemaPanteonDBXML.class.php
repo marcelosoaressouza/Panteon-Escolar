@@ -120,14 +120,14 @@ class PontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnuke
         {
           $modelUsuarioXPontoDeVista = $dbUsuarioXPontoDeVista->cadastrar($modelUsuarioXPontoDeVista);
           $this->_context->addCookie("mensagem_aviso", $msgacao.$modelPontoDeVista->getTextoPontodeVista());
-          $this->_context->redirectUrl("/pontodevistatemapanteon");
+          $this->_context->redirectUrl("module:panteonescolar.pontodevistatemapanteon");
 
         }
 
         else
         {
           $this->_context->addCookie("mensagem_aviso", "Este Ponto de Vista já foi coletado ou descartado");
-          $this->_context->redirectUrl("/pontodevistatemapanteon");
+          $this->_context->redirectUrl("module:panteonescolar.pontodevistatemapanteon");
 
         }
 
@@ -184,7 +184,7 @@ class PontoDeVistaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnuke
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

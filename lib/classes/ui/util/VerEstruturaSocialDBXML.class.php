@@ -29,7 +29,18 @@ class VerEstruturaSocialDBXML extends XmlnukeCollection implements IXmlnukeDocum
 
     $span1 = new XmlnukeSpanCollection();
     $this->addXmlnukeObject($span1);
-    $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">Estrutura Social (Grupos Sociais):</div><br/>'));
+
+    $dbEstruturaSocial = new EstruturaSocialDB($this->_context);
+    $modelEstruturaSocial = $dbEstruturaSocial->obterPorId($id_estrutura_social_ver);
+
+    $span1->addXmlnukeObject(new XmlNukeText('<div id="subtitulos">'. $modelEstruturaSocial->getNomeEstruturaSocial() .' (Grupos Sociais):</div><br/>'));
+
+    if($modelEstruturaSocial->getCaminhoFotoEstruturaSocial() != "")
+    {
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="caixa_info_estrutura_social_foto">'));
+      $span1->addXmlnukeObject(new XmlNukeText('<img width="100" height="100" alt="Foto" src="'.$modelEstruturaSocial->getCaminhoFotoEstruturaSocial().'"/>'));
+      $span1->addXmlnukeObject(new XmlNukeText('</div><br/><br/><br/><br/><br/><br/>'));
+    }
 
     if($this->_opcao == "ver")
     {
@@ -41,13 +52,19 @@ class VerEstruturaSocialDBXML extends XmlnukeCollection implements IXmlnukeDocum
         $span1->addXmlnukeObject(new XmlNukeText("Não há Grupos Sociais Cadastrados"));
       }
 
+
+
+
       while($it->hasNext())
       {
         $sr = $it->moveNext();
         $grupo_social = $sr->getField("nome_grupo_social");
+        $id_grupo_social = $sr->getField("id_grupo_social");
         $descricao_grupo_social = $sr->getField("descricao_grupo_social");
         $txt  = '<div id="subtitulos"> - '.$grupo_social.'</div>';
-        $txt .= '<div id="textover">'.$descricao_grupo_social.'</div><br/>';
+        $txt .= '<div id="textover">'.$descricao_grupo_social.'</div>';
+        $txt .= '<br/>';
+
         $span1->addXmlnukeObject(new XmlNukeText($txt));
 
       }

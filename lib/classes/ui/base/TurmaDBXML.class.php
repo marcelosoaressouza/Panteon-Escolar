@@ -27,11 +27,18 @@ class TurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
   protected $_titulo_entidade = "Turma";
   protected $_num_registros_padrao = 5;
 
-  public function criarProcessPageFields($id_instituicao = "", $permissao = "")
+  public function criarProcessPageFields($id_instituicao = "", $permissao = "", $id_turma = "")
   {
 
     $db = new InstituicaoDB($this->_context);
     $it = $db->obterTodos();
+    $id_instituicao_filtro = $this->_context->ContextValue("id_instituicao_filtro");
+
+    if($id_instituicao_filtro != "")
+    {
+      $it = $db->obterPorInstituicaoId($id_instituicao_filtro);
+    }
+
     $arrayInstituicao = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_instituicao", "nome_instituicao");
 
     // Inicio ProcessPageField
@@ -127,11 +134,34 @@ class TurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     // Filtros
     $filtro = "";
 
-    if($id_instituicao != "")
+    if($id_instituicao_filtro != "")
     {
-      $filtro .= " id_instituicao = " . $id_instituicao ." ";
+      $filtro .= " id_instituicao = " . $id_instituicao_filtro ." ";
 
     }
+
+    /*
+    if($id_turma != "") {
+      //$filtro .= " id_turma = " . $id_turma ." ";
+
+      $db = new TurmaDB($this->_context);
+      $itTurma = $db->obterTodosOsUsuariosPorIDTurma($id_turma);
+
+      if($itTurma->hasNext()) {
+        if($id_instituicao != "") $filtro .= " AND ";
+
+        $filtro2 .= " ( id_usuario IN (";
+        while($itTurma->hasNext()) {
+          $sr = $itTurma->moveNext();
+          $filtro2 .= $sr->getField("id_usuario").", ";
+
+        }
+        $filtro2 = rtrim($filtro2, ", ");
+        $filtro .= $filtro2." )) ";
+
+      }
+    }
+    */
 
     if($filtro != "")
     {

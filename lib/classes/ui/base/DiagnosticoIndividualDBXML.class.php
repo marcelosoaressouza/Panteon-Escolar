@@ -31,7 +31,7 @@ class DiagnosticoIndividualDBXML extends XmlnukeCollection implements IXmlnukeDo
   {
 
     $dbTemaPanteon = new TemaPanteonDB($this->_context);
-
+    //Debug::PrintValue($dbTemaPanteon);
     // Inicio da Obtencao de dados de Tabelas Auxiliares-Relacionadas
     //
     $db = new UsuarioXTemaPanteonDB($this->_context);
@@ -40,17 +40,23 @@ class DiagnosticoIndividualDBXML extends XmlnukeCollection implements IXmlnukeDo
                                 "id_usuario_x_tema_panteon",
                                 "nome_tema_panteon");
 
+    $db = new ItemAnaliseDB($this->_context);
+    $it = $db->obterTodosOsItensAnalisePorIDMetodoAnalise($dbTemaPanteon->obterPorId($id_tema_panteon)->getIDMetodoAnalise());
+    $arrayItemAnalise = PanteonEscolarBaseDBAccess::getArrayFromIterator($it,
+                        "id_item_analise",
+                        "nome_item_analise");
+
+
     $db = new SituacaoProblemaDB($this->_context);
     $it = $db->obterTodasAsSituacoesProblemasPorIDTemaPanteon($id_tema_panteon);
     $arraySituacaoProblema = PanteonEscolarBaseDBAccess::getArrayFromIterator($it,
                              "id_situacao_problema",
                              "nome_situacao_problema");
 
-    $db = new ItemAnaliseDB($this->_context);
-    $it = $db->obterTodosOsItensAnalisePorIDMetodoAnalise($dbTemaPanteon->obterPorId($id_tema_panteon)->getIDMetodoAnalise());
-    $arrayItemAnalise = PanteonEscolarBaseDBAccess::getArrayFromIterator($it,
-                        "id_item_analise",
-                        "nome_item_analise");
+
+
+
+
     //
     // Fim Obtencao de dados de Tabelas Auxiliares-Relacionadas
 
@@ -58,6 +64,7 @@ class DiagnosticoIndividualDBXML extends XmlnukeCollection implements IXmlnukeDo
     $fieldList = new ProcessPageFields();
 
     // Inicio Campos da Entidade
+
     $field = ProcessPageFields::FactoryMinimal("id_item_analise", "Item Ánalise", 30, true, true);
     $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
     $field->arraySelectList = $arrayItemAnalise;
@@ -92,6 +99,7 @@ class DiagnosticoIndividualDBXML extends XmlnukeCollection implements IXmlnukeDo
       $field->editable = false;
       $field->editListFormatter = new PanteonEscolarApagarFormatter($this->_context, "diagnostico_individual", "meusdiagnosticos");
       $fieldList->addProcessPageField($field);
+
 
     }
 
@@ -153,6 +161,7 @@ class DiagnosticoIndividualDBXML extends XmlnukeCollection implements IXmlnukeDo
   public function generateObject($current)
   {
     $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
     $span1->addXmlnukeObject($this->criarProcessPageFields());
     $node = XmlUtil::CreateChild($current, $this->_nome_entidade, "");
     $body = XmlUtil::CreateChild($node, "body", "");
@@ -160,7 +169,7 @@ class DiagnosticoIndividualDBXML extends XmlnukeCollection implements IXmlnukeDo
 
   }
 
-  public function DiagnosticoIndividualDBXML($context, $nome_modulo = "diagnostico", $titulo = "Diagnóstico")
+  public function DiagnosticoIndividualDBXML($context, $nome_modulo = "panteonescolar.diagnostico", $titulo = "Diagnóstico")
   {
     if(!($context instanceof Context))
     {

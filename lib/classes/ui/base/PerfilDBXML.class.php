@@ -53,6 +53,15 @@ class PerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     $field->defaultValue = DateUtil::Today(DATEFORMAT::DMY, "/", true);
     $fieldList->addProcessPageField($field);
 
+    /*
+    $span1 = new XmlnukeSpanCollection();
+    $this->addXmlnukeObject($span1);
+    $span1->addXmlnukeObject($this->filtro());
+    $fieldList->addProcessPageField($span1);
+     *
+     */
+
+
     $field = ProcessPageFields::FactoryMinimal("uf_estado", "Estado", 30, true, true);
     $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
     $field->arraySelectList = $arrayEstado;
@@ -77,6 +86,7 @@ class PerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     $field->arraySelectList = $arrayCidade;
 
     $fieldList->addProcessPageField($field);
+
 
     $field = ProcessPageFields::FactoryMinimal("texto_perfil", "Meu Perfil", NULL, true, true);
     $field->fieldXmlInput = XmlInputObjectType::HTMLTEXT;
@@ -152,10 +162,72 @@ class PerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
   public function generateObject($current)
   {
     $span1 = new XmlnukeSpanCollection();
+
     $span1->addXmlnukeObject($this->criarProcessPageFields());
+
     $node = XmlUtil::CreateChild($current, $this->_nome_entidade, "");
+
     $body = XmlUtil::CreateChild($node, "body", "");
+
     parent::generatePage($body);
+
+  }
+
+  public function filtro()
+  {
+    $span = new XmlnukeSpanCollection();
+
+    $formPost = "module:panteonescolar.meuperfil";
+    $form = new XmlFormCollection($this->_context, $formPost, "Estado");
+
+    //$form->addXmlnukeObject($this->filtroDescricao());
+    $form->addXmlnukeObject($this->filtroEstado());
+    //$form->addXmlnukeObject($this->filtroCidade());
+    $form->addXmlnukeObject(new XmlInputHidden("Pesquisar", true));
+    //$form->addXmlnukeObject($this->filtroEstruturaSocial());
+
+    $buttons = new XmlInputButtons();
+    $buttons->addSubmit("Pesquisar");
+    $form->addXmlnukeObject($buttons);
+
+    $span->addXmlnukeObject($form);
+
+    return $span;
+
+  }
+
+  public function filtroEstado()
+  {
+    Debug::PrintValue($this->_context->getXsl());
+
+    $db = new EstadoDB($this->_context);
+    $it = $db->obterTodos();
+
+    $listaEstado = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_estado", "nome");
+    $listaEstado[""] = "-- Selecione  --";
+
+    $id_estado_filtro_selecionado = $this->_context->ContextValue("id_estado_filtro");
+
+    $lista = new RanderNetXmlEasyList(EasyListType::SELECTLIST, "id_estado_filtro", "Estato", $listaEstado, $id_estado_filtro_selecionado);
+    $lista->setRanderNetDadosAjax("panteonescolar.configusuario", "id_cidade_filtro", "&amp;acao=cidade");
+    //$lista = new XmlEasyList(EasyListType::SELECTLIST, "id_estado_filtro", "Estato", $listaEstado, $id_estado_filtro_selecionado);
+
+    return $lista;
+  }
+
+  public function filtroCidade()
+  {
+
+    $db = new CidadeDB($this->_context);
+    $it = $db->obterCidadesPorUFEstado($this->_context->getCookie("id_estado_filtro"));
+    $listaCidade = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_cidade", "nome");
+    $listaCidade[""] = "-- Selecione  --";
+
+    $id_cidade_filtro_selecionado = $this->_context->ContextValue("id_cidade_filtro");
+    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_cidade_filtro", "Cidade", $listaCidade, $id_cidade_filtro_selecionado);
+
+
+    return $lista;
 
   }
 

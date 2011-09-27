@@ -33,7 +33,7 @@ class PesquisadoresDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -46,7 +46,7 @@ class PesquisadoresDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
       $dbxml = new UsuarioXTemaPanteonDBXML($this->_context, "pesquisadores", "Pesquisadores");
 
       $permissao = array(false, false, false, false);
-      $pagina = $dbxml->criarProcessPageFields("", $permissao, 8, $id_tema_panteon);
+      $pagina = $dbxml->criarProcessPageFields("", $permissao, 15, $id_tema_panteon);
       $span1->addXmlnukeObject($pagina);
 
     }
@@ -64,7 +64,8 @@ class PesquisadoresDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
 
       if($itDB->Count() > 0)
       {
-        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "");
+        $url_barra = $this->_context->bindModuleUrl("panteonescolar.minhasmensagens", "ver") . "&amp;&amp;chamada=1&amp;xsl=ver&amp;acao=ppnew&amp;usuario=";
+        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "", $url_barra, "id_usuario", "", "Envie mensagem para ");
       }
 
       else
@@ -72,9 +73,10 @@ class PesquisadoresDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      XmlUtil::AddAttribute($node, "link_info", '<a href="pesquisadores">Clique aqui para ver lista completa de Pesquisadores</a>');
+      $url_link = $this->_context->ContextValue("xmlnuke.URLMODULE") . "?module=panteonescolar.pesquisadores";
+      XmlUtil::AddAttribute($node, "link_info", '<a href="'.$url_link.'">Clique aqui para ver lista completa de Pesquisadores</a>');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

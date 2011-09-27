@@ -46,7 +46,8 @@ class UsuarioDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $sr = $it->moveNext();
 
       $txt = strip_tags(substr($sr->getField("texto_perfil"), 0 , 190));
-      $link = '/xmlnuke.php?module=panteonescolar.verperfil&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;verperfil='.$sr->getField('id_perfil');
+      $url_link = $this->_context->bindModuleUrl("panteonescolar.verperfil");
+      $link = $url_link.'&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;verperfil='.$sr->getField('id_perfil');
       $url = '<b><a class="lista_direita_detalhe" href="'.$link.'">Ver Perfil</a></b>';
 
       $arrayPerfil[$sr->getField('id_usuario')] =  $txt."<div id='aviso_texto_longo'>".$url."</div>";
@@ -148,7 +149,7 @@ class UsuarioDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     $button->icon = "common/editlist/ic_coletar.gif";
     $button->enabled = true;
 
-    if($nivel_acesso == "MEDIADOR")
+    if($nivel_acesso == "EDITOR")
     {
       $processpage = new PanteonEscolarMyProcess($this->_context,
           $fieldList,

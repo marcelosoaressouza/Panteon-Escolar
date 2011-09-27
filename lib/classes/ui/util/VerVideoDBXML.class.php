@@ -43,7 +43,7 @@ class VerVideoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
       if($this->_tipo_midia == "Video")
       {
-        $span1->addXmlnukeObject($this->verVideo("http://".$_SERVER["SERVER_NAME"]."/"));
+        $span1->addXmlnukeObject($this->verVideo("/panteonescolar-src/www/"));
       }
 
     }

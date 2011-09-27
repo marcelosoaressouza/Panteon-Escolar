@@ -34,10 +34,15 @@ class Captcha {
 		$pos_ini = 20;
 		$font_len = 32+rand(-3, 3);
 
+
+
 		$letters = array(
 			array('A', 'E', 'I', 'O', 'U'),
 			array('B', 'C', 'D', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z')
 		);
+                
+                $letters[0] = array_map("strtolower", $letters[0]);
+                $letters[1] = array_map("strtolower", $letters[1]);
 
 		$colors = array(
 			array(20, 35, 40),

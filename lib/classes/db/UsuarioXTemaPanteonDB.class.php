@@ -200,7 +200,7 @@ class UsuarioXTemaPanteonDB extends PanteonEscolarBaseDBAccess
    * @access public
    * @return IIterator
   */
-  public function obterTodosOsUsuariosColetaramTemaPanteonPorIDTemaPanteon($id)
+  public function obterTodosOsUsuariosColetaramTemaPanteonPorIDTemaPanteon($id, $id_turma=null)
   {
     $sql = "SELECT * FROM ";
     $sql .= $this->_nome_tabela;
@@ -213,12 +213,26 @@ class UsuarioXTemaPanteonDB extends PanteonEscolarBaseDBAccess
     $sql .= " ON usuario.id_instituicao ";
     $sql .= " = instituicao.id_instituicao";
 
+    if(!empty($id_turma))
+    {
+      $sql .= " INNER JOIN usuario_x_turma ";
+      $sql .= " ON usuario.id_usuario ";
+      $sql .= " = usuario_x_turma.id_usuario";
+    }
+
+
     // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
     $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria." = ".$id;
+
+    if(!empty($id_turma))
+    {
+      $sql .= " and usuario_x_turma.id_turma = ".$id_turma;
+    }
+
     $sql .= " ORDER BY nome_completo_usuario DESC";
 
 
-
+    //Debug::PrintValue($sql);
 
     $it = $this->getIterator($sql);
 

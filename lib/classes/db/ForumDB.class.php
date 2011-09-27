@@ -62,7 +62,7 @@ class ForumDB extends PanteonEscolarBaseDBAccess
     // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
     $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
 
-
+    //Debug::PrintValue($sql);
 
     $it = $this->getIterator($sql);
 

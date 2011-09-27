@@ -33,7 +33,7 @@ class MeuDiagnosticoDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -56,7 +56,7 @@ class MeuDiagnosticoDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -67,9 +67,11 @@ class MeuDiagnosticoDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     {
       $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
 
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/meusdiagnosticos"> Diagnóstico Individual.</a><br/></div>'));
+      $url = $this->_context->bindModuleUrl("panteonescolar.meusdiagnosticos");
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="'.$url.'"> Diagnóstico Individual.</a><br/></div>'));
       $span1->addXmlnukeObject(new XmlNukeText('<br/>'));
-      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="/meusdiagnosticosgrupo">Diagnóstico com o seu Grupo. </a></div>'));
+      $url = $this->_context->bindModuleUrl("panteonescolar.meusPontosDeVistas");
+      $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"><a href="'.$url.'">Diagnóstico com o seu Grupo. </a></div>'));
 
     }
 

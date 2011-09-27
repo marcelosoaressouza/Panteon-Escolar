@@ -107,3 +107,34 @@
 	</script>
 	</xsl:if>
 </xsl:template>
+
+<xsl:template match="container_ajax">
+	<div><xsl:if test="@id"><xsl:attribute name="id">container_ajax_<xsl:value-of select="@id" /></xsl:attribute></xsl:if><xsl:apply-templates /></div>
+	       
+        <xsl:if test="@idtargetobject">
+            <script type="text/javascript" lang="javascript">
+            $(document).ready(function() {
+                	$("#<xsl:value-of select="@id" />").change(function() {
+                        
+                            var auxUrl = '<xsl:value-of select="@updateurl" />';
+                            var arrAuxUrl = auxUrl.split("/");
+                            var auxUrl = arrAuxUrl[arrAuxUrl.length-1];
+                            var selected_value = this.value;
+                            var varURL = auxUrl+"&amp;ajaxvalueid="+selected_value;
+
+                            $('#<xsl:value-of select="@idtargetobject" />').val('');
+                            $('#<xsl:value-of select="@idtargetobject" />').change();
+                            
+                            $.ajax({
+                                type: "GET",
+                                url: varURL,
+                                success: function(msg){
+                                    msg = msg.replace("<dados>","").replace("</dados>","");
+                                    $('#container_ajax_<xsl:value-of select="@idtargetobject" />').html(msg);
+                                }
+                            });
+                        });
+            });
+        </script>
+	</xsl:if>
+</xsl:template>

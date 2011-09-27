@@ -1,0 +1,91 @@
+*** Questões Gerais
+
+***** Resolvendo/Dúvidas *****
+- Novo tópico no fórum e resposta a mensagem no fórum apresenta o seguinte erro: (SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'id_forum' cannot be null)
+- Ver Tamanho Limite Arquivos Enviados (60MB) - Solução XMLNuke.
+- Opções de Ordenação.
+- Ver Mensagem / Forum (Buscar Ferramentas para Integrar)
+- Mensagem e usuário on-line.
+- Telas modais ajax no IE 8 abrem em janela com fundo branco.
+
+*** Corrigir ***
+Coletar/Descartar Dentro do Ponto de Vista
+Marca para Deleção
+
+=> texto
+- O Que é
+- Termo de Uso
+- Sobre o Panteon
+- Rever Créditos
+  * Concepção Original: Marcos Lima
+  * Concepção e Autoria do Projeto -> Concepção e Adaptação do Panteon Escolar
+- Guia Pedagogico
+- Levantamento de Textos Laterais de Ajuda
+
+** Corrigidos
+- Trocar Sobre Panteon virar Créditos. (Página Inicial)
+- Botão na bagaça, ficar feio mesmo.
+- Adicionar foto TinyMCE, form com problema.
+- Filtrar Tags (Arrancar) no Conteudo da Direita (Imagem Esculhambar tudo).
+- Não direcionar automatico se não houver Tema Coletado em Meus Temas.
+- Ver Ajax com IE7, abrindo outra Aba.
+- Revisão Marcacao de Localizacao dos Menus conforme opcao.
+- Aumentar (Memo) Comentário Ponto de Vista.
+- Deselecionar quando apagar Tema Panteon.
+- Retirar ao invês de Apagar em Meus Temas.
+- Sala de Encontro ao invês de Sala de Reunião
+- Titulo Tema Panteon voltar Tema Panteon.
+- Combos Complexos e Campo em Aberto Ponto de Vista.
+- Ordem dos Combos nos Forms. Diagnostico e Proposta.
+- Revisar Todas as Imagens de Botões. Principalmente Coletar Tema Panteon.
+- Bonitezas na Sala de Reunião iconografia e coisa e tal.
+- Rever Titulos Coletados/Descartados.
+- Ordenação Por Sujeito em Ponto de Vista (A-Z).
+- Ver Destaque Diag. Especifico.
+- Replicar A Paradinha do Diag. em Proposta.
+- Opcao Diag. Geral e do Grupo. (Se ele fizer parte de um Grupo)
+- Diagnostico Individual ->  Diagnóstico Específico.
+- Diagnostico Individal Geral -> Diagnostico Geral.
+- Diagnostico do Grupo -> Diagnostico do Grupo.
+- Lista Diag. Espec.
+- Proposta de Ação Grupo.
+- Marcação Biblioteca de Temas Panteon -> Anotações vai para Meu Perfil -> Anotações. Assim como os outros sub-menus de Bibliotecas de Temas Panteon
+- Tema Panteon -> Ponto de Vista está dando erro.
+- Biblioteca de Temas está direcionando para sub-menus de Meu Perfil.
+- Telas modais ajax no IE 8 abrem em janela com fundo branco.
+- Ao mudar paginação na "Biblioteca Tema Panteon" a coluna "Selecionar Tema Panteon" está perdendo imagem de seleção.
+- Onde tem SOBRE colocar SOBRE PANTEON; (Pagina Inicial)
+- erro no cadastramento, onde tem Digite números decidir se é NÚMEROS ou LETRAS, porque tem escrito números, mas aparece Letras. E a frase: Quais as letras são mostradas? Deve ficar fora do quadro, para não confundir os alunos e eles entenderem que o deve ser escrito é a frase mesmo;
+- Ao coletar o tema, temos a opção de escolher sujeitos e situações-problema, mas quando clicamos aparece a aba de descrição, mas a aba não tem possibilidade de voltar ainda;
+- colocar uma mensagem em TURMAS e GRUPOS informando que é preciso pedir permissão para participar, sugiro a seguinte frase: Para participar peça permissão ao seu professor enviando uma mensagem no Ponto de Encontro (Sala de reunião);
+- Biblioteca de Temas está direcionando para sub-menus de Meu Perfil.
+- Ao mudar paginação na "Biblioteca Tema Panteon" a coluna "Selecionar Tema Panteon" está perdendo imagem de seleção.
+
+=> Como analista
+- Sugiro colocar MEU onde tem diagnóstico Geral;
+- quando seleciono meu diagnóstico geral não tenho a opção de desselecionar;
+- Não entendo porque em todas as análises tem a opção selecione, pra quê? Não entendi
+- Tem que estar visível em que tipo de diagnóstico está, por exemplo, na aba azul colocar Meu diagnóstico específico, ou Meu diagnóstico geral e assim por diante;
+- Na aba azul para propostas de Ação sugiro a frase: O que fazer agora? – Para mostrar ao aluno em outras palavras o que ele vai fazer na proposta de ação.
+- Tema Panteon -> Ponto de Vista está dando erro. (Quando não tem ponto de vista)
+- Alterar Ordem Criar Tema Panteon
+- Icone para Representa Sujeito
+- Alternar Busca Avançada para Busca Simples e vice-versa (Em todas as Buscas)
+
+=> Teste como gestora
+- Ainda não vimos a possibilidade da criação dos GRUPOS pelo gestor, deve ser dentro da turma selecionada a possibilidade da criação;
+- na descrição da terceira situação problema informa que há erros que é obrigatória a descrição, mas estou escrevendo descrição e não aceita;
+- para criar tema copio e colo na provocação e o texto é copiado pela metade, o primeiro parágrafo não vai. Para colocar tive que copiar e colar várias vezes pedaço por pedaço;
+- quando tiver mais de uma página colocar numeração de páginas, mas quando não tiver retirar o quadro que mostra em que página está;
+
+=> Em Anotações:
+- Em Anotações: Combo "Sobre qual Tema Panteon" não deveriavia vir no começo do form?
+- Marcação Biblioteca de Temas Panteon -> Anotações vai para Meu Perfil -> Anotações. Assim como os outros sub-menus de Bibliotecas de Temas Panteon
+
+=> Sugestões
+- Colocar link em Meu Perfil → Grupos para “Sala de Encontro” na mensagem qunado o usuário não percente a nenhum grupo.
+- Rever Logomarcas do Gov. Federal e Estadual.
+
+=> Avisos
+- Antes de Cadastra um Novo Metodo de Analise verifique se não existe um equivalente.
+- Antes de Cadastra uma Estrutura Social de Analise verifique se não existe um equivalente.

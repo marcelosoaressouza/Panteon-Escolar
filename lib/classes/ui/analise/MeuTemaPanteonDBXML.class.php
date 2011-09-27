@@ -50,7 +50,9 @@ class MeuTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
         if($itDB->Count() > 0)
         {
-          $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "");
+          $url_barra = $this->_context->bindModuleUrl("panteonescolar.minhasmensagens", "ver") . "&amp;&amp;chamada=1&amp;xsl=ver&amp;acao=ppnew&amp;usuario=";
+          $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "nome_completo_usuario", $url_barra, "id_usuario", "Mensagem", "Envie mensagem para ");
+          //$body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "", $url_barra, "id_usuario", "", "Envie mensagem para ");
         }
 
         else
@@ -58,7 +60,9 @@ class MeuTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
           $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
         }
 
-        XmlUtil::AddAttribute($node, "link_info", '<a href="pesquisadores">Clique aqui para ver lista completa de Pesquisadores</a>');
+
+        $url_link = $this->_context->ContextValue("xmlnuke.URLMODULE") . "?module=panteonescolar.pesquisadores";
+        XmlUtil::AddAttribute($node, "link_info", '<a href="'.$url_link.'">Clique aqui para ver lista completa de Pesquisadores</a>');
 
       }
 
@@ -70,7 +74,7 @@ class MeuTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
 
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -104,7 +108,8 @@ class MeuTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     {
       if($id_tema_panteon == "")
       {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Tema Panteon escolhido.<br/> <a href="./meustemaspanteon">Escolha um Tema Panteon para trabalhar.</a></div>'));
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.meustemaspanteon");
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Tema Panteon escolhido.<br/> <a href="'.$url_link.'">Escolha um Tema Panteon para trabalhar.</a></div>'));
 
       }
 
@@ -127,22 +132,29 @@ class MeuTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
         $titulo_tema_panteon = '<div id="titulo_tema_panteon">'.$model->getNomeTemaPanteon().'</div>';
         $texto_tema_panteon = '<div id="subtitulos">Provocação:</div>'.$model->getDescricaoTemaPanteon().'<br/>';
 
-        $linkMA = '/xmlnuke.php?module=panteonescolar.vermetodoanalise&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;vermetodoanalise='.$model->getIDMetodoAnalise();
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.vermetodoanalise");
+        $linkMA = $url_link.'&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;vermetodoanalise='.$model->getIDMetodoAnalise();
         $urlMA = '<b><a class="lista_direita_detalhe" href="'.$linkMA.'">'.$dbMA->obterPorId($model->getIDMetodoAnalise())->getNomeMetodoAnalise().' (Clique aqui e Saiba Mais)</a></b>';
 
-        $linkES = '/xmlnuke.php?module=panteonescolar.verestruturasocial&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;verestruturasocial='.$model->getIDEstruturaSocial();
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.verestruturasocialcomsujeitos");
+        $linkES = $url_link.'&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;verestruturasocial='.$model->getIDEstruturaSocial();
         $urlES = '<b><a class="lista_direita_detalhe" href="'.$linkES.'">'.$dbES->obterPorId($model->getIDEstruturaSocial())->getNomeEstruturaSocial().' (Clique aqui e Saiba Mais)</a></b>';
 
         $textoMA = '<div id="subtitulos">Metódo de Análise:</div> <div id="link-titulo">'.$urlMA.'</div><br/>';
         $textoES = '<div id="subtitulos">Estrutura Social:</div>  <div id="link-titulo">'.$urlES.'</div><br/>';
 
-        $url_sujeito = '<a class="lista_direita_detalhe" href="/xmlnuke.php?module=panteonescolar.versujeito&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;vertemapanteon='.$id_tema_panteon.'"> Clique Aqui para Listar Todos os Sujeitos deste Tema Panteon</a>';
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.versujeito");
+        $url_sujeito = '<a class="lista_direita_detalhe" href="'.$url_link.'&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;vertemapanteon='.$id_tema_panteon.'"> Clique Aqui para Listar Todos os Sujeitos deste Tema Panteon</a>';
         $sujeito = '<div id="subtitulos">Sujeito(s):</div>  <div id="link-titulo">'.$url_sujeito.'</div><br/>';
 
-        $urlSP = '<a class="lista_direita_detalhe" href="/xmlnuke.php?module=panteonescolar.versituacaoproblema&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;vertemapanteon='.$id_tema_panteon.'"> Clique Aqui para ver todas as Situações Problema</a>';
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.versituacaoproblema");
+        $urlSP = '<a class="lista_direita_detalhe" href="'.$url_link.'&amp;site=PanteonEscolar&amp;xsl=ver&amp;lang=pt-br&amp;vertemapanteon='.$id_tema_panteon.'"> Clique Aqui para ver todas as Situações Problema</a>';
         $textoSP = '<div id="subtitulos">Situações Problemas:</div>  <div id="link-titulo">'.$urlSP.'</div><br/>';
 
-        $autor = '<div id="subtitulos">Criador:</div>  <div id="link-titulo">'.$dbUsuario->obterPorId($model->getIDUsuario())->getNomeCompletoUsuario().'</div>';
+        //$url_barra = $this->_context->bindModuleUrl("panteonescolar.minhasmensagens", "ver") . "&amp;&amp;chamada=1&amp;xsl=ver&amp;acao=ppnew&amp;usuario=";
+        //$body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "nome_completo_usuario", $url_barra, "id_usuario", "Mensagem", "Envie mensagem para ");
+        //Debug::PrintValue($model->getIDUsuario());
+        $autor = '<div id="subtitulos">Criador:</div>  <div id="link-titulo"><a class="lista_direita_detalhe" href="xmlnuke.php?module=panteonescolar.verperfil&site=PanteonEscolar&xsl=page&lang=pt-br&site=PanteonEscolar&xsl=ver&lang=pt-br&verperfil='.$model->getIDUsuario().'">'.$dbUsuario->obterPorId($model->getIDUsuario())->getNomeCompletoUsuario().'</a></div>';
 
         $span1->addXmlnukeObject(new XmlNukeText($sobre));
         $span1->addXmlnukeObject(new XmlNukeText($titulo_tema_panteon));

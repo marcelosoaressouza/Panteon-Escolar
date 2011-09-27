@@ -19,7 +19,10 @@
 
 class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
-
+  /**
+   *
+   * Context type
+   */
   protected $_context;
   protected $_opcao;
   protected $_num_registros_padrao = 3;
@@ -41,6 +44,13 @@ class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     {
 
       $dbxml = new PerfilDBXML($this->_context,  1, "meuperfil");
+
+      $url =  $this->_context->bindModuleUrl("panteonescolar.meuperfil");
+
+      if($this->_context->ContextValue("usuario"))
+      {
+        $id_usuario = $this->_context->ContextValue("usuario");
+      }
 
       $permissao = array(true, true, true, true);
       $pagina = $dbxml->criarProcessPageFields($id_usuario, $permissao);
@@ -71,7 +81,7 @@ class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
       if($this->_context->ContextValue("acao") == "ppmsgs")
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
       }
 
       if(($this->_context->ContextValue("acao") == "ppnew") || ($this->_context->ContextValue("chamada") == 1))
@@ -117,7 +127,7 @@ class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
         $span1->addXmlnukeObject(new XmlNukeText('</div>'));
         $span1->addXmlnukeObject(new XmlNukeText('<div id="caixa_info_perfil_principal">'));
 
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="link_barra_direita"> <a href="/meuperfil&acao=alterar&id='.$id_perfil.'">Alterar meu perfil</a> </div>'));
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="link_barra_direita"> <a href="'.$url.'&acao=alterar&id='.$id_perfil.'">Alterar meu perfil</a> </div>'));
         $span1->addXmlnukeObject(new XmlNukeText('<br/><div id="subtitulos">Perfil Resumido: </div>'.$texto_perfil));
         $span1->addXmlnukeObject(new XmlNukeText('</div>'));
 
@@ -125,7 +135,19 @@ class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
       else if($this->_context->ContextValue("acao") == "")
       {
-        $aviso = '<div id="meuPerfil">Seu Perfil ainda não foi cadastrado.<br/> <a href="./meuperfil&acao=ppnew"> Clique aqui para preenchê-lo</a></div>';
+
+
+        if($this->_context->ContextValue("usuario"))
+        {
+          $aviso = '<div id="meuPerfil">Perfil ainda não foi cadastrado.<br/></div>';
+
+        }
+
+        else
+        {
+          $aviso = '<div id="meuPerfil">Perfil ainda não foi cadastrado.<br/> <a href="'.$url.'&acao=ppnew"> Clique aqui para preenchê-lo</a></div>';
+        }
+
         $span1->addXmlnukeObject(new XmlNukeText($aviso));
 
       }
@@ -140,10 +162,12 @@ class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     if($this->_opcao == "listarDireita")
     {
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-      $body = PanteonEscolarBaseModule::criarTitulo($node);
-      $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
+      $body = PanteonEscolarBaseModule::criarTitulo($node, "Minhas mensagens não lidas");
+      $db = new MensagemUsuarioDB($this->_context);
+      $itDB = $db->obterMensagensNaoLidas($id_usuario);
+      $body = PanteonEscolarBaseModule::preencherBarraMensagensNaoLidas($node, $itDB, "nome_mensagem_usuario", "texto_mensagem_usuario");
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -188,7 +212,11 @@ class MeuPerfilDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     parent::generatePage($body);
 
   }
-
+  /**
+   *
+   * @param Context $context
+   * @param string $opcao
+   */
   public function MeuPerfilDBXML($context, $opcao)
   {
     if(!($context instanceof Context))

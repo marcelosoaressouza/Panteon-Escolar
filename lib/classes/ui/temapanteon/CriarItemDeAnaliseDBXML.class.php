@@ -40,7 +40,7 @@ class CriarItemDeAnaliseDBXML extends XmlnukeCollection implements IXmlnukeDocum
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Item de Análise");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Todos os pontos de vista dos sujeitos sobre as situações-problema do Tema Panteon são analisados sob diversos aspectos. Estes aspectos correspondem aos itens de análise. Exemplo: No tema Aquecimento Global, a situação-problema “ações humanas” é analisada pelo sujeito sob o item político. Assim, este sujeito, em sua opinião, pode abordar ações políticas que contribuem para o Aquecimento Global. ', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

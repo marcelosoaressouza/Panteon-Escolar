@@ -162,6 +162,7 @@ class PerfilDB extends PanteonEscolarBaseDBAccess
     return $it;
 
   }
+
   public function obterCidadePorIDCidade($id_cidade)
   {
     $cidade = "Não definida";

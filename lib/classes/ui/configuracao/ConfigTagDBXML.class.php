@@ -49,11 +49,11 @@ class ConfigTagDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
         $db = new TagDB($this->_context);
         $db->excluir($this->_context->ContextValue("id"));
         $this->_context->addCookie("mensagem_aviso", "Tag Excluida");
-        $this->_context->redirectUrl("/configtag");
+        $this->_context->redirectUrl("module:panteonescolar.configtag");
 
       }
 
-      if($nivel_acesso == "GESTOR" || $nivel_acesso == "MEDIADOR")
+      if($nivel_acesso == "GESTOR" || $nivel_acesso == "EDITOR")
       {
         $dbUsuario = new UsuarioDB($this->_context);
         $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
@@ -67,7 +67,7 @@ class ConfigTagDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
       else
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
         $id = "";
 
       }
@@ -83,7 +83,7 @@ class ConfigTagDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
         if($db->verDuplicado($this->_context->ContextValue("nome_tag")) > 0)
         {
           $this->_context->addCookie("mensagem_aviso", "Palavra-Chave já cadastrada.");
-          $this->_context->redirectUrl("/configtag");
+          $this->_context->redirectUrl("module:panteonescolar.configtag");
         }
 
         else

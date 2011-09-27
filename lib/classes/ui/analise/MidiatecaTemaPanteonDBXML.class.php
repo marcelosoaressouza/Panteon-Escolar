@@ -1,21 +1,21 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
@@ -44,8 +44,12 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
 
       if($itDB->Count() > 0)
       {
-        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "");
-        XmlUtil::AddAttribute($node, "link_info", '<a href="pesquisadores">Clique aqui para ver lista completa de Pesquisadores</a>');
+        //Debug::PrintValue($itDB);
+        $url_barra = $this->_context->bindModuleUrl("panteonescolar.minhasmensagens", "ver") . "&amp;&amp;chamada=1&amp;xsl=ver&amp;acao=ppnew&amp;usuario=";
+        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_completo_usuario", "nome_instituicao", "nome_completo_usuario", $url_barra, "id_usuario", "Mensagem", "Envie mensagem para ");
+        //preencherBarra($node, $itDB, $titulo, $conteudo = "", $autor = " ", $link = " ", $id = "")
+        $url_link = $this->_context->ContextValue("xmlnuke.URLMODULE") . "?module=panteonescolar.pesquisadores";
+        XmlUtil::AddAttribute($node, "link_info", '<a href="' . $url_link . '">Clique aqui para ver lista completa de Pesquisadores</a>');
       }
 
       else
@@ -53,11 +57,10 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso == "GESTOR") || ($nivel_acesso == "ADMINISTRADOR") || ($nivel_acesso == "EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
-
     }
 
     if($this->_opcao == "processPageField")
@@ -85,7 +88,6 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
           }
 
           $span1->addXmlnukeObject($pagina);
-
         }
 
         else
@@ -98,9 +100,7 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
           {
             $span1->addXmlnukeObject($this->filtro());
           }
-
         }
-
       }
 
       else
@@ -113,9 +113,7 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
         {
           $span1->addXmlnukeObject($this->filtro());
         }
-
       }
-
     }
 
     // Inicio - menu
@@ -128,7 +126,6 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
 
     //
     // Fim - menu
-
     // Inicio - menu head
     //
     if($this->_opcao == "menuHead")
@@ -136,12 +133,11 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
       $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
       XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
 
-      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+      $msg = "Bem-Vindo, " . ucfirst($this->_context->authenticatedUser()) . " (" . $nivel_acesso . ").";
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso, 'meutemapanteon'));
       XmlUtil::AddAttribute($node, "nome_usuario", $msg);
       XmlUtil::AddAttribute($node, "logout", "true");
-
     }
 
     //
@@ -152,14 +148,13 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
     $body = XmlUtil::CreateChild($node, "body", "");
 
     parent::generatePage($body);
-
   }
 
   public function filtro()
   {
     $span = new XmlnukeSpanCollection();
 
-    $script  = '<script type="text/javascript">';
+    $script = '<script type="text/javascript">';
     $script .= ' $("#formGeralLabelid_tipo_midia_filtro").hide(); $("#id_tipo_midia_filtro").hide();';
     $script .= '</script>';
 
@@ -172,7 +167,7 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
     $script .= ' else {';
     $script .= '    $("#formGeralLabelid_tipo_midia_filtro").hide(); $("#id_tipo_midia_filtro").hide();';
     $script .= '    $("#filtro").html("Busca avançada");';
-    $script .=  '}';
+    $script .= '}';
     $script .= '});';
     $script .= '</script>';
 
@@ -194,7 +189,6 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
     $span->addXmlnukeObject($form);
 
     return $span;
-
   }
 
   public function filtroTipoMidiateca()
@@ -209,13 +203,11 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_tipo_midia_filtro", "Tipo Midia", $listaTipoMidia, $id_tipo_midia_filtro_selecionado);
 
     return $lista;
-
   }
 
   public function filtroTagMidiateca()
   {
     return new XmlInputTextBox("Texto: ", "nome_tag_filtro", NULL, 32);
-
   }
 
   public function MidiatecaTemaPanteonDBXML($context, $opcao)
@@ -227,7 +219,6 @@ class MidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDoc
 
     $this->_context = $context;
     $this->_opcao = $opcao;
-
   }
 
 }

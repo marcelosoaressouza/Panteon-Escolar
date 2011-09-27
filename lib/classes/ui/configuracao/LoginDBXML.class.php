@@ -35,9 +35,10 @@ class LoginDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     if($this->_opcao == "listarDireita")
     {
+      $txt = "O Panteon Escolar é um software livre que possibilita o estudo aprofundado de variadas temáticas a partir do acesso a diversas fontes de pesquisa, do confronto de diferentes pontos de vista e do compartilhamento de opiniões.";
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
       $body = PanteonEscolarBaseModule::criarTitulo($node);
-      $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
+      $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', $txt, '');
 
     }
 
@@ -60,14 +61,18 @@ class LoginDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial());
 
+
+      $modulo_login = $this->_context->ContextValue('xmlnuke.LOGINMODULE');
+      $url_link = $this->_context->bindModuleUrl($modulo_login);
+
       if($this->_context->ContextValue("action") == "action.NEWUSER")
       {
-        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('/xmlnuke.php?module=login&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'));
+        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso($this->_context, $url_link.'&amp;action=action.NEWUSER&amp;ReturnUrl=%2fmeuperfil&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'));
       }
 
       else
       {
-        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('xmlnuke.php?module=login&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil'));
+        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso($this->_context, $url_link.'&amp;site=PanteonEscolar&amp;lang=pt-br&amp;ReturnUrl=%2fmeuperfil'));
       }
 
     }

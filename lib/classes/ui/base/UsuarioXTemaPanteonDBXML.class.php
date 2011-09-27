@@ -68,8 +68,9 @@ class UsuarioXTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocu
       $field = ProcessPageFields::FactoryMinimal("id_usuario", "Nome Completo", 30, false, false);
     }
 
+    $field->editListFormatter = new PanteonEscolarPerfilPesquisadorFormatter($this->_context, "view");
     $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
-    $field->arraySelectList = $arrayUsuario;
+    //$field->arraySelectList = $arrayUsuario;
     $fieldList->addProcessPageField($field);
 
     if($id_tema_panteon != "")

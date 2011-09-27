@@ -41,7 +41,7 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Tema Panteon');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Professor (a), aqui você pode criar o Tema Panteon a ser estudado. Inicialmente, verifique se existe algum método de análise e estrutura social já cadastrada. Caso não possua nenhum cadastro, você precisará cadastrá-los antes de criar o Tema Panteon. A criação do Tema Panteon começa com a definição do tema, provocação, método de análise e estrutura social. Na etapa inicial você também define se o Tema Panteon  pode ser publicado, ficando disponível na Biblioteca Tema Panteon, e se ficará privado para instituição, permitindo apenas usuários da instituição analisar o Tema  Panteon. Após esta etapa você poderá cadastrar as situações-problema, os sujeitos, os pontos de vista, anexar arquivos, criar grupos e mensagens no mural. Bom Trabalho!', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -105,7 +105,7 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       if($this->_context->ContextValue("acao") == "criarMidiatecaTemaPanteon")
       {
         $this->_context->addCookie("id_tema_panteon_midiateca", $this->_context->ContextValue("valueid"));
-        $this->_context->redirectUrl("/criarmidiatecatemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.criarmidiatecatemapanteon");
 
       }
 
@@ -116,7 +116,7 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
         $id_estrutura_social_ponto_de_vista = $db->obterPorId($id_tema_panteon_ponto_de_vista)->getIDEstruturaSocial();
         $this->_context->addCookie("id_tema_panteon_ponto_de_vista", $id_tema_panteon_ponto_de_vista);
         $this->_context->addCookie("id_estrutura_social_ponto_de_vista", $id_estrutura_social_ponto_de_vista);
-        $this->_context->redirectUrl("/criarpontodevistatemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.criarpontodevistatemapanteon");
 
       }
 
@@ -124,14 +124,14 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       {
         $id_tema_panteon_situacao_problema = $this->_context->ContextValue("valueid");
         $this->_context->addCookie("id_tema_panteon_situacao_problema", $id_tema_panteon_situacao_problema);
-        $this->_context->redirectUrl("/criarsituacaoproblematemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.criarsituacaoproblematemapanteon");
 
       }
 
       else if($this->_context->ContextValue("acao") == "criarMural")
       {
         $this->_context->addCookie("id_tema_panteon_mural", $this->_context->ContextValue("valueid"));
-        $this->_context->redirectUrl("./criarmural");
+        $this->_context->redirectUrl("module:panteonescolar.criarmural");
 
       }
 
@@ -160,7 +160,7 @@ class CriarTemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       {
         $id_tema_panteon_grupo = $this->_context->ContextValue("valueid");
         $this->_context->addCookie("id_tema_panteon_grupo", $id_tema_panteon_grupo);
-        $this->_context->redirectUrl("./criargrupo");
+        $this->_context->redirectUrl("module:panteonescolar.criargrupo");
 
       }
 

@@ -1,0 +1,135 @@
+* Resolvidos:
+
+- Destaque na aba do sub-menu que está selecionada no momento;
+
+- Rever Relacionamento Tabelas
+
+- Coletar e Direcionar Tema
+
+- Melhorar Ponto de Vista - Coletar e Dscartar. Melhorar Filtros. Etc. Lembra rporra
+
+- Esta faltando campo "Minha Seleção" dentro da análise do Tema Panteon.
+
+- Falta opção de cadastrar Diagnóstico Geral;
+
+- Falta tela de Pesquisadores.
+
+- Discutir processo de exclusão de usuários;
+
+- Tela Pesquisadores (Lista Usuário)
+
+- Anotacao Geral
+
+- Rever funcionamento das telas Ajax no IE. Lentas e desformatadas
+
+- Esta falntando os campos "foto", "cidade", "estado", "país" na edição do Perfil.
+
+- Links "Esqueci a minha senha" e "Criar Usuário" no login mais dicreto;
+
+- No Formulário de Acesso, botão "Login" vira "Entrar";
+
+- Opção "Logar" vira "Acessar" e "Deslogar" vira "Sair";
+
+- Alterar opção "Cadastrar-se" para "Se cadastre";
+
+- Opções de menu da hjome page, conforme ordem: "O que é?", "Biblioteca de Temas", "Acessar", "Se Cadastre", "Contato" 
+
+- Retirar opção "Criar Tema Panteon" da home page;
+
+- NÃo Exibir opção "Criar Tema Panteon" para usuário que não tem permissão;
+
+- No grid "Biblioteca" não precisa ter as seguintes colunas "Sujeito", "Situação" e "Publicado". Aumentar o tamanho campo "Descrição".
+
+- Após "Cadastrar-se", Ao logar o usuário deve ser direcionado para a página "Meu Perfil";
+
+- Ao entar na aba "Meu Perfil" já devem ser exibidas as informações que já foram cadastradas no "Cadastre-se", deve apresentar uma mensagem acima informando que é necessário preencher o campo "Perfil Resumido";
+
+- No Grid de "Biblioteca de Temas" a coluna "Coletar Tema Panteon" vira "Selecionar Tema Panteon". Ao Selecionar um tema da listagem, direcionar para a página do tema escolhido
+
+- Na aba "Anotações" adicionar filtragem por temas
+
+- Na página do Tema Panteon o campo "Descrição Resumida" vira "Provocação" e deve ficar antes dos outros campos. Adcionar lista para listagem de Sujeitos. Adcionar o Autor do tema.
+
+- No Menu, "Meus dados" vira "Perfil" e no sub-menu(o colorido) "Perfil" vira "Dados Pessoais"  
+
+- Opção do menu "Meus Temas Panteon", sai. Vira uma opção para o sub-menu(o colorido) de "Meu Perfil", com o nome "Meus Temas", do lado direito "Dados Pessoais";
+
+- Esta Faltando Opção "Sobre o Panteon Escolar" no menu.
+
+- Ordenação do menu fica conforme: "Meu Perfil", "Biblioteca de Temas Panteon"(opção "Biblioteca"), "Tema Panteon"(Caso o usuário tenha algum tema selecionado), "Sobre o Panteon Escolar"; 
+
+- Faltntando Opção de "Mensagens" de usuário para usuário;
+
+- Ordenação do sub-menu fica conforme: "Ponto de Vista" vira "Pontos de Vista", "Diagnóstico", "Proposta de Ação", "Fórum" e "Midiateca";
+
+- Aba do Sub-menu Midiateca, acrescentar busca por Palavra-chave(campo aberto);
+
+- Por Deafult, aparecer todas as mensagens ao selecionar aba do Sub-menu Fórum;
+
+- Discutoir melhor solução para listagem de Sujeitos e de Pontos de Vista; Esta Faltando Opção "Descartar Ponto de Vista".
+
+- No cadastro de Diagnótico, deve haver possibilidade de adcionar as informações coletadas
+Na lista vertical da direita, ao clicar em "Mais detalhes", devem constar todas as informações do Ponto de vista, como Sujeito, Ítem, Situação, e Comentário;
+
+- Aumentar Paginação da listagem de usuários;
+
+- Adcionar Campos de filtro na listagem de Usuários: Campo Aberto, que vai pesquisar em Login, Nome Completo, e-mail e Perfil;
+	Busca também por tipo de usuário;
+	Ordenar a listagem por ordem alfabética do Nome;
+	Nome Completo sendo 1° coluna;
+
+- Na tela de Criar Grupo Social, o Campo "Sub Grupo Social" vira "Grupo Pai";
+
+- Opção do Grid de listagem de Temas Panteon, "Criar Midiateca" vira "Anexar Mídia";
+
+- Ao selecionar Criar Grupos de Usuários, a navegação não deve sair do contexto de Criar Tema e ir para o contexto de Análise;
+
+- Campos "Sujeito", "Situação" e "Detalhe" não devem aparecer no formulário de cadastro de Criar Tema
+
+- As opçções do Sub-menu devem estar no plural;
+
+- Inserir marcas do governo e do Projeto no layout;
+
+- Menu superior e menu desalinhado no internet explorer; Menu superior (HOME,LOGA,DESLOGAR) é deslocado quando usuário está logado (No IE). Faixa vertical da direita não aparece no IE.
+
+- Adicionar o campo "Data de Nascimento" que não estava especificado;
+
+- Grid de "Biblioteca" esta desajustado. O visual do tema deve estar relacionado com o layout da página;
+
+- O validador W3C está apontando erros;
+
+- Na faixa vertical da direita da homa page e das páginas de visitantes, substituir por créditos do projeto opção 10); 
+
+- Na faixa vertical da direita da homa page e das páginas de visitantes, substituir por créditos do projeto opção 10); 
+
+- No texto da faixa da direita "Como tenho acesso", deve haver um link no "cadastre-se no sistema";
+
+- Adcionar também ao menu, a opção de Acessar;
+
+- Ao fechar clicando no "X" da tela Ajax de Logar, não pode redirecionar para nenhuma página;
+
+- Não há possibilidade de voltar a tela da descrição do Tema Panteon pela navegação das abas do Sub-menu.
+
+- Em fórum acrescentar Tópicos;
+
+- Opção de exclusão e visualização, não exibir campo de upload de foto;
+
+- Na opção de Edição do Tema Panteon, retirar campos que não podem ser editados;
+
+- Falta combo "Publico" ou "Privado"  no cadastro de novo Tema;
+
+- Adicionar campo "Termo de uso"
+
+- Botão de Confirmação de exclusão de usuário "Eviar dados" vira "Confirmar Exclusão". Vale para todas as opções de exclusão do sistema;
+
+- Na lista de Propostas de Ação, aparecer Ítem  e Situação relacionada a cada proposta;
+
+- Mostrar mensagem de erro amigável ao tentar cdadastrar tags já cadastradas;
+
+- Usar ìcones para represnetar Típos de Mídia(ícones de áudio, vídeo...como do ambiente web);
+
+- Fatal Erro ao tentar Respondar Mensagem Fórum;
+
+- Inserção de Usuário em Turmas deveria ser Dualist. O mesmo vale para Usuário adicionado em Grupo
+
+- Ao coletar Ponto de Vista, deve haver opção de adicionar comentário. A mensagem descritiva do Ponto de Vista. A tela fica em branco.

@@ -45,7 +45,7 @@ class NotaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
     $fieldList = new ProcessPageFields();
 
     // Inicio Campos da Entidade
-    $field = ProcessPageFields::FactoryMinimal("id_tema_panteon", "Sobre qual Tema Panteon", 30, true, true);
+    $field = ProcessPageFields::FactoryMinimal("id_tema_panteon", "Tema Panteon", 30, true, true);
     $field->editListFormatter = new PanteonEscolarMinhaNotaFormatter($this->_context);
     $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
     $field->arraySelectList = $arrayTemaPanteon;

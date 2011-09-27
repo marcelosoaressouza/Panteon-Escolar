@@ -67,6 +67,23 @@ jQuery(document).ready(function() {
    'transitionOut'		: 'none'
 
   });
+  
+  $(".youtube").click(function() {
+                 $.fancybox({
+                  'padding'             : 0,
+                  'autoScale'   : false,
+                  'transitionIn'        : 'none',
+                  'transitionOut'       : 'none',
+                  'title'               : this.title,
+                  'width'               : 680,
+                  'height'              : 495,
+                  'href'                : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+                  'type'                : 'swf',    // <--add a comma here
+                  'swf'                 : {'allowfullscreen':'true'} // <-- flashvars here
+                  });
+                 return false;
+
+            }); 
 
   $("#uf_estado").change(onSelectChange);
 

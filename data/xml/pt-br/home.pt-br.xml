@@ -15,24 +15,42 @@
   </body>
 </blockcenter>
 
-<blockleft>
+<!-- blockleft>
   <body>
     <blockmensagem>
       <box_titulo titulo="Panteon Escolar"/>
       <mensagem titulo="O Panteon Escolar é um software livre que possibilita o estudo aprofundado de variadas temáticas a partir do acesso a diversas fontes de pesquisa, do confronto de diferentes pontos de vista e do compartilhamento de opiniões."  autor="" conteudo=""/>
     </blockmensagem>
   </body>
+</blockleft -->
+
+<blockleft>
+    <body>
+        <blocklogin>
+            <editform action="module:panteonescolar.panteonescolarlogin?action=action.LOGIN&ReturnUrl=" title="[LOGINTITLE?]" name="frm8589" jsvalidate="true" decimalseparator="," dateformat="0" customsubmit="frm8589_checksubmit()">
+                <textbox caption="Login" name="loguser" value="" size="12" required="true" type="0" />
+                <password caption="Senha" name="password" value="" size="12" required="true" type="0" />
+                <buttons>
+                    <submit caption="Acessar" name="submit_button_login" />
+                </buttons>
+                <label caption="Problemas?">
+                    <a href="module:panteonescolar.panteonescolarlogin?action=action.FORGOTPASSWORD&ReturnUrl="><container id="link_ajuda">Esqueci a minha senha</container></a>
+                    <a href="module:panteonescolar.panteonescolarlogin?action=action.NEWUSER&ReturnUrl="><container id="link_ajuda">Criar Usuário  </container></a>
+                </label>
+            </editform>
+        </blocklogin>
+    </body>
 </blockleft>
 
 <blockright>
   <body>
     <blockbarramenu>
-      <opcao_menu titulo="o que é?" href="oquee"/>
-      <opcao_menu titulo="biblioteca de temas" href="bibliotecapublica"/>
-      <opcao_menu titulo="contato" href="contato"/>
-<!--      <opcao_menu titulo="Créditos" href="sobre"/> -->
-      <opcao_menu_auxiliar titulo="acessar" href="./xmlnuke.php?module=login&site=PanteonEscolar&lang=pt-br&ReturnUrl=%2fmeuperfil"/>
-      <opcao_menu_auxiliar titulo="cadastre-se" href="./xmlnuke.php?module=login&action=action.NEWUSER&ReturnUrl=%2fmeuperfil&site=PanteonEscolar&xsl=page&xml=home&lang=pt-br"/>
+      <opcao_menu titulo="o que é?" href="module:panteonescolar.oquee"/>
+      <opcao_menu titulo="biblioteca de temas" href="module:panteonescolar.bibliotecapublica"/>
+      <opcao_menu titulo="contato" href="module:panteonescolar.contato"/>
+      <!-- <opcao_menu titulo="Créditos" href="sobre"/> -->
+      <!-- opcao_menu_auxiliar titulo="acessar" href="./xmlnuke.php?module=login&site=PanteonEscolar&lang=pt-br&ReturnUrl=%2fmeuperfil"/ -->
+      <opcao_menu_auxiliar titulo="cadastre-se" href="module:panteonescolar.panteonescolarlogin&action=action.NEWUSER&ReturnUrl=%2fmeuperfil&site=PanteonEscolar&xsl=page&xml=home&lang=pt-br"/>
     </blockbarramenu>
   </body>
 </blockright>

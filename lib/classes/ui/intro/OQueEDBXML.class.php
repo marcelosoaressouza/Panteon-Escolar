@@ -43,7 +43,7 @@ class OQueEDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', $txt, '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -69,16 +69,47 @@ class OQueEDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
              Na criação do tema, atividades de pesquisa podem ser estimuladas. Os pontos de vista podem ser
              pesquisador em diversas fontes como entrevistas, livros, revistas, jornais, vídeos, sites,
              áudios, favorecendo ao confronto de opiniões e uma compreensão crítica do tema.
-             <br/><br/>
-             Todas as informações de uso do Panteon Escolar você encontra no
-             <b><a href="static/manuais/Manual_Instrucoes.pdf">Manual de Instruções</a></b> e no
-             <b><a href="static/manuais/Guia_Panteon.pdf">Guia Pedagógico</a></b>.
-             <br/><br/><br/><br/>
-             Bom Estudo!';
-      $txt .= '<br/><img alt="Imagem Central" src="static/images/imagem_central-baixo.jpg"></img>';
+             <br/><br/>';
 
+
+      if($this->_context->IsAuthenticated())
+      {
+        $dbUsuarioXNivelAcesso = new UsuarioXNivelAcessoDB($this->_context);
+        $nivel_acesso = $dbUsuarioXNivelAcesso->obterNivelAcessoPorIDUsuario($id_usuario);
+
+        if($nivel_acesso == "GESTOR" || $nivel_acesso == "ADMINISTRADOR")
+        {
+          $txt .= 'Todas as informações de uso do Panteon Escolar você encontra no
+                  <b><a href="static/manuais/Manual_Gestor_Mediador.pdf">Manual do Gestor</a></b>';
+        }
+
+        else
+        {
+          $txt .= 'Todas as informações de uso do Panteon Escolar você encontra no
+                  <b><a href="static/manuais/Manual_Analista.pdf">Manual do Analista</a></b>';
+        }
+
+      }
+
+      else
+      {
+        $txt .= 'Todas as informações de uso do Panteon Escolar você encontra no
+                <b><a href="static/manuais/Manual_Analista.pdf">Manual de Instruções</a></b>';
+      }
+
+      $txt .= ' e no <b><a href="static/manuais/Guia_Panteon.pdf">Guia Pedagógico</a></b>.';
+      $txt .= '
+              <br/><br/><br/><br/>
+              Bom Estudo!';
+      $txt .= '<br/><img alt="Imagem Central" src="static/images/imagem_central-baixo.jpg"></img>';
       $span1->addXmlnukeObject(new XmlNukeText($txt));
 
+    }
+
+    if($this->_opcao == "imagemApresentacao")
+    {
+      $txt = '<img alt="Imagem Central" src="static/images/imagem_central.jpg"></img>';
+      $span1->addXmlnukeObject(new XmlNukeText($txt));
     }
 
     // Inicio - menu head
@@ -106,7 +137,7 @@ class OQueEDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       else
       {
         $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial('oquee'));
-        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso());
+        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso($this->_context));
 
       }
 

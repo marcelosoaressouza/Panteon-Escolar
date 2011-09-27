@@ -69,7 +69,7 @@ class ConfigInstituicao extends PanteonEscolarBaseModule
 
   public function getRole()
   {
-    return array("GESTOR", "ADMINISTRADOR", "MEDIADOR");
+    return array("GESTOR", "ADMINISTRADOR", "EDITOR");
   }
 
 }

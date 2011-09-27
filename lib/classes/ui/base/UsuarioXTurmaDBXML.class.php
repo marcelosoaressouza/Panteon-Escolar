@@ -33,6 +33,12 @@ class UsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
     // Inicio Obtencao de dados de Tabelas Auxiliares-Relacionadas
     //
     $db = new UsuarioDB($this->_context);
+
+    if(empty($id_turma))
+    {
+      $id_turma = 0;
+    }
+
     $it = $db->obterTodosOsUsuariosQueNaoEstaoNaTurmaPorIDInstituicao($id_instituicao, $id_turma);
 
     $arrayUsuario = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_usuario", "nome_completo_usuario");
@@ -69,8 +75,11 @@ class UsuarioXTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
       $field = ProcessPageFields::FactoryMinimal("id_usuario", "Usuário", 30, true, true);
     }
 
-    $field->fieldXmlInput = XmlInputObjectType::DUALLIST;
+    $field->fieldXmlInput = PanteonEscolarXmlInputObjectType::RANDERNET_DUALLIST_ASMSELECT;
     $field->arraySelectList = $arrayUsuario;
+    // seleciona o valor inicial
+    $field->defaultValue = 9;
+
 
     $fieldList->addProcessPageField($field);
 

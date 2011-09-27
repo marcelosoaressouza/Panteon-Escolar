@@ -38,6 +38,7 @@ class VerColetarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
       $id_coletar = $this->_context->ContextValue("verdescartar");
     }
 
+    $pagina = $this->_context->ContextValue("pagina");
     $coletar = $this->_context->ContextValue("coletar");
 
     $span1 = new XmlnukeSpanCollection();
@@ -45,6 +46,7 @@ class VerColetarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
 
     if($this->_opcao == "ver")
     {
+
       // $dbxml = new UsuarioXPontoDeVistaDBXML($this->_context, "vercoletar", "Ver Coletar");
       // $permissao = array (true, false, false, false);
       // $pagina = $dbxml->criarProcessPageFieldsColetar($id_usuario, $id_coletar, $id_tema_panteon, $coletar, $permissao);
@@ -65,7 +67,7 @@ class VerColetarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
           $coletar = 0;
         }
 
-        $formPost = "module:panteonescolar.vercoletar&amp;chamada=1&amp;xsl=page";
+        $formPost = "module:panteonescolar.vercoletar&amp;chamada=1&amp;xsl=page&amp;pagina=$pagina";
 
         $form = new XmlFormCollection($this->_context, $formPost, "Coletar/Descartar");
 
@@ -80,7 +82,7 @@ class VerColetarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
         $form->addXmlnukeObject($vercoletar);
 
         $buttons = new XmlInputButtons();
-        $buttons->addSubmit("Enviar Comentário");
+        $buttons->addSubmit("Coletar Dados");
         $form->addXmlnukeObject($buttons);
 
         $span1->addXmlnukeObject($form);
@@ -102,7 +104,7 @@ class VerColetarDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
         $db->cadastrar($model);
 
         $this->_context->addCookie("mensagem_aviso", "Ponto de Vista Coletado/Descartado");
-        $this->_context->redirectUrl("./todospontodevistatemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.todospontodevistatemapanteon&amp;pagina=$pagina");
 
       }
 

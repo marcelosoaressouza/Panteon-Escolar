@@ -40,7 +40,7 @@ class MinhasEstruturasSociaisDBXML extends XmlnukeCollection implements IXmlnuke
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Estrutura Social');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Descreva a estrutura social a ser cadastrada. A estrutura social representa a organização da sociedade ou de instituições específicas da sociedade, que são formadas por grupos sociais.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -49,7 +49,7 @@ class MinhasEstruturasSociaisDBXML extends XmlnukeCollection implements IXmlnuke
 
     if($this->_opcao == "processPageField")
     {
-      $nome_modulo = "minhasestruturassociais";
+      $nome_modulo = "module:panteonescolar.minhasestruturassociais";
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
@@ -64,7 +64,7 @@ class MinhasEstruturasSociaisDBXML extends XmlnukeCollection implements IXmlnuke
       if($this->_context->ContextValue("acao") == "createGrupoSocial")
       {
         $this->_context->addCookie("id_estrutura_social", $this->_context->ContextValue("valueid"));
-        $this->_context->redirectUrl("/criargruposocial");
+        $this->_context->redirectUrl("module:panteonescolar.criargruposocial");
 
       }
 
@@ -79,7 +79,7 @@ class MinhasEstruturasSociaisDBXML extends XmlnukeCollection implements IXmlnuke
 
       if($nivel_acesso == "ADMINISTRADOR")
       {
-        $permissao = array(true, true, true, true, true);
+        $permissao = array(true, false, true, false, true);
         $id_usuario = "";
       }
 

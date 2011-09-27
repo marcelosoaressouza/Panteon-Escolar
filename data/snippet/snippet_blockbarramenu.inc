@@ -13,7 +13,7 @@
 
    <div id="AreaTopo">
      <div id="areaMarca">
-     <a href="./"><img src="static/images/Layout/Marca.png" width="182" height="167" alt="Panteon Escolar"/></a>
+     <a href="module:panteonescolar.oquee"><img src="static/images/Layout/Marca.png" width="182" height="167" alt="Panteon Escolar"/></a>
      </div>
    </div>
 

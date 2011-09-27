@@ -41,7 +41,7 @@ class CriarPontoDeVistaSujeitoTemaPanteonDBXML extends XmlnukeCollection impleme
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Ponto de Vista');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, você pode cadastrar os pontos de vista dos sujeitos sobre as situações-problemas. No cadastro você precisa definir a qual situação-problema e item de análise este ponto de vista está relacionado.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -51,7 +51,7 @@ class CriarPontoDeVistaSujeitoTemaPanteonDBXML extends XmlnukeCollection impleme
     if($this->_opcao == "processPageField")
     {
       $span = new XmlnukeSpanCollection();
-      $nome_modulo = "criarpontodevistasujeitotemapanteon";
+      $nome_modulo = "panteonescolar.criarpontodevistasujeitotemapanteon";
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
@@ -62,7 +62,20 @@ class CriarPontoDeVistaSujeitoTemaPanteonDBXML extends XmlnukeCollection impleme
       $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
 
       $aviso = new XmlInputLabelObjects("<p></p>");
-      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="/criarpontodevistatemapanteon">Clique aqui para retornar a Criação de Sujeito deste Tema Panteon </a></div>'));
+
+      $url = $this->_context->bindModuleUrl("panteonescolar.criarpontodevistatemapanteon");
+      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="'.$url.'">Clique aqui para retornar a Criação de Sujeito deste Tema Panteon </a></div>'));
+
+      $cadMidiaPontoDeVista =  $this->_context->ContextValue("cadastro_midiateca");
+
+      if(!empty($cadMidiaPontoDeVista))
+      {
+        $aviso2 = new XmlInputLabelObjects("<p></p>");
+        $aviso2->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> Midia anexada ao ponto de vista com sucesso </div>'));
+        $span1->addXmlnukeObject($aviso2);
+        $span1->addXmlnukeObject(new XmlnukeBreakLine());
+      }
+
 
       if(($this->_context->ContextValue("acao") != "ppnew")  &&
           ($this->_context->ContextValue("acao") != "ppedit") &&
@@ -81,6 +94,21 @@ class CriarPontoDeVistaSujeitoTemaPanteonDBXML extends XmlnukeCollection impleme
       // permissao - $newRec, $view, $edit, $delete, $outros
       $permissao = array(true, false, true, false, false);
       $pagina = $dbxml->criarProcessPageFieldsSujeito($id_sujeito_tema_panteon, $id_tema_panteon_ponto_de_vista, $permissao);
+
+      if($this->_context->ContextValue("acao") == "minhaMidiateca")
+      {
+        //$this->_context->addCookie("id_tema_panteon_midiateca", $this->_context->ContextValue("valueid"));
+
+        // echo $this->_context->getCookie("id_ponto_de_vista");
+        //echo $this->_context->addCookie("id_ponto_de_vista", $this->_context->ContextValue("valueid"));
+        //exit();
+        $url = $this->_context->bindModuleUrl("panteonescolar.minhaMidiateca");
+        //$this->_context = new Context();
+        $id_ponto_de_vista = $this->_context->ContextValue("valueid");
+        $url .= "&origem=pontodevista&id_ponto_de_vista=".$id_ponto_de_vista;
+        $this->_context->redirectUrl($url);
+
+      }
 
       if($pagina->getAllRecords()->Count() > 0)
       {

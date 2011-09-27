@@ -59,7 +59,7 @@ class ConfigUsuarioXNivelAcessoDBXML extends XmlnukeCollection implements IXmlnu
 
       else
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
         $id = "";
 
       }
@@ -103,7 +103,7 @@ class ConfigUsuarioXNivelAcessoDBXML extends XmlnukeCollection implements IXmlnu
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

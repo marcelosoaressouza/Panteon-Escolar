@@ -77,6 +77,32 @@ class PontodeVistaDB extends PanteonEscolarBaseDBAccess
   }
 
   /**
+  * @param int $id
+  * @access public
+  * @return IIterator
+  */
+  public function obterTodosOsPontosDeVistaComItemAnaliseESituacaoProblemaPorIDSujeito($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+
+    $sql .= " INNER JOIN ".$this->_nome_tabela_secundaria ;
+    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_secundaria;
+    $sql .= " = ".$this->_nome_tabela_secundaria.".id_".$this->_nome_tabela_secundaria;
+
+    $sql .= " INNER JOIN ".$this->_nome_tabela_terciaria ;
+    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_terciaria;
+    $sql .= " = ".$this->_nome_tabela_terciaria.".id_".$this->_nome_tabela_terciaria;
+
+    $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria." = ".$id;
+
+    $it = $this->getIterator($sql);
+
+    return $it;
+
+  }
+
+  /**
    * @param int $id
    * @access public
    * @return IIterator

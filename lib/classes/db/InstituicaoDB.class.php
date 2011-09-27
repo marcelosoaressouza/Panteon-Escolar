@@ -44,6 +44,28 @@ class InstituicaoDB extends PanteonEscolarBaseDBAccess
   }
 
   /**
+   * @param int $id
+   * @access public
+   * @return Model
+  */
+  public function obterPorInstituicaoId($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+    $sql .= " WHERE ";
+    $sql .= "id_".$this->_nome_tabela." = $id ";
+
+    //$param = array("id" => $id);
+
+    $it = $this->getIterator($sql);
+
+    //$model = new InstituicaoModel();
+    //$model->bindIterator($it);
+
+    return $it;
+  }
+
+  /**
    * @access public
    * @return IIterator
    */
@@ -55,6 +77,7 @@ class InstituicaoDB extends PanteonEscolarBaseDBAccess
 
     return $it;
   }
+
 
 }
 

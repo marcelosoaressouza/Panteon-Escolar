@@ -8,7 +8,8 @@
 
 	$applyXslTemplate = ($context->ContextValue("rawxml")=="");
 	$selectNodes = $context->ContextValue("xpath");
-	
+
+        
 	if (!$applyXslTemplate)
 	{
 		header("Content-Type: text/xml; charset=utf-8");

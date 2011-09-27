@@ -35,7 +35,7 @@ class VerTagDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       if($id_tag_ver != "")
       {
         $span1->addXmlnukeObject(new XmlNukeText('<div id ="titulo_confirma">Você tem certeza que deseja remover esta Tag?</div>'));
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="texto_confirma"><a href="/configtag&acao=delete&id='.$id_tag_ver.'">Clique aqui para confirmar</a></div>'));
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="texto_confirma"><a href="./configtag&acao=delete&id='.$id_tag_ver.'">Clique aqui para confirmar</a></div>'));
 
 
       }

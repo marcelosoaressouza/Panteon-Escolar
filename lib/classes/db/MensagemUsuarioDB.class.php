@@ -131,6 +131,114 @@ class MensagemUsuarioDB extends PanteonEscolarBaseDBAccess
     return $it;
   }
 
+  /**
+   * @method Metodo para obter a ultima mensagem inserida pelo usuario
+   * @param int $id_usuario_orig
+   * @return MensagemUsuarioModel
+   */
+  public function obterUtilmaMensagemUsuario($id_usuario_orig)
+  {
+    $sql .= " SELECT * FROM ".$this->_nome_tabela;
+    $sql .= " WHERE  id_".$this->_nome_tabela_primaria." = (SELECT MAX(".$this->_nome_tabela.".id_".$this->_nome_tabela_primaria.") FROM ".$this->_nome_tabela;
+    $sql .= " WHERE id_usuario_orig = [[id_usuario_orig]] )";
+
+    $param = array("id_usuario_orig" => $id_usuario_orig);
+
+    $it = $this->getIterator($sql, $param);
+
+    $model = new MensagemUsuarioModel();
+    $model->bindIterator($it);
+
+    return $model;
+  }
+
+  /**
+  * @method Metodo para obter a ultima mensagem inserida pelo usuario
+  * @param int $id_usuario_dest
+  * @return MensagemUsuarioModel
+  */
+  public function obterUltimaMensagemUsuarioRecebida($id_usuario_dest)
+  {
+    $sql = "SELECT * FROM ".$this->_nome_tabela;
+    $sql .= " WHERE ";
+    $sql .= "id_usuario_dest = [[id_usuario_dest]] ";
+
+    $param = array("id_usuario_dest" => $id_usuario_dest);
+
+    $it = $this->getIterator($sql, $param);
+
+    return $it;
+  }
+
+  /**
+  * @method Metodo para obter a ultima mensagem inserida pelo usuario
+  * @param int $id_usuario_dest
+  * @return MensagemUsuarioModel
+  */
+  public function obterMensagensNaoLidas($id_usuario_dest)
+  {
+    $sql = "SELECT * FROM ".$this->_nome_tabela;
+    $sql .= " WHERE ";
+    $sql .= "id_usuario_dest = [[id_usuario_dest]] ";
+    $sql .= " AND ";
+    $sql .= " lida IS NULL";
+
+    $param = array("id_usuario_dest" => $id_usuario_dest);
+
+    $it = $this->getIterator($sql, $param);
+
+    return $it;
+  }
+
+  /**
+   * @method Metodo para obter a ultima mensagem inserida pelo usuario
+   * @author Roberto Rander rrander at gmail.com
+   * @param int $id_mensagem_usuario
+   * @param string $id_usuario_dest
+   * @return
+   */
+  public function atualizarDestinatarioMensagemUsuario($id_mensagem_usuario, $id_usuario_dest)
+  {
+    $sql = " UPDATE ".$this->_nome_tabela;
+    $sql .= " SET id_usuario_dest = '".$id_usuario_dest."' ";
+    $sql .= " WHERE id_".$this->_nome_tabela." = ".$id_mensagem_usuario." ";
+
+    $resultado = $this->executeSQL($sql);
+
+    return $resultado;
+  }
+
+  /**
+  * @method Metodo para marcar mensagem como lida
+  * @param int $id_mensagem_usuario
+  * @return
+  */
+  public function atualizaMensagemLida($id_mensagem_usuario)
+  {
+    $sql = " UPDATE ".$this->_nome_tabela;
+    $sql .= " SET lida = 1 ";
+    $sql .= " WHERE id_".$this->_nome_tabela." = ".$id_mensagem_usuario." ";
+
+    $resultado = $this->executeSQL($sql);
+
+    return $resultado;
+  }
+
+  /**
+   * @method Metodo para excluir mensagem recebida
+   * @author Roberto Rander rrander at gmail.com
+   * @param int $id_mensagem_usuario
+   * @return type
+   */
+  public function excluirMensagemUsuarioRecebida($id_mensagem_usuario)
+  {
+    $sql = "DELETE FROM ".$this->_nome_tabela." WHERE id_".$this->_nome_tabela." = ".$id_mensagem_usuario;
+
+    $resultado = $this->executeSQL($sql);
+
+    return $resultado;
+  }
+
 }
 
 ?>

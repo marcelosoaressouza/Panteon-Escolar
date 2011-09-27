@@ -25,7 +25,7 @@ class UsuarioXPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnukeDoc
   protected $_nome_entidade = "usuario_x_ponto_de_vista";
   protected $_nome_modulo = "usuarioxpontodevista";
   protected $_titulo_entidade = "Usuário X Ponto de Vista";
-  protected $_num_registros_padrao = 5;
+  protected $_num_registros_padrao = 10;
 
   public function criarProcessPageFields($id_usuario = "", $id_tema_panteon = "", $permissao = "", $coletados = "")
   {
@@ -88,8 +88,16 @@ class UsuarioXPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnukeDoc
       $fieldList->addProcessPageField($field);
     }
 
+    if($coletados == 1)
+    {
+      $field = ProcessPageFields::FactoryMinimal("id_".$this->_nome_entidade, "Apagar?", 1, true, true);
+    }
 
-    $field = ProcessPageFields::FactoryMinimal("id_".$this->_nome_entidade, "Apagar?", 1, true, true);
+    else
+    {
+      $field = ProcessPageFields::FactoryMinimal("id_".$this->_nome_entidade, "Restaurar?", 1, true, true);
+    }
+
     $field->editable = false;
     $field->editListFormatter = new PanteonEscolarPontoDeVistaFormatter($this->_context, "delete");
     $fieldList->addProcessPageField($field);
@@ -134,6 +142,10 @@ class UsuarioXPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnukeDoc
     // Filtros
     $filtro = "";
 
+    $texto_ponto_de_vista_filtro = $this->_context->ContextValue("texto_ponto_de_vista_filtro");
+    $id_item_analise      = $this->_context->ContextValue("id_item_analise_filtro");
+    $id_situacao_problema = $this->_context->ContextValue("id_situacao_problema_filtro");
+
     if($id_usuario      != "")
     {
       $filtro .= " id_usuario = " . $id_usuario." ";
@@ -149,6 +161,47 @@ class UsuarioXPontoDeVistaDBXML extends XmlnukeCollection implements IXmlnukeDoc
       $filtro .= " AND coletado_usuario_x_ponto_de_vista =" . $coletados." ";
     }
 
+
+
+    if($texto_ponto_de_vista_filtro != "")
+    {
+      $filtro .= " AND ";
+      $filtro .= "texto_usuario_x_ponto_de_vista LIKE '%" . $texto_ponto_de_vista_filtro."%'";
+
+    }
+
+    if(($id_item_analise != "") && ($id_item_analise != "All"))
+    {
+      /*
+      $dbPontoDeVista = new PontodeVistaDB($this->_context);
+      $itPontoDeVista = $dbPontoDeVista->obterTodosOsPontosDeVistaPorIDItemAnalise($id_item_analise);
+
+      $filtro .= " ( ";
+      while($itPontoDeVista->hasNext()) {
+      $sr = $itPontoDeVista->moveNext();
+      $id_ponto_de_vista_item_analise = $sr->getField('id_ponto_de_vista');
+      $filtro .= " id_ponto_de_vista = " . $id_ponto_de_vista_item_analise;
+
+      if($itPontoDeVista->hasNext()) $filtro .= " AND ";
+
+      }
+      $filtro .= " ) ";
+       *
+       */
+
+
+      //$filtro .= " AND ";
+      //$filtro .= " id_item_analise = " . $id_item_analise;
+
+    }
+
+    if(($id_situacao_problema != "") && ($id_situacao_problema != "All"))
+    {
+
+      $filtro .= " AND ";
+      $filtro .= " id_situacao_problema = " . $id_situacao_problema;
+
+    }
 
     if($filtro != "")
     {

@@ -66,7 +66,7 @@ class ConfigTipoMidiaDBXML extends XmlnukeCollection implements IXmlnukeDocument
 
       else
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
         $id = "";
 
       }
@@ -101,7 +101,7 @@ class ConfigTipoMidiaDBXML extends XmlnukeCollection implements IXmlnukeDocument
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

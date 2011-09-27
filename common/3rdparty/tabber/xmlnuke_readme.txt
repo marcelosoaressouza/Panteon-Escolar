@@ -5,7 +5,7 @@ http://www.barelyfitz.com/projects/tabber/
 Xmlnuke uses a unchanged version of Tabber. 
 
 The current Tabber edition is 
-$Id: tabber.js,v 1.9 2006/04/27 20:51:51 pat Exp $
+$Id: xmlnuke_readme.txt 2 2011-08-24 10:01:15Z lvasconcelos $
 
 To use in your XSL you MUST add the follow snippets:
 - HTMLHEADERS inside <head> section

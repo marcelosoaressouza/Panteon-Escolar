@@ -38,7 +38,7 @@ class MeusMetodosDeAnaliseDBXML extends XmlnukeCollection implements IXmlnukeDoc
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Métodos de Análise");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Como analisar o Tema Panteon? No método de análise você define os elementos necessários para análise das situações-problema e dos pontos de vista dos sujeitos. Após criar o Método de Análise, você precisa definir os itens de análise.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -62,7 +62,7 @@ class MeusMetodosDeAnaliseDBXML extends XmlnukeCollection implements IXmlnukeDoc
       if($this->_context->ContextValue("acao") == "createItemAnalise")
       {
         $this->_context->addCookie("id_metodo_analise", $this->_context->ContextValue("valueid"));
-        $this->_context->redirectUrl("/criaritemdeanalise");
+        $this->_context->redirectUrl("module:panteonescolar.criaritemdeanalise");
 
       }
 

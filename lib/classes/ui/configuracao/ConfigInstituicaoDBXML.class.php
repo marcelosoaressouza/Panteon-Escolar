@@ -49,7 +49,7 @@ class ConfigInstituicaoDBXML extends XmlnukeCollection implements IXmlnukeDocume
 
       }
 
-      else if($nivel_acesso == "MEDIADOR")
+      else if($nivel_acesso == "EDITOR")
       {
         $permissao = array(false, false, false, false);
         $id = $id_usuario;
@@ -65,7 +65,7 @@ class ConfigInstituicaoDBXML extends XmlnukeCollection implements IXmlnukeDocume
 
       else
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
         $id = "";
 
       }

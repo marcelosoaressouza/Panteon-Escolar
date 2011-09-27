@@ -38,6 +38,8 @@ class TemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
                                          $admin = "")
   {
 
+    $id_instituicao_filtro = $this->_context->ContextValue("id_instituicao_filtro");
+
     // Inicio da Obtencao de dados de Tabelas Auxiliares-Relacionadas
     //
     $db = new MetodoAnaliseDB($this->_context);
@@ -316,6 +318,39 @@ class TemaPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
 
         }
       }
+
+
+
+      if($id_instituicao_filtro != "")
+      {
+        //$filtro .= " id_turma = " . $id_turma ." ";
+
+        $db = new UsuarioDB($this->_context);
+        $itInstituicaoFiltro = $db->obterTodosOsUsuariosPorIDInstituicao($id_instituicao_filtro);
+
+        if($itInstituicaoFiltro->hasNext())
+        {
+          if($id_instituicao_filtro != "")
+          {
+            $filtro .= " AND ";
+          }
+
+          $filtro2 .= " ( id_usuario IN (";
+
+          while($itInstituicaoFiltro->hasNext())
+          {
+            $sr = $itInstituicaoFiltro->moveNext();
+            $filtro2 .= $sr->getField("id_usuario").", ";
+
+          }
+
+          $filtro2 = rtrim($filtro2, ", ");
+          $filtro .= $filtro2." )) ";
+
+        }
+      }
+
+
 
       if($this->_context->ContextValue("acao") != "ppedit")
       {

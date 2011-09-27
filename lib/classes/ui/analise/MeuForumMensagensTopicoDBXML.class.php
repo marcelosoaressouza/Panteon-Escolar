@@ -26,9 +26,26 @@ class MeuForumMensagensTopicoDBXML extends XmlnukeCollection implements IXmlnuke
 
   public function generateObject($current)
   {
-    $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
 
-    $id_mensagem_forum = $this->_context->getCookie("id_mensagem_forum");
+    if($this->_context->ContextValue("id_tema_panteon_definido")==null)
+    {
+      $id_tema_panteon = $this->_context->getCookie("id_tema_panteon_definido");
+    }
+
+    else
+    {
+      $id_tema_panteon = $this->_context->ContextValue("id_tema_panteon_definido");
+    }
+
+    if($this->_context->ContextValue("id_mensagem_forum")==null)
+    {
+      $id_mensagem_forum = $this->_context->getCookie("id_mensagem_forum");
+    }
+
+    else
+    {
+      $id_mensagem_forum = $this->_context->ContextValue("id_mensagem_forum");
+    }
 
 
     $id_usuario = $this->_context->authenticatedUserId();
@@ -37,7 +54,10 @@ class MeuForumMensagensTopicoDBXML extends XmlnukeCollection implements IXmlnuke
 
     $respostas = true;
 
-    //if($id_tema_panteon == "") $this->_context->redirectUrl("/meustemaspanteon");
+    if($id_tema_panteon == "")
+    {
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
+    }
 
     $container = PanteonEscolarBaseModule::caixaAviso($this->_context);
 
@@ -49,15 +69,44 @@ class MeuForumMensagensTopicoDBXML extends XmlnukeCollection implements IXmlnuke
       $db = new ForumDB($this->_context);
       $id_forum = $db->obterForumPorIDTemaPanteon($id_tema_panteon);
 
-      $dbxml = new MensagemForumDBXML($this->_context, "meuforum", "Forum");
+      $dbxml = new MensagemForumDBXML($this->_context, "meuforum", "Mensagens do Fórum");
 
-      $permissao = array(false, false, false, false, false);
+      //Define as permissões para os botroes do grid
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
+      {
+        $permissao = array(true, false, false, true, false);
+      }
+
+      else
+      {
+        $permissao = array(true, false, false, false, false);
+      }
 
       $aviso = new XmlInputLabelObjects("<p></p>");
-      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="meuforum">Clique aqui para retornar a Lista de Tópicos deste Fórum </a></div>'));
+      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="?module=panteonescolar.meuforum">Clique aqui para retornar a Lista de Tópicos deste Fórum </a></div>'));
       $span1->addXmlnukeObject($aviso);
       $span1->addXmlnukeObject(new XmlNukeBreakLine());
 
+      if($id_mensagem_forum != NULL)
+      {
+
+        $dbMensagemForum = new MensagemForumDB($this->_context);
+        $dbUsuario = new UsuarioDB($this->_context);
+
+        $nomeMensagemOriginalForum = $dbMensagemForum->obterPorId($id_mensagem_forum)->getNomeMensagemForum();
+        $idUsuarioMensagemOriginal = $dbMensagemForum->obterPorId($id_mensagem_forum)->getIDUsuario();
+        $autorMensagemOriginalForum = $dbUsuario->obterPorId($idUsuarioMensagemOriginal)->getNomeCompletoUsuario();
+
+        $texto .= "<div id='meusPontosDeVistas'> ";
+        $texto .= " Tópico: ".$nomeMensagemOriginalForum;
+        $texto .= "<br /> Autor: ".$autorMensagemOriginalForum;
+        $texto .= "</div>";
+
+        $aviso = new XmlInputLabelObjects("<p></p>");
+        $aviso->addXmlnukeObject(new XmlNukeText($texto));
+        $span1->addXmlnukeObject($aviso);
+        $span1->addXmlnukeObject(new XmlNukeBreakLine());
+      }
 
       /*
       // Filtro
@@ -76,9 +125,7 @@ class MeuForumMensagensTopicoDBXML extends XmlnukeCollection implements IXmlnuke
       }
        *
        */
-
       $pagina = $dbxml->criarProcessPageFields($id_forum, $id_usuario_orig, $permissao, $id_mensagem_forum, $respostas, $id_usuario);
-
 
 
       if($pagina->getAllRecords()->Count() > 0)
@@ -114,10 +161,10 @@ class MeuForumMensagensTopicoDBXML extends XmlnukeCollection implements IXmlnuke
     if($this->_opcao == "listarDireita")
     {
       $node = XmlUtil::CreateChild($current, "blockmensagem", "");
-      $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Fórum");
+      $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica do Fórum");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Neste espaço você, seus colegas e seu(a) professor(a) podem interagir e discutir sobre o Tema Panteon. ', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

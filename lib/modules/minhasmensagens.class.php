@@ -35,16 +35,16 @@ class MinhasMensagens extends PanteonEscolarBaseModule
     $blockMenu   = new XmlBlockCollection(NULL, BlockPosition::Menu);
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockHead);
-    $blockHead->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "menuHead"));
+    $blockHead->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "menuHead", $this->_action));
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockInfo);
-    $blockInfo->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "listarDireita"));
+    $blockInfo->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "listarDireita", $this->_action));
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockMenu);
-    $blockMenu->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "menu"));
+    $blockMenu->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "menu", $this->_action));
 
     $this->defaultXmlnukeDocument->addXmlnukeObject($blockCenter);
-    $blockCenter->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "processPageField"));
+    $blockCenter->addXmlnukeObject(new MinhasMensagensDBXML($this->_context, "processPageField", $this->_action));
 
     return $this->defaultXmlnukeDocument;
 
@@ -69,7 +69,7 @@ class MinhasMensagens extends PanteonEscolarBaseModule
 
   public function getRole()
   {
-    return array("ANALISTA", "MEDIADOR", "GESTOR", "ADMINISTRADOR");
+    return array("ANALISTA", "EDITOR", "GESTOR", "ADMINISTRADOR");
   }
 
 }

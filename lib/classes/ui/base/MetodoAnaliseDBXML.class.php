@@ -56,6 +56,8 @@ class MetodoAnaliseDBXML extends XmlnukeCollection implements IXmlnukeDocumentOb
 
     $field = ProcessPageFields::FactoryMinimal("descricao_metodo_analise", "Descrição", 30, true, true);
     $field->fieldXmlInput = XmlInputObjectType::HTMLTEXT;
+    $field->editListFormatter = new PanteonEscolarMetodoAnaliseFormatter($this->_context, "descricao");
+    //$field->editListFormatter = new PanteonEscolarTextoFormatterMetodoAnalise();
     $fieldList->addProcessPageField($field);
 
     if($this->_context->ContextValue("acao") == "")

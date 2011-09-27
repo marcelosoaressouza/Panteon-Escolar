@@ -65,7 +65,8 @@ class ErroDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       {
         $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
         $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadInicial());
-        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso('/xmlnuke.php?module=Erro&amp;action=action.NEWUSER&amp;ReturnUrl=%2fcriartemapanteon&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'));
+        $url_link = $this->_context->bindModuleUrl("Erro");
+        $body = PanteonEscolarBaseModule::preencherMenuHeadAuxiliar($node, PanteonEscolarBaseModule::preencherMenuHeadInicialAcesso($this->_context, $url_link.'&amp;action=action.NEWUSER&amp;ReturnUrl=%2fcriartemapanteon&amp;site=PanteonEscolar&amp;xsl=page&amp;xml=home&amp;lang=pt-br'));
       }
 
     }

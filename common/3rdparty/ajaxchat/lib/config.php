@@ -10,7 +10,7 @@
 // Define AJAX Chat user roles:
 define('AJAX_CHAT_CHATBOT',		4);
 define('AJAX_CHAT_ADMIN',		3);
-define('AJAX_CHAT_MODERATOR',	2);
+define('AJAX_CHAT_MODERATOR',           2);
 define('AJAX_CHAT_USER',		1);
 define('AJAX_CHAT_GUEST',		0);
 
@@ -22,11 +22,11 @@ $config['dbConnection'] = array();
 // Database hostname:
 $config['dbConnection']['host'] = 'localhost';
 // Database username:
-$config['dbConnection']['user'] = 'panteonescolar';
+$config['dbConnection']['user'] = 'root';
 // Database password:
-$config['dbConnection']['pass'] = '1842panteonescolar';
+$config['dbConnection']['pass'] = 'root';
 // Database name:
-$config['dbConnection']['name'] = 'panteonescolar_chat_devel';
+$config['dbConnection']['name'] = 'panteonescolar_stable';
 // Database type:
 $config['dbConnection']['type'] = null;
 // Database link:
@@ -37,7 +37,7 @@ $config['dbTableNames'] = array();
 $config['dbTableNames']['online']		= 'ajax_chat_online';
 $config['dbTableNames']['messages']		= 'ajax_chat_messages';
 $config['dbTableNames']['bans']			= 'ajax_chat_bans';
-$config['dbTableNames']['invitations']	= 'ajax_chat_invitations';
+$config['dbTableNames']['invitations']          = 'ajax_chat_invitations';
 
 // Available languages:
 $config['langAvailable'] = array('bp');
@@ -97,7 +97,7 @@ $config['privateChannelPrefix'] = '[';
 $config['privateChannelSuffix'] = ']';
 
 // If enabled, users will be logged in automatically as guest users (if allowed), if not authenticated:
-$config['forceAutoLogin'] = true;
+$config['forceAutoLogin'] = false;
 
 // Defines if login/logout and channel enter/leave are displayed:
 $config['showChannelMessages'] = true;
@@ -114,7 +114,7 @@ $config['closingHour'] = 24;
 $config['openingWeekDays'] = array(0,1,2,3,4,5,6);
 
 // Enable/Disable guest logins:
-$config['allowGuestLogins'] = true;
+$config['allowGuestLogins'] = false;
 // Enable/Disable write access for guest users - if disabled, guest users may not write messages:
 $config['allowGuestWrite'] = true;
 // Allow/Disallow guest users to choose their own userName:

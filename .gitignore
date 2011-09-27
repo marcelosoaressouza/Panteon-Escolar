@@ -67,3 +67,6 @@ upload/midiateca/*.ODT
 upload/midiateca/*.odt
 upload/midiateca/*.ODP
 upload/midiateca/*.odp
+upload
+upload/*
+upload/**/*

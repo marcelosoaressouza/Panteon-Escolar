@@ -44,7 +44,7 @@ class MeusGruposDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
 
       if($itDB->Count() > 0)
       {
-        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_grupo");
+        $body = PanteonEscolarBaseModule::preencherBarraMeusGrupos($node, $itDB, "nome_grupo");
       }
 
       else
@@ -52,7 +52,7 @@ class MeusGruposDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -76,7 +76,8 @@ class MeusGruposDBXML extends XmlnukeCollection implements IXmlnukeDocumentObjec
 
       else
       {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Você ainda não faz parte de um Grupo.<br/>Para participar peça permissão ao seu professor enviando uma mensagem na <a href="/meuforummensagem">Sala de Encontro</a>.</div>'));
+        //$url = $this->_context->bindModuleUrl("panteonescolar.meuforummensagem");
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Você ainda não faz parte de um Grupo.</div>'));
       }
 
       $node = XmlUtil::CreateChild($current, "blockcenter", "");

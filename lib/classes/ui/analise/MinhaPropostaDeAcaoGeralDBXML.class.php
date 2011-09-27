@@ -49,8 +49,9 @@ class MinhaPropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnuk
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
-        $this->_context->redirectUrl($nome_modulo);
+        $this->_context->redirectUrl("xmlnuke.php?module=panteonescolar.minhapropostadeacaogeral&site=PanteonEscolar&xsl=page&lang=pt-br");
       }
+
 
       // Mensagem de Avisos
       $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
@@ -68,6 +69,12 @@ class MinhaPropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnuk
 
       if($pagina->getAllRecords()->Count() > 0)
       {
+        $permissao = array(false, false, true, false);
+        $pagina = $dbxml->criarProcessPageFields($id_usuario, $id_tema_panteon, $permissao);
+      }
+
+      if($pagina->getAllRecords()->Count() > 0)
+      {
         if($this->_context->ContextValue("acao") == "")
         {
           $span1->addXmlnukeObject($this->filtro());
@@ -82,12 +89,13 @@ class MinhaPropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnuk
         if(($this->_context->ContextValue("acao") == "ppnew") || ($this->_context->ContextValue("chamada") == 1))
         {
           $span1->addXmlnukeObject($pagina);
-
         }
 
         else
         {
           $span1->addXmlnukeObject($this->filtro());
+
+          //Debug::PrintValue(PanteonEscolarBaseModule::curPageURL());
           $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhuma Proposta de Ação Geral encontrada, cadastre o primeiro agora <a href="'.PanteonEscolarBaseModule::curPageURL().'&acao=ppnew">Clicando Aqui</a></div>'));
 
         }
@@ -126,7 +134,7 @@ class MinhaPropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnuk
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -157,6 +165,12 @@ class MinhaPropostaDeAcaoGeralDBXML extends XmlnukeCollection implements IXmlnuk
 
     parent::generatePage($body);
 
+    /*
+     *     if($this->_context->ContextValue("chamada") == "1"){
+        $this->_context->redirectUrl("xmlnuke.php?module=panteonescolar.minhapropostadeacaogeral");
+    }
+
+     */
   }
 
   public function filtro()

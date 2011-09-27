@@ -30,6 +30,9 @@ class GrupoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
   public function criarProcessPageFields($id_tema_panteon = "", $permissao = "")
   {
 
+    $id_instituicao_filtro = $this->_context->ContextValue("id_instituicao_filtro");
+    $id_turma_filtro = $this->_context->ContextValue("id_turma_filtro");
+
     // Inicio ProcessPageField
     $fieldList = new ProcessPageFields();
 
@@ -119,6 +122,72 @@ class GrupoDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $filtro .= " id_tema_panteon = " . $id_tema_panteon ." ";
 
     }
+
+    //$filtro .= " AND ";
+    //$filtro .= " id_usuario = " . 22 ." ";
+
+    if($id_instituicao_filtro != "")
+    {
+      //$filtro .= " id_turma = " . $id_turma ." ";
+
+      $db = new UsuarioDB($this->_context);
+      $itInstituicaoFiltro = $db->obterTodosOsUsuariosPorIDInstituicao($id_instituicao_filtro);
+
+      if($itInstituicaoFiltro->hasNext())
+      {
+        if($id_instituicao_filtro != "")
+        {
+          $filtro .= " AND ";
+        }
+
+        $filtro2 .= " ( id_usuario IN (";
+
+        while($itInstituicaoFiltro->hasNext())
+        {
+          $sr = $itInstituicaoFiltro->moveNext();
+          $filtro2 .= $sr->getField("id_usuario").", ";
+
+        }
+
+        $filtro2 = rtrim($filtro2, ", ");
+        $filtro .= $filtro2." )) ";
+
+      }
+    }
+
+
+
+    if($id_turma_filtro != "")
+    {
+      //$filtro .= " id_turma = " . $id_turma ." ";
+
+      $db = new UsuarioXTurmaDB($this->_context);
+      $itTurmaFiltro = $db->obterTodosOsUsuariosPorIDTurma($id_turma_filtro);
+
+      if($itTurmaFiltro->hasNext())
+      {
+        if($id_turma_filtro != "")
+        {
+          $filtro .= " AND ";
+        }
+
+        $filtro3 .= " ( id_usuario IN (";
+
+        while($itTurmaFiltro->hasNext())
+        {
+          $sr = $itTurmaFiltro->moveNext();
+          $filtro3 .= $sr->getField("id_usuario").", ";
+
+        }
+
+        $filtro3 = rtrim($filtro3, ", ");
+        $filtro .= $filtro3." )) ";
+
+      }
+    }
+
+    //echo $filtro;
+    //exit();
 
     if($filtro != "")
     {

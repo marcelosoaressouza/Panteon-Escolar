@@ -39,7 +39,7 @@ class MeusTemasPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Meus Temas Panteon');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, ficam disponíveis todos os Temas Panteon selecionados na Biblioteca do Tema Panteon.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -48,11 +48,11 @@ class MeusTemasPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
     if($this->_opcao == "processPageField")
     {
-      $nome_modulo = "meustemaspanteon";
+      $nome_modulo = "panteonescolar.meustemaspanteon";
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
-        $this->_context->redirectUrl($nome_modulo);
+        $this->_context->redirectUrl("module:".$nome_modulo);
       }
 
       // Mensagem de Avisos
@@ -67,13 +67,15 @@ class MeusTemasPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
       {
         $this->_context->removeCookie("id_tema_panteon_definido");
         $this->_context->removeCookie("nome_tema_panteon_definido");
-        $this->_context->redirectUrl("./meustemaspanteon");
+        $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
 
       }
 
+      $url_modulo = $this->_context->bindModuleUrl($nome_modulo);
+
       if($this->_context->getCookie("id_tema_panteon_definido") != "")
       {
-        $limpar = "<div id='meusPontosDeVistas'><a href='./meustemaspanteon&acao=limpar'>Limpar Seleção Tema Panteon</a></div><br/>";
+        $limpar = "<div id='meusPontosDeVistas'><a href='{$url_modulo}&acao=limpar'>Limpar Seleção Tema Panteon</a></div><br/>";
         $span1->addXmlnukeObject(new XmlNukeText($limpar));
       }
 
@@ -92,7 +94,7 @@ class MeusTemasPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
         $this->_context->addCookie("id_tema_panteon_definido", $modelUsuarioXTemaPanteon->getIDTemaPanteon());
         $this->_context->addCookie("nome_tema_panteon_definido", $modelTemaPanteon->getNomeTemaPanteon());
 
-        $this->_context->redirectUrl("./meutemapanteon");
+        $this->_context->redirectUrl("module:panteonescolar.meutemapanteon");
 
       }
 
@@ -103,7 +105,8 @@ class MeusTemasPanteonDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       else
       {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Tema Panteon escolhido.<br/> <a href="/biblioteca">Escolha um Tema na  Biblioteca de Temas Panteon.</a></div>'));
+        $url =  $this->_context->bindModuleUrl("panteonescolar.biblioteca");
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Nenhum Tema Panteon escolhido.<br/> <a href="' . $url . '">Escolha um Tema na Biblioteca de Temas Panteon.</a></div>'));
       }
 
     }

@@ -48,6 +48,29 @@ class TurmaDB extends PanteonEscolarBaseDBAccess
   }
 
   /**
+  * @param int $id
+  * @access public
+  * @return IIterator
+  */
+  public function obterTodosAsTurmasPorIDInstituicao($id)
+  {
+    $sql = "SELECT * FROM ";
+    $sql .= $this->_nome_tabela;
+
+    //Debug::PrintValue("ID>>>>".$id);
+    if(!empty($id))
+    {
+      // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
+      $sql .= " WHERE ".$this->_nome_tabela.".id_instituicao = ".$id;
+    }
+
+    $it = $this->getIterator($sql);
+
+    return $it;
+
+  }
+
+  /**
    * @param int $id
    * @access public
    * @return IIterator

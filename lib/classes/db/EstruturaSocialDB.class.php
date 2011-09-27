@@ -43,6 +43,7 @@ class EstruturaSocialDB extends PanteonEscolarBaseDBAccess
     return $model;
   }
 
+
   /**
    * @access public
    * @return IIterator

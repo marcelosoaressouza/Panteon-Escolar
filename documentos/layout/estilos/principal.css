@@ -1,0 +1,1131 @@
+*{ padding:0; margin:0; text-decoration: none; border: none;}
+
+
+
+body{
+	background: #6f8aa8 url(../images/Layout/BGs/Principal.png) repeat-x;
+	text-align: center;
+	font-family: Helvetica;!Important
+	font-size: 12px;!Important
+	font-family: Helvetica;
+	}
+
+#baseLayout{
+	margin: auto;
+	width: 976px;
+	height: auto;
+}
+
+#Layout{
+	float: left;
+	text-align: left;
+	width: 976px;
+	height: auto;
+	position: relative;
+}
+
+#Topo
+{
+	float: left;
+	text-align: left;
+	width: 1000px;
+	padding-left:24px;
+	margin-left: -24px;
+	height: 234px;
+	position: relative;
+	background: url(../images/Layout/BGs/topo.png) no-repeat top center;
+}
+
+#TopoLogin
+{
+	float: left;
+	text-align: left;
+	width: 1000px;
+	padding-left:24px;
+	margin-left: -24px;
+	height: 234px;
+	background: url(../images/Layout/BGs/topoLogin.jpg);
+	
+}
+
+#Head
+{
+	float: left;
+	text-align: left;
+	width: 1000px;
+	padding-left: 24px;
+	margin-left: -24px;
+	height: 24px;
+	background: url(../images/Layout/BGs/Head.png) repeat-x top center;
+	position: relative;
+}
+
+#HeadMenu{
+	float: right;
+	width: auto;
+	height: 24px;
+}
+
+
+#HeadMenu ul{
+float: right;
+margin-right: 14px;
+	}
+
+#HeadMenu ul li{
+	list-style: none;
+	float: left;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 5px;
+	text-align: center;
+	padding-bottom: 5px;
+	min-width: 52px;
+	font-family: Helvetica;
+	color: #FFF;
+	font-weight: lighter;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 600;
+}
+
+#HeadMenu ul li:hover{
+background: #3F3F3F;
+}
+
+#HeadMenu ul li a{
+	color: #FFF;
+	}
+	
+#AreaTopo{
+	float:left;
+	width: 1000px;
+	margin-left: -24;
+	padding-left: 24px;
+	height: 210px;
+	position: relative;
+}
+
+#areaMarca{
+	float: left;
+	width: 182px;
+	height: 167px;
+	margin-left: 380px;
+	margin-top: 20px;
+	position: relative;
+}
+
+#BarraMenu{
+	float: left;
+	width: 1000px;
+	height: 53px;
+	margin-left: -24px;
+	padding-left: 25px;
+	background: url(../images/Layout/BGs/Menu.png) repeat-x;
+	text-align: center;
+}
+
+#BarraMenu ul li{
+	list-style: none;
+	font-size: 12px;
+	font-weight: 600;
+	font-stretch: condensed;
+	color: #403c3c;
+	font-family: Helvetica;!Important;
+	margin: auto;
+	position: relative;
+	float:left;
+}
+
+#BarraMenu ul li:hover{
+	background: url(../images/Layout/BGs/Menu2.png) repeat-x;
+	color: #21527A;!Important
+	position: relative;
+}
+
+
+#BarraMenu ul li a{
+	padding-top: 21px;
+	padding-bottom: 17px;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: left;
+	margin-left: 25px;
+	margin-right: 24px;
+	text-transform: uppercase;
+	position: relative;
+}
+
+
+a{
+ color:inherit;
+ font-family: inherit;
+ font-size: inherit;
+ position: relative;
+}
+
+
+#content{
+	float: left;
+	width: 1000px;
+	margin-left: -24px;
+	padding-left: 24px;
+	min-height: 800px;
+	height:auto;
+	background: url(../images/Layout/BGs/content.png) no-repeat;
+	text-align: left;
+	padding-left: 24px;
+	position: relative;
+}
+
+
+
+#BoxUsuario{
+	width: 743px;
+	height: auto;
+	text-align: left;
+	position: relative;
+	
+}
+
+
+#MenuBoxUsuario{
+	width: 741px;
+	height: 39px;
+	margin-top: 21px;
+	padding-left: 2px;
+	position: relative;
+	
+}
+
+#conteudoBoxUsuario{
+	float: left;
+	width: 736px;
+	height: 257px;
+	position: relative;
+	background:url(../images/Layout/BGs/boxUsuario.png) no-repeat;
+}
+
+
+#MenuBoxUsuario img{
+	float: left;
+	margin-left: 1px;
+	margin-right: 3px;
+	position: relative;
+}
+
+
+#ContUsuario{
+	float: left;
+	width: 710px;
+	height: 234px;
+	margin-left: 10px;
+	margin-top: 9px;
+	position: relative;
+}
+
+#BoxUsuarioUsuario{
+	float: left;
+	width: 142px;
+	position: relative;
+	height: 233px;
+}
+
+#BoxUsuarioUsuario img{
+	float: left;
+	position: relative;
+}
+
+#BoxUsuarioUsuarioTitulo{
+	float: left;
+	width: 142px;
+	height: 27px;
+	font-family: Helvetica;
+	color: #000;
+	font-size: 16px;
+	text-transform:uppercase;
+	font-weight: bold;
+	padding-top: 10px;
+	position: relative;
+	text-align: center;
+}
+
+#BoxUsuarioInformacoes{
+	float: right;
+	position: relative;
+	width: 549px;
+	height: 226px;
+}
+
+#BoxUsuarioTitulos{
+	float: left;
+	width: 549px;
+	height: 35px;
+	position: relative;
+}
+
+#BoxUsuarioNomeUsuario{
+	float: left;
+	width: 397px;
+	height: 25px;
+	font-family: Helvetica;
+	font-weight: bold;
+	font-size: 16px;
+	padding-top: 10px;
+	color: #ff0000;
+	position: relative;
+}
+
+#BoxUsuarioBotoes1{
+	float: left;
+	width: 148px;
+	height: 35px;
+	font-family: Helvetica;
+	color: #ff0000;
+	font-weight: bold;
+	position: relative;
+	font-size: 16px;	
+}
+
+#BoxUsuarioBotoes1 ul{
+	list-style: none;
+	position: relative;
+}
+
+#BoxUsuarioBotoes1 a{
+	float: right;
+	font-weight: bold;
+	padding-left: 16px;
+	text-transform: uppercase;
+	font-size: 11px;
+	color: #000;
+	position: relative;
+}
+
+
+#BoxUsuarioBotoes1 a:hover{
+	color: #FC2829;
+	position: relative;
+}
+
+
+#BoxUsuariosInf{
+	float: left;
+	width: 549px;
+	height: 33px;
+	position: relative;
+}
+
+#BoxUsuariosInf2{
+	float: left;
+	width: 549px;
+	height: 70px;
+	font-family: Helvetica;
+	font-size: 11px;
+	position: relative;
+}
+
+#BoxUsuariosInf3{
+	float: left;
+	width: 549px;
+	height: 40px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-family: Helvetica;
+	position: relative;
+}
+
+
+.BoxUsuariosCaixasForm{
+	width: 456px;
+	height: 22px;
+	border: solid 1px #807f7e;
+	padding-top: 4px;
+	float: left;
+	margin-top: 5px;
+	position: relative;
+}
+
+.BoxUsuariosCaixasForm:hover
+{
+	background:#FFFABF;
+}
+
+.botaoForm01{
+	margin-top: 4px;
+	margin-left: 4px;
+	float: left;
+	position: relative;
+}
+
+
+#boxDireita{
+	float: left;
+	width: 199px;
+	height: auto;
+	margin-left: 14px;
+	position: absolute;
+	left: 775px;
+	top: 15px;
+
+}
+
+
+#baseForumHome{
+	width: 226px;
+	height: auto;
+	background: url(../images/Layout/BGs/ForumHome.png) repeat-y;
+	position: relative;
+	}
+	
+#baseForumHomeRodape{
+	width: 226px;
+	height: 22px;
+	position: relative;
+	background: url(../images/Layout/BGs/ForumHomeRodape.png) no-repeat;
+	}
+	
+#ForumHomeContent{
+	width: 190px;
+	height: auto;
+	min-height: 631px;
+	max-height: 631px;
+	margin-left: 10px;
+	text-align: left;
+	font-family: Helvetica;
+	color: #000;
+	font-size: 10px;
+	position: relative;
+}
+
+#ForumHomeContent .pcentro{
+	text-align: center;
+	position: relative;
+}
+
+
+
+#boxBaixoEsquerda{
+	float: left;
+	width: 758px;
+	height: auto;
+	margin-left: -22px;
+	margin-top: 4px;
+	position: relative;
+}
+#boxBaixoEsquerda2{
+	float: left;
+	width: 758px;
+	height: auto;
+	margin-top: 4px;
+	position: relative;
+}
+
+#boxBaixoEsquerda2 #barraMenu
+{
+float: left;
+width: 100%;
+height: 31px;
+background: #afc3c6;
+}
+
+
+#boxBaixoEsquerda2 #barraMenu ul
+{
+list-style: none;
+}
+
+#boxBaixoEsquerda2 #barraMenu a
+{
+float: left;
+height: 23px;
+width: 20%;
+text-align: center;
+padding-top: 8px;
+}
+
+#boxBaixoEsquerda2 #barraMenu a:hover
+{
+background: #cfe2ea;
+color: #006699;
+}
+
+
+#boxBaixoEsquerda2 #caixaListagem
+{
+float: left;
+width: 100%;
+height: auto;
+}
+
+
+#boxBaixoEsquerda2 #Titulo
+{
+float: left;
+width: 630px;
+height: 23px;
+background: #cfe2ea;
+margin-top: 2px;
+font-family: Helvetica;
+font-size: 12px;
+font-weight: bold;
+padding-top: 8px;
+padding-left: 30px;
+}
+
+
+#boxBaixoEsquerda2 .caixas
+{
+float: left;
+width: 630px;
+height: 31px;
+background: #cfe2ea;
+margin-top: 2px;
+font-family: Helvetica;
+font-size: 12px;
+font-weight: bold;
+padding-top: 8px;
+padding-left: 30px;
+}
+
+
+#boxBaixoEsquerda2 .caixas ul
+{
+list-style: none;
+}
+
+#boxBaixoEsquerda2 .caixas a
+{
+float: left;
+height: 23px;
+text-align: center;
+padding-top: 8px;
+
+}
+
+
+#boxBaixoEsquerda2 .caixas a:hover
+{
+background: #f1e5e9;
+color: #006699;
+}
+
+
+#boxBaixoEsquerdaTitulo{
+	float: left;
+	width: 758px;
+	height: 88px;
+	background: url(../images/Layout/BGs/TituloBoxBaixoHome.png) no-repeat;
+	text-align: left;
+	position: relative;
+}
+
+#boxBaixoEsquerdaContent{
+	float: left;
+	width: 758px;
+	height: auto;
+	background: url(../images/Layout/BGs/ContentBoxBaixoHome.png) repeat-y;
+	text-align: left;
+	position: relative;
+}
+
+
+#boxBaixoEsquerdaRodape{
+	float: left;
+	width: 758px;
+	height: 33px;
+	background: url(../images/Layout/BGs/rodapeBoxBaixoHome.png) no-repeat;
+	text-align: left;
+	position: relative;
+}
+
+#conteudoBoxBaixoHome{
+	float: left;
+	width: 660px;
+	height: auto;
+	margin-left: 60px;
+	font-family: Helvetica;
+	font-size: 14px;
+	position: relative;
+}
+
+#rodape{
+	float: left;
+	width: 1024px;
+	background: #3b3a3a;
+	height: 164px;
+	color: #FFF;
+	font-family: Helvetica;
+	font-size: 12px;
+	position: relative;
+	text-align: center;
+	margin-left: -24px;
+	
+}
+
+
+#ContEsqurda{
+	width:40px;
+	height: 288px;
+	position: absolute;
+	left: -39px;
+	top: -1954px;
+	background: url(../images/Layout/HomeEsquerda.png) no-repeat;
+	position: absolute;
+}
+
+
+#sobreMenuEsquerda{
+	float: left;
+	width: 25px;
+	background: url(../images/Layout/BGs/Menu.png) repeat-x;
+	margin-left: -25px;
+	height: 53px;
+}
+
+
+.img02{
+	float: right;!Important;
+	margin-left: 10px;!Important;
+}
+
+
+#BoxTituloBoxBaixo{
+	float: left;
+	width: auto;
+	margin-top: 20px;
+	margin-left: 40px;
+	max-width: 380px;
+	padding-top: 8px;
+	height: 22px;
+	font-family: Helvetica;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+
+
+#barraDivideTopoLogin{
+	width: 1024px;
+	height: 17px;
+	background: #001b34;
+	float: left;
+	margin-left: -24px;
+}
+
+
+#ContaudoLogin{
+	float: left;
+	width: 1024px;
+	height: 509px;
+	margin-left: -24px;
+	background: url(../images/Layout/BGs/Login.png) no-repeat;
+}
+
+
+.CaixasLogin{
+	width: 341px;
+	height: 216px;
+	background: #6e87a4;
+	border: solid 10px #0b4b60;
+	float: left;
+	margin-left: 44px;
+	margin-right: 44px;
+	margin-top: 80px;
+	text-align: center;
+
+}
+
+
+.CaixasLogin form{
+	font-family: Helvetica;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFF;
+	text-transform: uppercase;
+	text-align: left;
+}
+
+.caixasLogin{
+	width: 217px;
+	height: 23px;
+	padding-top: 4px;
+}
+
+.caixasLogin:hover
+{
+	background:#FFFABF;
+}
+
+
+#form1{
+	
+}
+
+#form1 strong{
+	float: left;
+	width: 50px;
+	height: 27px;
+	padding-top: 6px;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.btnLogin{
+	float: right;
+	margin-right: 34px;
+	margin-top: 10px;
+}
+
+.link01{
+	float: left;
+	padding-top: 20px;
+	color: #FFF;
+	text-decoration: none;
+	font-family: Helvetica;
+	font-size: 10px;
+	text-transform: uppercase;
+	width: 100%;
+	height: 27px;
+	text-align: center;
+}
+
+
+#ConteudoInternoGrpous
+	{
+	float: left;
+	width: 728px;
+	height: 219px;
+	margin-left: 4px;
+	}
+	
+	
+#ConteudoInternoGrpous h1
+{
+font-family: Helvetica;
+font-size: 16px;
+text-transform: uppercase;
+text-decoration: underline;
+float: left;
+width: 720px;
+height: 10px;
+margin-top: 7px;
+padding-left: 10px;
+margin-bottom: 20px;
+}
+
+#ContInternoGrpous
+	{
+	float: left;
+	width: 728px;
+	height: 234px;
+	margin-left: 4px;
+	}
+
+#BarraContInternoGrpous
+	{
+	float: left;
+	width: 100%;
+	height: 27px;
+	background: #f1fa3a;
+	
+	}
+	
+
+#BarraContInternoTurmas
+	{
+	float: left;
+	width: 100%;
+	height: 27px;
+	background: #fead2b;
+	
+	}
+	
+	
+#BarraContInternoTurmas ul
+{
+display: inline;
+float: left;
+margin: auto;
+margin-left: 200px;
+}
+	
+#BarraContInternoTurmas ul li
+	{
+	list-style: none;
+	display: inline;
+	}
+	
+#BarraContInternoTurmas ul li a
+	{
+	list-style: none;
+	display: inline;
+	float: left;
+	height: 19px;
+	padding-top: 8px;
+	width: auto;
+	padding-left: 6px;
+	padding-right: 6px;
+	font-family: Helvetica;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	}
+	
+#BarraContInternoTurmas ul li a:hover
+	{
+	background: #fcbd58;
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#BarraContInternoTurmas2
+	{
+	float: left;
+	width: 100%;
+	height: 27px;
+	background: #fead2b;
+	
+	}
+	
+	
+#BarraContInternoTurmas2 ul
+{
+display: inline;
+float: left;
+margin: auto;
+margin-left: 200px;
+}
+	
+#BarraContInternoTurmas2 ul li
+	{
+	list-style: none;
+	display: inline;
+	}
+	
+#BarraContInternoTurmas2 ul li a
+	{
+	list-style: none;
+	display: inline;
+	float: left;
+	height: 19px;
+	padding-top: 8px;
+	width: auto;
+	padding-left: 6px;
+	padding-right: 6px;
+	font-family: Helvetica;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	}
+	
+#BarraContInternoTurmas2 ul li a:hover
+	{
+	background: #fcbd58;
+	}
+#BarraContInternoTurmas2 ul li a:hover
+	{
+	background: #5cfc4f;
+	}
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+.ListagemContInernoGrpous
+{
+width: 712px;
+height: 70px;
+float: left;
+margin-bottom: 4px;
+margin-left: 10px;
+}
+
+.ListagemContInernoGrpousAvatar
+{
+width: 104px;
+height: 64px;
+background: #f0f0f0;
+margin-right: 4px;
+float: left;
+font-family: Helvetica;
+text-transform: uppercase;
+font-size: 12px;
+font-weight: bold;
+padding-top: 6px;
+}
+
+
+.ListagemContInernoGrpousConteudo
+{
+width: 568px;
+height: 58px;
+background: #f0f0f0;
+float: left;
+font-family: Helvetica;
+font-size: 10px;
+padding-top: 6px;
+padding-left: 6px;
+padding-bottom: 6px;
+padding-right: 6px;
+text-align: left;
+}
+
+.ListagemContInernoGrpousConteudo .texto
+{
+float: left;
+width: 450px;
+height: auto;
+margin-top: 10px;
+}
+
+
+#BarraContInternoGrpous ul
+{
+display: inline;
+float: left;
+margin: auto;
+margin-left: 216px;
+}
+	
+#BarraContInternoGrpous ul li
+	{
+	list-style: none;
+	display: inline;
+	}
+	
+#BarraContInternoGrpous ul li a
+	{
+	list-style: none;
+	display: inline;
+	float: left;
+	height: 19px;
+	padding-top: 8px;
+	width: auto;
+	padding-left: 6px;
+	padding-right: 6px;
+	font-family: Helvetica;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	}
+	
+#BarraContInternoGrpous ul li a:hover
+	{
+	background: #e7f11e;
+	}
+	
+	
+	
+/*height: 234px*/
+	
+	
+.icones01
+	{
+	float: left;
+	margin-left: 26px;
+	margin-top: 22px;
+	}
+	
+.icones02
+	{
+	float: left;
+	margin-left: 26px;
+	margin-top: 26px;
+	}
+	
+#barraNavega
+{
+float: left;
+width: 170px;
+height: auto;
+margin-top: 10px;
+margin-left: 300px;
+font-family: Helvetica;
+font-size: 16px;
+font-weight: bold;
+}
+
+#CaixaBuscas
+{
+float: left;
+margin-top: 30px;
+margin-left: 64px;
+width: 600px;
+height: 120px;
+background: url(../images/Layout/BGs/busca.png) no-repeat;
+}
+
+#campoBusca
+{
+float: left;
+width: 430px;
+height: 23px;
+font-family: Helvetica;
+font-size: 12px;
+font-weight: bold;
+margin-top: 50px;
+margin-left: 130px;
+}
+
+#campoBusca input
+{
+border: none;
+width: 152px;
+height: 20px;
+background: url(../images/Layout/BGs/caixasBusca.png) no-repeat;
+font-family: Helvetica;
+font-size: 12px;
+padding-top: 3px;
+}
+
+#campoBusca select
+{
+border: none;
+width: 152px;
+height: 23px;
+background: url(../images/Layout/BGs/caixasBusca.png) no-repeat;
+font-family: Helvetica;
+font-size: 12px;
+padding-top: 3px;
+}
+
+#CriarGupo
+{
+float: left;
+width: 595px;
+height: 121px;
+background: url(../images/Layout/BGs/CriarNovoGrupo.png) no-repeat;
+margin-top: 26px;
+margin-left: 70px;
+font-family: Helvetica;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+padding-top: 80px;
+}
+
+#CriarGupo a:hover{
+color: #CC0000;
+}
+
+
+#Boxes{
+float: left;
+width: 722px;
+height: 553px;
+background: url(../images/Layout/BGs/Boxes.png) no-repeat;
+}
+
+
+#Boxes #conteudo
+{
+float: left;
+width: 651px;
+height: 498px;
+text-align: left;
+margin-left: 30px;
+margin-top: 4px;
+}
+
+#Boxes .imagem01
+{
+float: left;
+margin-right: 4px;
+margin-bottom: 4px;
+}
+
+#Boxes #Cabecalho
+{
+float: left;
+width: 100%;
+height: 100px;
+font-family: Helvetica;
+color: #FFFFFF;
+font-size: 12px;
+}
+
+#Boxes #Cabecalho h1
+{
+font-family: Helvetica;
+font-size: 16px;
+color: #FFFFFF;
+
+}
+
+#Boxes .titulos{
+width: 100%;
+height: 20px;
+font-family: Helvetica;
+color: #fff;
+float: left;
+font-size: 16px;
+font-weight: bold;
+padding-top: 4px;
+border-bottom: 2px solid #4c4c4c;
+margin-top: 12px;
+text-shadow: 3px 2px 9px #000;
+}
+
+#Boxes .contents
+{
+	width: 100%px;
+	height: auto;
+	color: #000;
+	font-family: Helvetica;
+	font-size: 12px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	float: left;
+}
+
+#Boxes #BarraControla
+{
+ float: left;
+ width:651px;
+ margin-left: 30px;
+ height: 22px;
+ text-align: right;
+ margin-bottom: 4px;
+ margin-top: 10px;
+}
+
+
+.ListagemPessoasTurma
+{
+width: 90px;
+height: 90px;
+background: #f0f0f0;
+margin-right: 6px;
+margin-left: 6px;
+margin-bottom: 2px;
+float: left;
+font-family: Helvetica;
+text-transform: uppercase;
+font-size: 10px;
+padding-top: 6px;
+text-align: center;
+}

@@ -1,21 +1,21 @@
 <?php
 
 /*
-*
-* Panteon Escolar
-*
-* Yuri Wanderley (yuri.wanderley at gmail.com)
-* Tarcisio Araujo (tatauphp at gmail.com)
-* Marcelo Soares Souza (marcelo at juntadados.org)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* http://www.gnu.org/licenses/gpl-2.0.html
-*
-*/
+ *
+ * Panteon Escolar
+ *
+ * Yuri Wanderley (yuri.wanderley at gmail.com)
+ * Tarcisio Araujo (tatauphp at gmail.com)
+ * Marcelo Soares Souza (marcelo at juntadados.org)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ */
 
 class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
@@ -42,20 +42,20 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
       $body = PanteonEscolarBaseModule::criarTitulo($node);
       $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso == "GESTOR") || ($nivel_acesso == "ADMINISTRADOR") || ($nivel_acesso == "EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
-
     }
 
     if($this->_opcao == "processPageField")
     {
       $nome_modulo = "minhamidiateca";
+      $url_modulo = $this->_context->bindModuleUrl("panteonescolar.minhamidiateca");
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
-        $this->_context->redirectUrl($nome_modulo);
+        $this->_context->redirectUrl($url_modulo);
       }
 
       // Mensagem de Avisos
@@ -63,7 +63,8 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
       $span = new XmlnukeSpanCollection();
       $aviso = new XmlInputLabelObjects("<p></p>");
-      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="/criarmidiatecatemapanteon">Clique aqui para Retornar a Midiateca do Tema Panteon </a></div>'));
+      $url = $this->_context->bindModuleUrl("panteonescolar.criarmidiatecatemapanteon");
+      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="' . $url . '">Clique aqui para Retornar a Midiateca do Tema Panteon </a></div>'));
       $span1->addXmlnukeObject($aviso);
 
       // $opcoes = array (1 => "Endereço Internet (Link)", 2 => "Arquivo (Audio, Imagem, Video e/ou Texto");
@@ -74,31 +75,69 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
       $nome_tema_panteon = $db->obterPorId($id_tema_panteon_midiateca)->getNomeTemaPanteon();
       $titulo = "Midiateca Geral - Colete os Arquivos Desejados ou Crie um Novo";
 
+      //$this->_context = new Context();
+
+      if($this->_context->ContextValue('origem') == "pontodevista")
+      {
+        $this->_context->addCookie("origem", "pontodevista");
+        $this->_context->addCookie("id_ponto_de_vista", $this->_context->ContextValue('id_ponto_de_vista'));
+      }
+
+
       if($this->_context->ContextValue("acao") == "getMidiatecaTemaPanteon")
       {
-        $idMidiateca = $this->_context->ContextValue("valueid");
 
-        $dbTemaPanteonXMidiateca = new TemaPanteonXMidiatecaDB($this->_context);
-        $modelTemaPanteonXMidiateca = new TemaPanteonXMidiatecaModel();
-        $modelTemaPanteonXMidiateca->setIDMidiateca($idMidiateca);
-        $modelTemaPanteonXMidiateca->setIDTemaPanteon($id_tema_panteon_midiateca);
-        $count = $dbTemaPanteonXMidiateca->verDuplicado($modelTemaPanteonXMidiateca);
 
-        if($count == 0)
+        if($this->_context->getCookie("origem") == "pontodevista")
         {
-          $modelTemaPanteonXMidiateca = $dbTemaPanteonXMidiateca->cadastrar($modelTemaPanteonXMidiateca);
-          $container->addXmlnukeObject(new XmlnukeText("Midia Anexado ao Tema: ".$nome_tema_panteon, true));
+
+          $idMidiateca = $this->_context->ContextValue("valueid");
+          $id_ponto_de_vista = $this->_context->getCookie("id_ponto_de_vista");
+          $pontoVistaXMidiaTecaModel = new MidiatecaXPontoDeVistaModel();
+          $pontoVistaXMidiaTecaModel->setIDMidiateca($idMidiateca);
+          $pontoVistaXMidiaTecaModel->setIDPontoDeVista($id_ponto_de_vista);
+
+          $pontoVistaXMidiaTecaBD = new MidiatecaXPontoDeVistaDB($this->_context);
+          $pontoVistaXMidiaTecaBD->excluirPorIDPontoDeVista($id_ponto_de_vista);
+          $pontoVistaXMidiaTecaBD->cadastrar($pontoVistaXMidiaTecaModel);
+
+          $this->_context->removeCookie("origem");
+          $this->_context->removeCookie("id_ponto_de_vista");
+
+
+          $url = $this->_context->bindModuleUrl("panteonescolar.criarpontodevistasujeitotemapanteon");
+          $url .= "&cadastro_midiateca=true";
+          $this->_context->redirectUrl($url);
+
 
         }
 
         else
         {
-          $container->addXmlnukeObject(new XmlnukeText("Midia já foi anexada ao Tema: ".$nome_tema_panteon, true));
 
+
+
+          $idMidiateca = $this->_context->ContextValue("valueid");
+
+          $dbTemaPanteonXMidiateca = new TemaPanteonXMidiatecaDB($this->_context);
+          $modelTemaPanteonXMidiateca = new TemaPanteonXMidiatecaModel();
+          $modelTemaPanteonXMidiateca->setIDMidiateca($idMidiateca);
+          $modelTemaPanteonXMidiateca->setIDTemaPanteon($id_tema_panteon_midiateca);
+          $count = $dbTemaPanteonXMidiateca->verDuplicado($modelTemaPanteonXMidiateca);
+
+          if($count == 0)
+          {
+            $modelTemaPanteonXMidiateca = $dbTemaPanteonXMidiateca->cadastrar($modelTemaPanteonXMidiateca);
+            $container->addXmlnukeObject(new XmlnukeText("Midia Anexado ao Tema: " . $nome_tema_panteon, true));
+          }
+
+          else
+          {
+            $container->addXmlnukeObject(new XmlnukeText("Midia já foi anexada ao Tema: " . $nome_tema_panteon, true));
+          }
+
+          $span1->addXmlnukeObject($container);
         }
-
-        $span1->addXmlnukeObject($container);
-
       }
 
       $db = new MidiatecaDB($this->_context);
@@ -117,16 +156,13 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
         {
           $permissao = array(false, false, false, false);
           $pagina = $dbxml->criarProcessPageFields($permissao);
-
         }
 
         else
         {
           $permissao = array(true, false, true, true);
           $pagina = $dbxml->criarProcessPageFields($permissao, $id_usuario);
-
         }
-
       }
 
       else
@@ -140,16 +176,13 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
           {
             $permissao = array(false, false, false, false);
             $pagina = $dbxml->criarProcessPageFields($permissao);
-
           }
 
           else
           {
             $permissao = array(true, false, true, true);
             $pagina = $dbxml->criarProcessPageFields($permissao, $id_usuario);
-
           }
-
         }
 
         else
@@ -157,19 +190,17 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
           $this->_context->removeCookie("id_minhas_midiatecas_cookie");
           $permissao = array(true, false, true, true);
           $pagina = $dbxml->criarProcessPageFields($permissao, $id_usuario);
-
         }
       }
 
       if($pagina->getAllRecords()->Count() > 0)
       {
-        if($this->_context->ContextValue("acao") != "ppnew")
+        if($this->_context->ContextValue("acao") == "")
         {
           $span1->addXmlnukeObject($this->filtro());
         }
 
         $span1->addXmlnukeObject($pagina);
-
       }
 
       else
@@ -177,28 +208,22 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
         if(($this->_context->ContextValue("acao") == "ppnew") || ($this->_context->ContextValue("chamada") == 1))
         {
-          if($this->_context->ContextValue("acao") != "ppnew")
-          {
-            $span1->addXmlnukeObject($this->filtro());
-          }
-
+          //if($this->_context->ContextValue("acao") != "ppnew")
+          //$span1->addXmlnukeObject($this->filtro());
           $span1->addXmlnukeObject($pagina);
         }
 
         else
         {
           $aviso = new XmlInputLabelObjects("<p></p>");
-          $aviso->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas">Nenhuma Mídia encontrada, cadastre o primeiro agora <a href="/minhamidiateca&acao=ppnew">Clicando Aqui</a></div>'));
+          //$this->_context = new Context();
+          $url = $this->_context->bindModuleUrl("panteonescolar.minhamidiateca");
+          $aviso->addXmlnukeObject(new XmlNukeText('<br/><div id="meusPontosDeVistas">Nenhuma Mídia encontrada, cadastre o primeiro agora <a href="./' . $url . '&acao=ppnew">Clicando Aqui</a></div>'));
           $span1->addXmlnukeObject($aviso);
-
-          if($this->_context->ContextValue("acao") != "ppnew")
-          {
-            $span1->addXmlnukeObject($this->filtro());
-          }
+          //if($this->_context->ContextValue("acao") != "ppnew")
+          //$span1->addXmlnukeObject($this->filtro());
         }
-
       }
-
     }
 
     // Inicio - menu
@@ -207,12 +232,10 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     {
       $node = XmlUtil::CreateChild($current, "blockabausuario", "");
       $body = PanteonEscolarBaseModule::preencherMenu($node, PanteonEscolarBaseModule::preencherMenuCriarTemaPanteon(PanteonEscolarMenu::CriarTema));
-
     }
 
     //
     // Fim - menu
-
     // Inicio - menu head
     //
     if($this->_opcao == "menuHead")
@@ -220,12 +243,11 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
       $nodeHead = XmlUtil::CreateChild($current, "blockhead", "");
       XmlUtil::AddAttribute($nodeHead, "perfil", strtolower($nivel_acesso));
 
-      $msg = "Bem-Vindo, ".ucfirst($this->_context->authenticatedUser())." (".$nivel_acesso.").";
+      $msg = "Bem-Vindo, " . ucfirst($this->_context->authenticatedUser()) . " (" . $nivel_acesso . ").";
       $node = XmlUtil::CreateChild($current, "blockbarramenu", "");
       $body = PanteonEscolarBaseModule::preencherMenuHead($node, PanteonEscolarBaseModule::preencherMenuHeadPadrao($nivel_acesso));
       XmlUtil::AddAttribute($node, "nome_usuario", $msg);
       XmlUtil::AddAttribute($node, "logout", "true");
-
     }
 
     //
@@ -236,14 +258,13 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     $body = XmlUtil::CreateChild($node, "body", "");
 
     parent::generatePage($body);
-
   }
 
   public function filtro()
   {
     $span = new XmlnukeSpanCollection();
 
-    $script  = '<script type="text/javascript">';
+    $script = '<script type="text/javascript">';
     $script .= ' $("#formGeralLabelid_minhas_midiatecas_filtro").hide(); $("#id_minhas_midiatecas_filtro").hide();';
     $script .= ' $("#formGeralLabelid_tipo_midia_filtro").hide(); $("#id_tipo_midia_filtro").hide();';
     $script .= '</script>';
@@ -259,7 +280,7 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     $script .= '    $("#formGeralLabelid_minhas_midiatecas_filtro").hide(); $("#id_minhas_midiatecas_filtro").hide();';
     $script .= '    $("#formGeralLabelid_tipo_midia_filtro").hide(); $("#id_tipo_midia_filtro").hide();';
     $script .= '    $("#filtro").html("Busca avançada");';
-    $script .=  '}';
+    $script .= '}';
     $script .= '});';
     $script .= '</script>';
 
@@ -283,7 +304,6 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     $span->addXmlnukeObject($form);
 
     return $span;
-
   }
 
   public function filtroMinhasMidiatecas()
@@ -295,7 +315,6 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_minhas_midiatecas_filtro", "Midiatecas", $listaMidiatecas, $id_minhas_midiatecas_filtro_selecionado);
 
     return $lista;
-
   }
 
   public function filtroTipoMidiateca()
@@ -310,13 +329,11 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_tipo_midia_filtro", "Tipo Midia", $listaTipoMidia, $id_tipo_midia_filtro_selecionado);
 
     return $lista;
-
   }
 
   public function filtroTagMidiateca()
   {
     return new XmlInputTextBox("Texto: ", "nome_tag_filtro", NULL, 32);
-
   }
 
   public function MinhaMidiatecaDBXML($context, $opcao)
@@ -328,7 +345,6 @@ class MinhaMidiatecaDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
     $this->_context = $context;
     $this->_opcao = $opcao;
-
   }
 
 }

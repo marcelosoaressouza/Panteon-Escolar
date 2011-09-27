@@ -40,7 +40,7 @@ class CriarMidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnu
       $body = PanteonEscolarBaseModule::criarTitulo($node, 'Dica Midiateca');
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Na midiateca você pode anexar diversos  arquivos como vídeos, sites, textos, animações, imagens e áudios que podem complementar o estudo sobre o Tema Panteon.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -49,11 +49,11 @@ class CriarMidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnu
 
     if($this->_opcao == "processPageField")
     {
-      $nome_modulo = "criarmidiatecatemapanteon";
+      $url_modulo = $this->_context->bindModuleUrl("panteonescolar.criarmidiatecatemapanteon");
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
-        $this->_context->redirectUrl($nome_modulo);
+        $this->_context->redirectUrl($url_modulo);
       }
 
       // Mensagem de Avisos
@@ -61,7 +61,8 @@ class CriarMidiatecaTemaPanteonDBXML extends XmlnukeCollection implements IXmlnu
 
       $span = new XmlnukeSpanCollection();
       $aviso = new XmlInputLabelObjects("<p></p>");
-      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="/minhamidiateca">Clique aqui para Anexar ou Adicionar Nova Midia </a></div>'));
+      $url = $this->_context->bindModuleUrl("panteonescolar.minhamidiateca");
+      $aviso->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas"> <a href="'.$url.'">Clique aqui para Anexar ou Adicionar Nova Midia </a></div>'));
       $span1->addXmlnukeObject($aviso);
 
       $db = new TemaPanteonDB($this->_context);

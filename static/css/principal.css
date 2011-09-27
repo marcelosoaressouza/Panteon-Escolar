@@ -16,6 +16,7 @@ font-size:12px;
 float:left;
 text-align:left;
 width:980px;
+max-width: 1005px;
 padding-left:24px;
 margin-left:-24px;
 height:225px;
@@ -51,6 +52,7 @@ background:url(../images/Layout/BGs/topoLogin.jpg);
 float:left;
 text-align:left;
 width:980px;
+max-width: 1005px;
 padding-left:24px;
 margin-left:-24px;
 height:24px;
@@ -166,13 +168,14 @@ position:relative;
 
 #content {
 float:left;
-width:980px;
+min-width:980px;
+max-width: 1005px;
 height:auto;
 min-height:800px;
 margin-left:-22px;
 padding-left:24px;
 margin-top:-2px;
-background:url(../images/Layout/BGs/content.png) no-repeat;
+background:url(../images/Layout/BGs/content.png) no-repeat #FFF;
 text-align:left;
 position:relative;
 }
@@ -344,14 +347,13 @@ position:relative;
 }
 
 #boxDireita {
+position:relative;
 float:left;
-width:200px;
+min-width:200px;
+width: 226px;
 height:595px;
-min-height:595px;
-max-height:595px;
-margin-left:14px;
-position:absolute;
-left:760px;
+margin-left:10px;
+/* left:760px;*/
 top:10px;
 }
 
@@ -364,6 +366,7 @@ background:url(../images/Layout/BGs/ForumHome.png) repeat-y;
 position:relative;
 text-align:justify;
 margin-top:71px;
+*margin-top:0px; /* Devido ao internet explorer 7 e 8 */
 }
 
 #ForumHomeContent {
@@ -432,11 +435,11 @@ float:left;
 background:url(../images/Layout/BGs/ContentBoxBaixoHome.png) repeat-y;
 text-align:left;
 position:relative;
-min-width:757px;
-max-width:757px;
-min-height:600px;
-max-height:1140px;
 width:auto;
+max-width:757px;
+width:757px;
+min-height:600px;
+/* max-height:1140px; */
 height:auto;
 }
 
@@ -455,7 +458,7 @@ width:695px;
 height:auto;
 max-width:695px;
 min-height:605px;
-max-height:945px;
+/* max-height:945px; */
 margin-left:40px;
 font-family:Helvetica;
 font-size:14px;
@@ -466,11 +469,12 @@ text-align:justify;
 #rodape {
 margin-left:-24px;
 float:left;
-min-width:1005px;
+width: auto;
 max-width:1005px;
+width:1005px;
 min-height:355px;
 max-height:355px;
-background:#494848;
+background:#4B4A4A;
 color:#FFF;
 position:relative;
 font-family:Helvetica;
@@ -878,4 +882,51 @@ text-transform:uppercase;
 
 #HeadMenu ul li a,#rodape a {
 color:#FFF;
+}
+
+#boxBaixoEsquerdaContent #form_label{
+    * width: 300px;/* Devido a problema no internet explorer */
+}
+
+
+#Forum {
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+}
+/*
+#Forum ul{
+    width: 100%;
+    padding: 2px 0px 0px 10px;
+    float:left;
+}
+
+#Forum ul li{
+    width: 100%;
+    padding: 2px 0px 0px 20px;
+    float:left;
+}
+*/
+
+#ForumLinha{
+    text-align: left;
+    width: 300px;
+}
+
+#ForumLinha hr{
+    border-bottom: 1px #001b34 ;
+    border-bottom-style: dotted;
+}
+
+#ForumMensagemPai{
+    width: 90%;
+    left: 10px;
+    border: 1px solid #0066B3;
+    background: #FFFFCC;
+    text-align: left;
+    padding: 5px;
+    margin:3px;
+}
+
+#ForumLinhaDadosUsuario{
+    vertical-align: top;
 }

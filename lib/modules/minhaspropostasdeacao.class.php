@@ -26,6 +26,44 @@ class MinhasPropostasDeAcao extends PanteonEscolarBaseModule
   {
     $myWords = $this->WordCollection();
 
+
+    $actionajax = $this->_context->ContextValue("actionajax");
+
+    switch($actionajax)
+    {
+    case 'combo_turma':
+      $block = new XmlBlockCollection("", BlockPosition::Center);
+      $this->defaultXmlnukeDocument->addXmlnukeObject($block);
+
+      $id_instituicao = $this->_context->ContextValue("ajaxvalueid");
+
+      $minhasPropostasDeAcaoDBXML  = new MinhasPropostasDeAcaoDBXML($this->_context, "menu");
+      $lista_turma = $minhasPropostasDeAcaoDBXML->filtroTurma($id_instituicao);
+
+      $block->addXmlnukeObject($lista_turma);
+      return $this->defaultXmlnukeDocument;
+
+      break;
+
+    case 'combo_usuario':
+      $block = new XmlBlockCollection("", BlockPosition::Center);
+      $this->defaultXmlnukeDocument->addXmlnukeObject($block);
+
+      $id_turma = $this->_context->ContextValue("ajaxvalueid");
+
+      $minhasPropostasDeAcaoDBXML  = new MinhasPropostasDeAcaoDBXML($this->_context, "menu");
+      $lista_usuario = $minhasPropostasDeAcaoDBXML->filtroUsuario($id_turma);
+
+      $block->addXmlnukeObject($lista_usuario);
+      return $this->defaultXmlnukeDocument;
+
+      break;
+
+    default:
+      break;
+    }
+
+
     $titulo = "O que fazer agora?";
     $this->defaultXmlnukeDocument = PanteonEscolarBaseModule::definirTitulo($titulo, $this->_context->getCookie("nome_tema_panteon_definido"));
 
@@ -69,7 +107,7 @@ class MinhasPropostasDeAcao extends PanteonEscolarBaseModule
 
   public function getRole()
   {
-    return array("ANALISTA", "MEDIADOR", "GESTOR", "ADMINISTRADOR");
+    return array("ANALISTA", "EDITOR", "GESTOR", "ADMINISTRADOR");
   }
 
 }

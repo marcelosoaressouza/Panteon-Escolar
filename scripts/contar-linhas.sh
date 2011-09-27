@@ -1,10 +1,7 @@
 #!/bin/sh
-
 DIR=`pwd`
-
 X=0
 Y=0
-
 for file in `find $DIR | grep ".php$"`;
 do
   X=`cat $file | wc -l`
@@ -12,4 +9,5 @@ do
   echo $X $Y
 done
 
-echo 'Total de Linhas:' $Y
+echo $Y
+

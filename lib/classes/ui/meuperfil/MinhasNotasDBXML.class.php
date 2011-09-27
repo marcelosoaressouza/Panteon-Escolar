@@ -40,19 +40,14 @@ class MinhasNotasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
       $id_usuario = $this->_context->authenticatedUserId();
       $itDB = $db->obterTodasAsNotasPorIDUsuario($id_usuario);
 
-      $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Minhas Anotações");
+      $body = PanteonEscolarBaseModule::criarTitulo($node, "Minhas Anotações");
 
-      if($itDB->Count() > 0)
-      {
-        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_nota", "texto_nota", "nome_completo_usuario");
-      }
+      //if($itDB->Count() > 0)
+      //$body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_nota", "texto_nota", "nome_completo_usuario");
+      //else
+      $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, você pode escrever suas anotações sobre o(s) Tema(s) Panteon em análise. Suas anotações podem te ajudar a escrever os diagnósticos e a proposta de ação.', '');
 
-      else
-      {
-        $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Aqui, você pode escrever suas anotações sobre o(s) Tema(s) Panteon em análise. Suas anotações podem te ajudar a escrever os diagnósticos e a proposta de ação.', '');
-      }
-
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -65,7 +60,7 @@ class MinhasNotasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
-        $this->_context->redirectUrl($nome_modulo);
+        $this->_context->redirectUrl("module:panteonescolar.".$nome_modulo);
       }
 
       // Mensagem de Avisos

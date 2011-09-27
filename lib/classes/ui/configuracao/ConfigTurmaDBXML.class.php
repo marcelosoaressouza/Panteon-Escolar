@@ -27,6 +27,12 @@ class ConfigTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
   public function generateObject($current)
   {
     $id_usuario = $this->_context->authenticatedUserId();
+
+    if($this->_context->ContextValue("Pesquisar") == true && $this->_context->ContextValue("id_turma_filtro") != "")
+    {
+      $id_turma = $this->_context->ContextValue("id_turma_filtro");
+    }
+
     $nivel_acesso = PanteonEscolarBaseModule::getNivelAcesso($this->_context, $id_usuario);
 
     $span1 = new XmlnukeSpanCollection();
@@ -52,7 +58,7 @@ class ConfigTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
       if($this->_context->ContextValue("acao") == "adicionarUsuarioATurma")
       {
         $this->_context->addCookie("id_turma_selecionada", $this->_context->ContextValue("valueid"));
-        $this->_context->redirectUrl("./configusuarioxturma");
+        $this->_context->redirectUrl("module:panteonescolar.configusuarioxturma");
 
       }
 
@@ -61,7 +67,7 @@ class ConfigTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
 
       $permissao = array(true, false, true, false);
 
-      if($nivel_acesso == "GESTOR" || $nivel_acesso == "MEDIADOR")
+      if($nivel_acesso == "GESTOR" || $nivel_acesso == "EDITOR")
       {
         $dbUsuario = new UsuarioDB($this->_context);
         $id_instituicao = $dbUsuario->obterPorId($id_usuario)->getIDInstituicao();
@@ -76,17 +82,23 @@ class ConfigTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
 
       else
       {
-        $this->_context->redirectUrl("/meuperfil");
+        $this->_context->redirectUrl("module:panteonescolar.meuperfil");
         $id = "";
 
       }
 
       $dbxml = new TurmaDBXML($this->_context, $nome_modulo, $titulo);
-      $pagina = $dbxml->criarProcessPageFields($id_instituicao, $permissao);
+      $pagina = $dbxml->criarProcessPageFields($id_instituicao, $permissao, $id_turma);
 
       if($pagina->getAllRecords()->Count() > 0)
       {
+        if($this->_context->ContextValue("acao") == "")
+        {
+          $span1->addXmlnukeObject($this->filtro());
+        }
+
         $span1->addXmlnukeObject($pagina);
+
 
       }
 
@@ -166,7 +178,11 @@ class ConfigTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
     $form = new XmlFormCollection($this->_context, $formPost, "Minhas Mensagens");
 
 
-    $form->addXmlnukeObject($this->filtroConfigTurma());
+    //$form->addXmlnukeObject($this->filtroConfigTurma());
+    $form->addXmlnukeObject($this->filtroInstituicao());
+    //$form->addXmlnukeObject($this->filtroTurma());
+
+    $form->addXmlnukeObject(new XmlInputHidden("Pesquisar", true));
 
     $buttons = new XmlInputButtons();
     $buttons->addSubmit("Pesquisar");
@@ -176,6 +192,60 @@ class ConfigTurmaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObje
 
     return $span;
 
+  }
+
+  public function filtroTurma($EasyListType = EasyListType::SELECTLIST)
+  {
+    //Debug::PrintValue("teste");
+    $db = new TurmaDB($this->_context);
+    $it = $db->obterTodosAsTurmasPorIDInstituicao($this->_context->ContextValue("id_instituicao_filtro"));
+
+    $listaTurma = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_turma", "nome_turma");
+    $listaTurma[""] = "Todas as Turmas";
+
+    $id_turma_filtro_selecionado = $this->_context->ContextValue("id_turma_filtro");
+
+//   $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_turma_filtro", "Turma", $listaTurma, $id_turma_filtro_selecionado);
+    if($EasyListType == RanderNetEasyListType::RANDERNET_SELECTLIST_AJAX_REQUEST)
+    {
+      $lista = new RanderNetXmlEasyList(RanderNetEasyListType::RANDERNET_SELECTLIST_AJAX_REQUEST, "id_turma_filtro", "Turma", $listaTurma, $id_turma_filtro_selecionado);
+    }
+
+    else
+    {
+      $lista = new RanderNetXmlEasyList(RanderNetEasyListType::RANDERNET_SELECTLIST_AJAX, "id_turma_filtro", "Turma", $listaTurma, $id_turma_filtro_selecionado);
+    }
+
+
+
+
+    return $lista;
+  }
+
+  public function filtroInstituicaoAjax()
+  {
+    $obj_bd = new NacionalidadeDB($this->_context);
+    $arrNacionalidade = $obj_bd->getCodNacionalidadeArray($cod_nacionalidade);
+    $obj = new RanderNetXmlEasyList($easyListType, "combo_ajax", "Combo Ajax", $arrNacionalidade, $selected);
+    return $obj;
+  }
+
+  public function filtroInstituicao()
+  {
+    //    Debug::PrintValue($this->_context->getXsl());
+    $db = new InstituicaoDB($this->_context);
+    $it = $db->obterTodos();
+
+    $listaInstituicao = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_instituicao", "nome_instituicao");
+    $listaInstituicao[""] = "Todas as Instituições";
+
+    $id_instituicao_filtro_selecionado = $this->_context->ContextValue("id_instituicao_filtro");
+
+    $lista = new RanderNetXmlEasyList(EasyListType::SELECTLIST, "id_instituicao_filtro", "Instituição", $listaInstituicao, $id_instituicao_filtro_selecionado);
+    $lista->setRanderNetDadosAjax("panteonescolar.configusuario", "id_turma_filtro", "&amp;acao=turma");
+//    $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_instituicao_filtro", "Instituição", $listaInstituicao, $id_instituicao_filtro_selecionado);
+
+    return $lista;
   }
 
   public function filtroConfigTurma()

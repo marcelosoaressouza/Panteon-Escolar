@@ -47,7 +47,12 @@ class PropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     while($it->hasNext())
     {
       $sr = $it->moveNext();
-      $arrayDiagnosticoIndividual[$sr->getField("id_diagnostico_individual")] = strip_tags(mb_substr($sr->getField("texto_diagnostico_individual"), 0 , 50,'UTF-8'))."...";
+      $dbItemAnalise = new ItemAnaliseDB($this->_context);
+      $nomeItemAnalise = $dbItemAnalise->obterPorId($sr->getField("id_item_analise"))->getNomeItemAnalise();
+      $dbSituacaoProblema = new SituacaoProblemaDB($this->_context);
+      $nomeSituacaoProblema = $dbSituacaoProblema->obterPorId($sr->getField("id_situacao_problema"))->getNomeSituacaoProblema();
+      $arrayDiagnosticoIndividual[$sr->getField("id_diagnostico_individual")] = $nomeItemAnalise." – ". $nomeSituacaoProblema .": ".strip_tags(mb_substr($sr->getField("texto_diagnostico_individual"), 0 , 25,'UTF-8'))."...";
+
 
     }
 
@@ -71,8 +76,9 @@ class PropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
     $field->arraySelectList = $arrayDiagnosticoIndividual;
     $fieldList->addProcessPageField($field);
 
-    $field = ProcessPageFields::FactoryMinimal("nome_proposta_de_acao", "Titulo", 45, true, true);
-    $field->fieldXmlInput = XmlInputObjectType::TEXTBOX;
+    $field = ProcessPageFields::FactoryMinimal("nome_proposta_de_acao", "Titulo", 45, false, true);
+    $field->fieldXmlInput = XmlInputObjectType::HIDDEN;
+    $field->defaultValue = " ";
     $fieldList->addProcessPageField($field);
 
     if(($this->_context->ContextValue("acao") == "") || ($this->_context->ContextValue("acao") == "move"))
@@ -106,7 +112,8 @@ class PropostaDeAcaoDBXML extends XmlnukeCollection implements IXmlnukeDocumentO
 
     }
 
-    if($this->_context->ContextValue("acao") == "")
+    //Debug::PrintValue($this->_context->ContextValue("acao"));
+    if(($this->_context->ContextValue("acao") == "") || ($this->_context->ContextValue("acao") == "move"))
     {
       $field = ProcessPageFields::FactoryMinimal("id_".$this->_nome_entidade, "Apagar?", 1, true, true);
       $field->editable = false;

@@ -42,7 +42,7 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $span1 = new XmlnukeSpanCollection();
@@ -65,7 +65,7 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }
@@ -74,12 +74,39 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
     if($this->_opcao == "processPageField")
     {
-      $nome_modulo = "meusdiagnosticos";
+
+      $nome_modulo = "panteonescolar.meusdiagnosticos";
 
       if($this->_context->ContextValue("acao") == 'ppmsgs')
       {
-        $this->_context->redirectUrl($nome_modulo);
+        $this->_context->redirectUrl("module:".$nome_modulo);
       }
+
+      //Debug::PrintValue($this->_context->ContextValue("nome_item_analise"));
+      if($this->_context->ContextValue("acao") == 'ppnew_confirm' && ($this->_context->ContextValue("id_item_analise")!="") && ($this->_context->ContextValue("id_situacao_problema")!="") && ($this->_context->ContextValue("texto_diagnostico_individual"))!="")
+      {
+        $container = PanteonEscolarBaseModule::caixaAviso($this->_context);
+        $idItemAnalise = $this->_context->ContextValue("id_item_analise");
+        $idSituacaoProblema = $this->_context->ContextValue("id_situacao_problema");
+        $dbItemAnalise = new ItemAnaliseDB($this->_context);
+        $nome_item_analise = $dbItemAnalise->obterPorId($idItemAnalise)->getNomeItemAnalise();
+        $dbSituacaoProblema = new ItemAnaliseDB($this->_context);
+        $nome_situacao_problema = $dbSituacaoProblema->obterPorId($idItemAnalise)->getNomeItemAnalise();
+        $container->addXmlnukeObject(new XmlnukeText("Item Análise: " . $nome_item_analise . " Situação problema  " . $nome_situacao_problema . " já foram cadastrados", true));
+        //$span1->addXmlnukeObject($container);
+
+
+
+        $dbDiagnosticoIndividual = new DiagnosticoIndividualDB($this->_context);
+        $modelDiagnosticoIndividual = new DiagnosticoIndividualModel();
+        $modelDiagnosticoIndividual->setIDItemAnalise($idItemAnalise);
+        $modelDiagnosticoIndividual->setIDSituacaoProblema($idSituacaoProblema);
+        $count = $dbDiagnosticoIndividual->verDuplicado($modelDiagnosticoIndividual);
+        //Debug::PrintValue($count);
+
+
+      }
+
 
       // Mensagem de Avisos
       $span1->addXmlnukeObject(PanteonEscolarBaseModule::aviso($this->_context));
@@ -91,18 +118,34 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       // permissao - $newRec, $view, $edit, $delete
       $permissao = array(true, false, true, false);
+      //$pagina = $dbxml->filtro($id_tema_panteon);
+      //$span1->addXmlnukeObject($dbxml->filtro($id_tema_panteon));
+
+      //exit();
       $pagina = $dbxml->criarProcessPageFields($id_usuarioxtemapanteon, $permissao, $id_tema_panteon);
+
+      //$pagina->forceCurrentAction("ppnew");
+      if($count > 0)
+      {
+        $span1->addXmlnukeObject($container);
+        $pagina->forceCurrentAction("ppnew");
+      }
 
       if($this->_context->ContextValue("acao") == "")
       {
         $aviso = new XmlInputLabelObjects("<p></p>");
         $txt = '<div id="caixaOpcao3">Qual seu ponto de vista? Após estudar os pontos de vista dos sujeitos, você pode construir seu próprio ponto de vista. Você pode construir um ponto de vista geral sobre o tema, ou um ponto de vista específico sobre cada situação-problema. Você também pode criar um diagnóstico de grupo.</div>';
         $txt .= '<div id="caixaOpcoes">';
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.meusdiagnosticosgrupo");
+        /*
         $txt .= '<div id="caixaOpcao1">Diagnóstico do Grupo<br/>
-                <a href="./meusdiagnosticosgrupo">Clique aqui.</a>
+                    <a href="'.$url_link.'">Clique aqui.</a>
                 </div>';
+         *
+         */
+        $url_link = $this->_context->bindModuleUrl("panteonescolar.meudiagnosticogeral");
         $txt .= '<div id="caixaOpcao2">Meu Diagnóstico Geral<br/>
-                <a href="./meudiagnosticogeral">Clique aqui.</a>
+                <a href="'.$url_link.'">Clique aqui.</a>
                 </div>';
         $txt .= '</div>';
         $aviso->addXmlnukeObject(new XmlNukeText($txt));
@@ -112,7 +155,7 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
       if($pagina->getAllRecords()->Count() > 0)
       {
-        if($this->_context->ContextValue("acao") == "" && (($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR")))
+        if($this->_context->ContextValue("acao") == "" && (($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR")))
         {
           $span1->addXmlnukeObject($this->filtro());
         }
@@ -126,6 +169,7 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
         if(($this->_context->ContextValue("acao") == "ppnew") || ($this->_context->ContextValue("chamada") == 1))
         {
+
           $span1->addXmlnukeObject($pagina);
         }
 
@@ -186,6 +230,8 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
     $form = new XmlFormCollection($this->_context, $formPost, "Meus Diagnósticos Específicos");
 
     //$form->addXmlnukeObject($this->filtroDescricao());
+    $form->addXmlnukeObject($this->filtroInstituicao());
+    $form->addXmlnukeObject($this->filtroTurma());
     $form->addXmlnukeObject($this->filtroUsuario());
     $form->addXmlnukeObject(new XmlInputHidden("Pesquisar", true));
     //$form->addXmlnukeObject($this->filtroEstruturaSocial());
@@ -202,10 +248,11 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
 
   public function filtroUsuario()
   {
+
     $db = new UsuarioXTemaPanteonDB($this->_context);
     $it = $db->obterTodosOsUsuariosColetaramTemaPanteonPorIDTemaPanteon($this->_context->getCookie("id_tema_panteon_definido"));
     $listaUsuario = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_usuario", "nome_completo_usuario");
-    $listaUsuario[""] = "Meus Diagnósticos Gerais";
+    $listaUsuario[""] = "Todos os Usuários";
 
     $id_usuario_filtro_selecionado = $this->_context->ContextValue("id_usuario_filtro");
     $lista = new XmlEasyList(EasyListType::SELECTLIST, "id_usuario_filtro", "Usuário", $listaUsuario, $id_usuario_filtro_selecionado);
@@ -214,6 +261,70 @@ class MeusDiagnosticosDBXML extends XmlnukeCollection implements IXmlnukeDocumen
     return $lista;
 
   }
+
+//  public function filtro() {
+//    $span = new XmlnukeSpanCollection();
+//    $formPost = "module:panteonescolar.minhasmensagens";
+//    $form = new XmlFormCollection($this->_context, $formPost, "Minhas Mensagens");
+//    $form->addXmlnukeObject($this->filtroInstituicao());
+//    $form->addXmlnukeObject($this->filtroTurma());
+//    $form->addXmlnukeObject($this->filtroMinhasMensagens());
+//
+//    $buttons = new XmlInputButtons();
+//    $buttons->addSubmit("Pesquisar");
+//    $form->addXmlnukeObject($buttons);
+//
+//    $span->addXmlnukeObject($form);
+//
+//    return $span;
+//
+//  }
+
+  public function filtroTurma($EasyListType = EasyListType::SELECTLIST)
+  {
+    //Debug::PrintValue("teste");
+    $db = new TurmaDB($this->_context);
+    $it = $db->obterTodosAsTurmasPorIDInstituicao($this->_context->ContextValue("id_instituicao_filtro"));
+
+    $listaTurma = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_turma", "nome_turma");
+    $listaTurma[""] = "Todas as Turmas";
+
+    $id_turma_filtro_selecionado = $this->_context->ContextValue("id_turma_filtro");
+
+    if($EasyListType == RanderNetEasyListType::RANDERNET_SELECTLIST_AJAX_REQUEST)
+    {
+      $lista = new RanderNetXmlEasyList(RanderNetEasyListType::RANDERNET_SELECTLIST_AJAX_REQUEST, "id_turma_filtro", "Turma", $listaTurma, $id_turma_filtro_selecionado);
+    }
+
+    else
+    {
+      $lista = new RanderNetXmlEasyList(RanderNetEasyListType::RANDERNET_SELECTLIST_AJAX, "id_turma_filtro", "Turma", $listaTurma, $id_turma_filtro_selecionado);
+    }
+
+//        $lista = new RanderNetXmlEasyList(EasyListType::SELECTLIST, "id_turma_filtro", "Turma", $listaTurma, $id_turma_filtro_selecionado);
+//        $lista->setRanderNetDadosAjax("panteonescolar.configusuario", "id_usuario_filtro", "&amp;acao=usuario");
+
+    return $lista;
+  }
+
+  public function filtroInstituicao()
+  {
+    //    Debug::PrintValue($this->_context->getXsl());
+    $db = new InstituicaoDB($this->_context);
+    $it = $db->obterTodos();
+
+    $listaInstituicao = PanteonEscolarBaseDBAccess::getArrayFromIterator($it, "id_instituicao", "nome_instituicao");
+    $listaInstituicao[""] = "Todas as Instituições";
+
+    $id_instituicao_filtro_selecionado = $this->_context->ContextValue("id_instituicao_filtro");
+
+    $lista = new RanderNetXmlEasyList(EasyListType::SELECTLIST, "id_instituicao_filtro", "Instituição", $listaInstituicao, $id_instituicao_filtro_selecionado);
+    $lista->setRanderNetDadosAjax("panteonescolar.configusuario", "id_turma_filtro", "&amp;acao=turma");
+
+    return $lista;
+  }
+
+
 
   public function MeusDiagnosticosDBXML($context, $opcao)
   {

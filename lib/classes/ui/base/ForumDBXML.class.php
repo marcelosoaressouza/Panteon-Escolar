@@ -58,7 +58,7 @@ class ForumDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     // Fim dos Campos do ProcessPageFields
 
-    $processpage = new PanteonEscolarMyProcess($this->_context,
+    $processpage = new PanteonEscolarProcessPageState($this->_context,
         $fieldList,
         $this->_titulo_entidade,
         "module:panteonescolar.".$this->_nome_modulo."&amp;chamada=1",

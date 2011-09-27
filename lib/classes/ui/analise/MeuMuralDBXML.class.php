@@ -35,7 +35,7 @@ class MeuMuralDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 
     if($id_tema_panteon == "")
     {
-      $this->_context->redirectUrl("/meustemaspanteon");
+      $this->_context->redirectUrl("module:panteonescolar.meustemaspanteon");
     }
 
     $container = PanteonEscolarBaseModule::caixaAviso($this->_context);
@@ -85,7 +85,7 @@ class MeuMuralDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
       $body = PanteonEscolarBaseModule::criarTitulo($node, "Dica Mural");
       $body = PanteonEscolarBaseModule::preencherBarraComTexto($node, '', 'Fique Atento! Este mural está reservado para avisos e notícias do professor.', '');
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

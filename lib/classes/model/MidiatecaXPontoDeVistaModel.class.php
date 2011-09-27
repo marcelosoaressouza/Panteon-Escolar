@@ -20,7 +20,7 @@
 class MidiatecaXPontoDeVistaModel extends PanteonEscolarBaseModel
 {
   private $_id_midiateca;
-  private $_id_tag;
+  private $_id_ponto_de_vista;
 
   public function setIDMidiateca($id_midiateca)
   {
@@ -32,14 +32,14 @@ class MidiatecaXPontoDeVistaModel extends PanteonEscolarBaseModel
     return $this->_id_midiateca;
   }
 
-  public function setIDTag($id_tag)
+  public function setIDPontoDeVista($id_ponto_de_vista)
   {
-    $this->_id_tag = $id_tag;
+    $this->_id_ponto_de_vista = $id_ponto_de_vista;
   }
 
-  public function getIDTag()
+  public function getIDPontoDeVista()
   {
-    return $this->_id_tag;
+    return $this->_id_ponto_de_vista;
   }
 
 }

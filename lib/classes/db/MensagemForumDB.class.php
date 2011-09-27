@@ -104,17 +104,12 @@ class MensagemForumDB extends PanteonEscolarBaseDBAccess
    */
   public function obterTodasAsMensagensForumPorIDMensagemResposta($id)
   {
-    $sql = "SELECT * FROM ";
+    $sql = "SELECT id_".$this->_nome_tabela." FROM ";
     $sql .= $this->_nome_tabela;
-
-    $sql .= " INNER JOIN ".$this->_nome_tabela_terciaria;
-    $sql .= " ON ".$this->_nome_tabela.".id_".$this->_nome_tabela_terciaria;
-    $sql .= " = ".$this->_nome_tabela_terciaria.".id_".$this->_nome_tabela_terciaria;
 
     // Mudar Esta Parte para Consultar na Tabela Primaria ou Secundaria
     $sql .= " WHERE ".$this->_nome_tabela.".id_".$this->_nome_tabela_terciaria." = ".$id;
-
-
+    $sql .= " ORDER BY id_".$this->_nome_tabela." ";
 
     $it = $this->getIterator($sql);
 

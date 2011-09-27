@@ -19,7 +19,10 @@
 
 class MinhasTurmasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObject
 {
-
+  /**
+   *
+   * Context type
+   */
   protected $_context;
   protected $_opcao;
   protected $_num_registros_padrao = 3;
@@ -49,7 +52,8 @@ class MinhasTurmasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
 
       else
       {
-        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Você ainda não faz parte de uma Turma.<br/>Para participar peça permissão ao seu professor enviando uma mensagem na <a href="/meuforummensagem">Sala de Encontro</a>.</div>'));
+        //$url = $this->_context->bindModuleUrl("panteonescolar.meuforummensagem");
+        $span1->addXmlnukeObject(new XmlNukeText('<div id="meusPontosDeVistas">Você ainda não faz parte de uma Turma.</div>'));
       }
 
       $node = XmlUtil::CreateChild($current, "blockcenter", "");
@@ -71,7 +75,7 @@ class MinhasTurmasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
 
       if($itDB->Count() > 0)
       {
-        $body = PanteonEscolarBaseModule::preencherBarra($node, $itDB, "nome_turma");
+        $body = PanteonEscolarBaseModule::preencherBarraMinhasTurmas($node, $itDB, "nome_turma");
       }
 
       else
@@ -79,7 +83,7 @@ class MinhasTurmasDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
         $body = PanteonEscolarBaseModule::preencherBarraVazia($node);
       }
 
-      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="MEDIADOR"))
+      if(($nivel_acesso =="GESTOR") || ($nivel_acesso =="ADMINISTRADOR") || ($nivel_acesso =="EDITOR"))
       {
         XmlUtil::AddAttribute($node, "criartemapanteon", "true");
       }

@@ -25,7 +25,7 @@ class PontodeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
   protected $_nome_entidade = "ponto_de_vista";
   protected $_nome_modulo = "pontodevista";
   protected $_titulo_entidade = "Ponto de Vista";
-  protected $_num_registros_padrao = 3;
+  protected $_num_registros_padrao = 10;
 
   public function criarProcessPageFields($id_sujeito = "", $permissao = "", $id_usuario = "", $coletado = "", $id_tema_panteon = "")
   {
@@ -87,7 +87,7 @@ class PontodeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
     $fieldList->addProcessPageField($field);
 
     $field = ProcessPageFields::FactoryMinimal("id_".$this->_nome_entidade, "Coletar", 1, true, true);
-    $field->editListFormatter = new PanteonEscolarPontoDeVistaFormatter($this->_context, 'coletar', $id_usuario);
+    $field->editListFormatter = new PanteonEscolarPontoDeVistaFormatter($this->_context, 'coletar', $id_usuario, $this->_context->ContextValue("curpage"));
     $field->editable = false;
     $fieldList->addProcessPageField($field);
 
@@ -114,20 +114,12 @@ class PontodeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
 
     // Fim dos Campos do ProcessPageFields
 
-    $button1 = new CustomButtons();
-    $button1->action = "minhaMidiateca";
-    $button1->alternateText = "Anexar Mídia";
-    $button1->message = "Anexar Mídia";
-    $button1->multiple = MultipleSelectType::ONLYONE;
-    $button1->icon = "common/editlist/ic_mural.gif";
-    $button1->enabled = true;
 
-    $button_array = array($button1);
 
     $processpage = new PanteonEscolarMyProcess($this->_context,
         $fieldList,
         $this->_titulo_entidade,
-        "module:panteonescolar.".$this->_nome_modulo."&amp;chamada=1",
+        "module:panteonescolar.".$this->_nome_modulo."&amp;chamada=1&amp;paginaurl=".$this->_context->ContextValue("curpage")."",
         $button_array,
         $this->_nome_entidade,
         PanteonEscolarBaseDBAccess::DATABASE());
@@ -238,15 +230,16 @@ class PontodeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
 
     }
 
+    $filtro .= " ORDER BY RAND() ";
+
     if($filtro != "")
     {
       $processpage->setFilter($filtro);
     }
 
-    // Debug::PrintValue($filtro);
-
-    $processpage->setPageSize($this->_num_registros_padrao, $this->_context->ContextValue("curpage"));
-
+    //Debug::PrintValue($this->_context->ContextValue("pagina"));
+    //$pagina = $this->_context->ContextValue("pagina");
+    $processpage->setPageSize($this->_num_registros_padrao, $this->_context->ContextValue("pagina"));
     return $processpage;
 
   }
@@ -301,10 +294,21 @@ class PontodeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
     $field->arraySelectList = $arrayItemAnalise;
     $fieldList->addProcessPageField($field);
 
+    // Midia
+    $field = ProcessPageFields::FactoryMinimal("id_".$this->_nome_entidade, "Midia", 30, true, true);
+    $field->editListFormatter = new PanteonEscolarPontoDeVistaMidiaTecaFormatter($this->_context);
+    $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
+    $field->arraySelectList = $arraySituacaoProblema;
+    $fieldList->addProcessPageField($field);
+
+
+
     $field = ProcessPageFields::FactoryMinimal("id_situacao_problema", "Situação Problema", 30, true, true);
     $field->fieldXmlInput = XmlInputObjectType::SELECTLIST;
     $field->arraySelectList = $arraySituacaoProblema;
     $fieldList->addProcessPageField($field);
+
+
 
     if(($this->_context->ContextValue("acao") == "") || ($this->_context->ContextValue("acao") == "move"))
     {
@@ -346,13 +350,25 @@ class PontodeVistaDBXML extends XmlnukeCollection implements IXmlnukeDocumentObj
 
     // Fim dos Campos do ProcessPageFields
 
+    $button1 = new CustomButtons();
+    $button1->action = "minhaMidiateca";
+    $button1->alternateText = "Anexar Mídia";
+    $button1->message = "Anexar Mídia";
+    $button1->multiple = MultipleSelectType::ONLYONE;
+    $button1->icon = "common/editlist/ic_mural.gif";
+    $button1->enabled = true;
+
+    $button_array = array($button1);
+
     $processpage = new PanteonEscolarMyProcess($this->_context,
         $fieldList,
         $this->_titulo_entidade,
         "module:panteonescolar.".$this->_nome_modulo."&amp;chamada=1",
-        array($button),
+        array($button,$button1),
         $this->_nome_entidade,
         PanteonEscolarBaseDBAccess::DATABASE());
+
+
 
     if($permissao)
     {
